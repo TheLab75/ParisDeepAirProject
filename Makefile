@@ -1,4 +1,4 @@
-#################### PACKAGE ACTIONS ###################
+################ PACKAGE ACTIONS ################
 
 reinstall_package:
 	@pip uninstall -y ParisDeepAirProject_install_package || :
