@@ -9,6 +9,10 @@ Batch #1002 - 03/10-09/12/2022
 
 ------------------------------------------------
 
+**Démarche à faire :**
+- Coller le dossier "data" dans le directory principal
+
+------------------------------------------------
 **Organisation des dossiers :**
 - **Autres** : data non-exploitée
 - **Data** : toute la data exploitée dans le cadre du projet
