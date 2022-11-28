@@ -9,8 +9,21 @@ Batch #1002 - 03/10-09/12/2022
 
 ------------------------------------------------
 
-**Démarche à faire :**
+**Démarches à faire :**
 - Coller le dossier "data" dans le directory principal
+
+**Setup de jupyter notebook à faire :**
+
+```shell
+Pimp your jupyter notebooks with awesome extensions:
+
+# install nbextensions
+jupyter contrib nbextension install --user
+jupyter nbextension enable toc2/main
+jupyter nbextension enable collapsible_headings/main
+jupyter nbextension enable spellchecker/main
+jupyter nbextension enable code_prettify/code_prettify
+```
 
 ------------------------------------------------
 **Organisation des dossiers :**
