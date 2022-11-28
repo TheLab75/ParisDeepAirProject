@@ -1,22 +1,19 @@
 # Paris DeepAir Project
 ------------------------------------------------
-Le Wagon - Bootcamp Data Science - Full time
 
+Le Wagon - Bootcamp Data Science - Full time
 Batch #1002 - 03/10-09/12/2022
 
-------------------------------------------------
-**Projet de fin d'études présenté**
+Projet de fin d'études présenté en groupe (4 personnes)
 
 ------------------------------------------------
 
 **Démarches à faire :**
 - Coller le dossier "data" dans le directory principal
 
-**Setup de jupyter notebook à faire :**
+**Setup de jupyter notebook à faire sur CLI :**
 
 ```shell
-Pimp your jupyter notebooks with awesome extensions:
-
 # install nbextensions
 jupyter contrib nbextension install --user
 jupyter nbextension enable toc2/main
@@ -26,10 +23,10 @@ jupyter nbextension enable code_prettify/code_prettify
 ```
 
 ------------------------------------------------
+
 **Organisation des dossiers :**
-- **Autres** : data non-exploitée
-- **Data** : toute la data exploitée dans le cadre du projet
-- **Pitch** : pitch présenté, et validé par l'équipe du Wagon.
+- **autres** : data non-exploitée
+- **data** : toute la data exploitée dans le cadre du projet
 
 **Polluants :**
 Unité de mesure pour tous les polluants : mg/m3

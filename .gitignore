@@ -1,4 +1,17 @@
+#Structure
 .env
+*.egg-info
+*PKG-INFO
+
+# OS generated files #
 .DS_Store
+__MACOSX
+
+#Jupiter notebooks
+.pytest_cache
+__pycache__
+*checkpoint.ipynb
 notebooks/.ipynb_checkpoints
+
+#Folders
 data/
