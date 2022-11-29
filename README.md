@@ -32,10 +32,9 @@ jupyter nbextension enable code_prettify/code_prettify
 - **data** : all data used for this project
 - **notebooks** : individual notebooks for this project
 
+
 **Pollutants (French / English) in the ATMO  index:**
-
 Measure unit for all pollutants : mg/m3
-
 - **NO2**: dioxyde d'azote / nitrogen dioxide
 - **O3**: ozone / ozone
 - **PM 10**: particules / particles
