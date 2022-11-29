@@ -38,7 +38,14 @@ Polluants dans l'indice ATMO :
 - **PM 2,5** : particules fines
 - **SO2** : dioxyde de souffre
 
-Polluants mesurés mais hors-indice ATMO - à dropper ?:
+Polluants mesurés mais hors-indice ATMO - droppés :
 - **CO** : monoxyde de carbone
 - **NO** : monoxyde d'azote
 - **NOX** : oxydes d'azote
+
+Il y a les données par station, et par polluant. Tous les polluants ne sont pas recensés dans toutes les stations (sans doute pas utile de tout relever partout). Au total, il y a :
+- **NO2 : 20 stations**
+- **PM10 : 11 stations**
+- **PM2.5 : 6 stations**
+- **O3 : 5 stations**
+- **SO2 : 4 stations**
