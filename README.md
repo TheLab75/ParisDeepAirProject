@@ -25,18 +25,31 @@ jupyter nbextension enable code_prettify/code_prettify
 ```
 
 ------------------------------------------------
+
 ## Folder structure
 
 **Folders description:**
 - **data** : all data used for this project
 - **notebooks** : individual notebooks for this project
 
-**Pollutants (French / English):**
-Meansure unit for all pollutants : mg/m3
+**Pollutants (French / English) in the ATMO  index:**
 
-Polluants dans l'indice ATMO :
-- **NO2** : dioxyde d'azote / nitrogen dioxide
-- **O3** : ozone / ozone
-- **PM 10** : particules / particles
-- **PM 2,5** : particules fines / fine particles
-- **SO2** : dioxyde de souffre / sulfur dioxide
+Measure unit for all pollutants : mg/m3
+
+- **NO2**: dioxyde d'azote / nitrogen dioxide
+- **O3**: ozone / ozone
+- **PM 10**: particules / particles
+- **PM 2,5**: particules fines / fine particles
+- **SO2**: dioxyde de souffre / sulfur dioxide
+
+**Pollutants measured but not-included in the ATMO index - dropped :**
+- **CO**: monoxyde de carbone / carbon monoxide
+- **NO**: monoxyde d'azote / nitrogen monoxide
+- **NOX**: oxydes d'azote / nitrogen oxydes
+
+In this project, 20 stations were selected (Paris intra-muros). All pollutants are not monitored in every station, each station is specialized in several pollutants. In total, there are :
+- **NO2**: 20 stations
+- **PM10**: 11 stations
+- **PM2.5**: 6 stations
+- **O3**: 5 stations
+- **SO2**: 4 stations
