@@ -43,10 +43,9 @@ def init_model(X):
 
     return model
 
-
-    #############################
-    # 3 - compile  #
-    #############################
+#############################
+# 3 - compile  #
+#############################
 
 
 def compile_model(model):
@@ -58,9 +57,9 @@ def compile_model(model):
 
     return model
 
-    #############################
-    #  4 - train  #
-    #############################
+#############################
+#  4 - train  #
+#############################
 
 def train_model(model,
                 X_train,
@@ -84,9 +83,9 @@ def train_model(model,
                         verbose=0)
     return model, history
 
-    #############################
-    #  5 - evaluat  #
-    #############################
+#############################
+#  5 - evaluate #
+#############################
 
 def evaluate_model(model,
                    X_test,

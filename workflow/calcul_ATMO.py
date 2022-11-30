@@ -105,6 +105,7 @@ def NO2_categorical(x):
     Class 4 => from 230 to 340
     Class 5 => from 340 to ∞
     """
+
     if 40>x>=0:
         return 0
 
@@ -132,6 +133,7 @@ def O3_categorical(x):
     Class 4 => from 240 to 380
     Class 5 => from 380 to ∞
     """
+
     if 50>x>=0:
         return 0
 
@@ -178,7 +180,6 @@ def SO2_categorical(x):
 
     elif x>=750:
         return 5
-
 
 def calcul_ATMO(df):
     """Function that calculates the ATMO level
