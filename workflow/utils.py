@@ -30,6 +30,7 @@ def simple_time_and_memory_tracker(method):
     return method_with_trackers
 
 def analyse_df(df, corr_limit = 0.75):
+
     """Analyse any dataframe and print results
     * Print df Shape, duplicate rows qnt, memory usage, data types and call DataFrame.describe()
     * Check Missing values in each columns, returning qnt. and percentage
