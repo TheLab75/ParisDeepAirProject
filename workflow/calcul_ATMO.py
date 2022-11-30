@@ -1,3 +1,4 @@
+# Python file containing all the code to calculate the daily ATMO index (y in our model)
 
 def PM10_categorical(x):
     if 20>x>0:
@@ -76,8 +77,6 @@ def O3_categorical(x):
 
     elif 380<x:
         return 5
-
-
 
 def ATMO_categorial(x):
     data["ATMO"] = data[["PM10_categorical", "PM25_categorical", "NO2_categorical", "O3_categorical"]].max()
