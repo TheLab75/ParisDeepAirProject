@@ -1,7 +1,7 @@
 # Python file containing all the code to convert datasets from an hourly-basis to a daily-basis
 import pandas as pd
 
-def mean_max_categorial(df):
+def mean_max_categorical(df):
     """Function that returns the daily average of "PM25", "PM10" and the daily maximum of "NO2"
     """
     #Parler du problème concernant l'utilisation de cette fonction vu qu'on va avoir des combinaisons de polluants différentes
