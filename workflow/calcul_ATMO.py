@@ -2,7 +2,7 @@
 
 def general_categorical(df):
 
-    '''Function which creates a new colums for each pollutant and encode the continuous value of the pollutant into one of the 6 class
+    '''Function that creates a new colum for each pollutant and encodes the continuous value of the pollutant into one of the 6 classes
     From 0 to 5'''
 
     List_polluant = ["PM25","PM10","NO2","O3","SO2"]
@@ -42,6 +42,7 @@ def general_ATM0():
     df["general_Atmo"] = df.max(axis=1)
 
 def PM25_categorical(x):
+
     """Function that categorizes the pollutant PM 2.5 into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 10
     Class 1 => from 10 to 20
@@ -71,6 +72,7 @@ def PM25_categorical(x):
 
 
 def PM10_categorical(x):
+
     """Function that categorizes the pollutant PM 10 into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 20
     Class 1 => from 20 to 40
@@ -99,6 +101,7 @@ def PM10_categorical(x):
         return 5
 
 def NO2_categorical(x):
+
     """Function that categorizes the pollutant "Dioxyde d'Azote" (NO2) into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 40
     Class 1 => from 40 to 90
@@ -127,6 +130,7 @@ def NO2_categorical(x):
         return 5
 
 def O3_categorical(x):
+
     """Function that categorizes the pollutant Ozone (03) into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 50
     Class 1 => from 50 to 100
@@ -156,6 +160,7 @@ def O3_categorical(x):
 
 
 def SO2_categorical(x):
+
     """Function that categorizes the pollutant "Dioxyde de Souffre" (SO2) into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 100
     Class 1 => from 100 to 200
@@ -184,6 +189,7 @@ def SO2_categorical(x):
         return 5
 
 def calcul_ATMO(df):
+
     """Function that calculates the ATMO level
     """
     #Fonction spécifique à la station du 16ème
