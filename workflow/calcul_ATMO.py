@@ -1,6 +1,7 @@
 # Python file containing all the code to calculate the daily ATMO index (y in our model)
 
 def general_categorical(df):
+
     '''Function which creates a new colums for each pollutant and encode the continuous value of the pollutant into one of the 6 class
     From 0 to 5'''
 
