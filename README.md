@@ -53,3 +53,11 @@ In this project, 20 stations were selected (Paris intra-muros). All pollutants a
 - **PM2.5**: 6 stations
 - **O3**: 5 stations
 - **SO2**: 4 stations
+
+Concernant le calcul des sous-indices de l'index ATMO: 
+Chaque polluant est catégorisé 
+L'index ATMO est ensuite calculé en fonction de l'indice le plus dégradé
+![Grille-des-sous-indices](https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg)
+
+
+
