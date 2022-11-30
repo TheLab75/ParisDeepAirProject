@@ -7,7 +7,7 @@ Projet de fin d'études présenté en groupe (4 personnes)
 
 ------------------------------------------------
 
-## Preliminary step to carry-out
+## Preliminary steps to carry-out
 
 **Data & files:**
 - Download & paste the "data" folder into the local cloned version of the repo
@@ -31,6 +31,7 @@ jupyter nbextension enable code_prettify/code_prettify
 **Folders description:**
 - **data** : all data used for this project
 - **notebooks** : individual notebooks for this project
+- **workflow**: all the workflow for our model, divided in .py files
 
 ------------------------------------------------
 
@@ -70,3 +71,5 @@ First, a sub-ATMO index is calculated for each regulated air pollutant, then a g
 ATMO index classification :
 
 ![Grille-des-sous-indices](https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg)
+
+Source : Airparif
