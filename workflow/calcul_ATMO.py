@@ -29,6 +29,7 @@ def general_categorical(df):
 
     return df
 
+# A mettre à jour ou à supprimer ?
 def general_ATM0():
 
     List_categorical = ["PM25_categorical","PM10_categorical","NO2_categorical","O3_categorical","SO2_categorical"]
