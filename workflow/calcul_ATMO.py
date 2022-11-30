@@ -1,3 +1,4 @@
+# Python file containing all the code to calculate the daily ATMO index (y in our model)
 
 def PM25_categorical(x):
     """Function that categorizes the pollutant PM 2.5 into one of the 5 classes in function of the ATMO index
