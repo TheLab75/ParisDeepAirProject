@@ -12,6 +12,7 @@ def preprocess(df):
     1 - On utilise un simple imputer avec la strategy median pour remplacer les nans
     2 - On passe d'un format horaire à un format journalier
     3 - On calcule l'indice ATMO en utilisant un encoder homemade
+    4 - Passage dans un robust scaler
     """
 
     #Pour le moment on fait que sur la station du 16 ème
@@ -71,3 +72,44 @@ def preprocess(df):
 
 
     return df_concat
+
+
+
+def preprocess_without_scaler(df):
+    """Fonction de preprocessing qui va fonctionner en plusieurs étapes:
+    1 - On utilise un simple imputer avec la strategy median pour remplacer les nans
+    2 - On passe d'un format horaire à un format journalier
+    3 - On calcule l'indice ATMO en utilisant un encoder homemade
+    """
+
+    #Pour le moment on fait que sur la station du 16 ème
+
+    df = df[:-25]
+
+    # A généraliser
+    df = df.drop(columns=['O3', 'SO2', 'Station_name', 'Station_type'])
+
+
+    #Ici on appelle l'imputer
+    from workflow.pipe import preprocessor_imputer
+
+    df_preprocessed = pd.DataFrame(preprocessor_imputer.fit_transform(df))
+    df_preprocessed = df_preprocessed.rename(columns={0:"PM25",1:"PM10",2:"NO2"})
+    df_preprocessed = df_preprocessed.set_index(df['Date_time'])
+
+
+    #Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis
+    from workflow.daily_basis import mean_max_categorical
+    df_daily = mean_max_categorical(df_preprocessed)
+
+
+    #Calcul de l'ATMO
+    from workflow.calcul_ATMO import general_categorical
+    from workflow.calcul_ATMO import calcul_ATMO
+
+
+    df_daily_cat = df_daily.copy()
+    df_daily_cat = general_categorical(df_daily_cat)
+    df_daily_cat = calcul_ATMO(df_daily_cat)
+
+    return df_daily_cat
