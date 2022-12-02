@@ -17,8 +17,6 @@ preprocessor_imputer = make_column_transformer(
     (num_imputer_normal, num_features_normal),
     (num_imputer_skewed, num_features_skewed))
 
-
-
 #Robust Scaler pour les polluants
 from sklearn.preprocessing import RobustScaler
 

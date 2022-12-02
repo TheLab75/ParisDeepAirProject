@@ -4,10 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import calendar
 
-
 def data_viz(df):
     """Cette fonction nécessite comme un argument un dataframe préprocessed mais non sans le scaling
-
     """
 
 #création des colonnes

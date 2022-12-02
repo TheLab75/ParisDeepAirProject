@@ -1,55 +1,46 @@
 #############################
-#  1 - package  #
+#  1 - Imports  #
 #############################
 
-import os
-import tensorflow
-from tensorflow import keras
-import time
-import numpy as np
-
-from tensorflow.keras.layers import SimpleRNN, LSTM, GRU
-from tensorflow.keras import optimizers
-from keras.layers import Input, Flatten
-from tensorflow.keras import Sequential, layers
+from tensorflow.keras import models, layers, optimizers
+from tensorflow.keras.optimizers.schedules import ExponentialDecay
 from tensorflow.keras.callbacks import EarlyStopping
-from keras.optimizers.optimizer_experimental import optimizer
-
+from workflow.utils import simple_time_and_memory_tracker
+from workflow.params import batch_size, epochs, patience
 
 #############################
 #  2 - Model  #
 #############################
 
-
+@simple_time_and_memory_tracker
 def init_model(X_train, y_train):
 
     model = models.Sequential()
 
-    model.add(layers.LSTM(80, activation='relu', input_dim= X_train[0].shape, return_sequence = True)) # 1st hidden layer with 200 neurons
-    #model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
+    # LSTM layers
+    model.add(layers.LSTM(units=80, activation='relu', input_shape=X_train[0].shape ,return_sequences=True))
 
-    model.add(layers.LSTM(60, activation='relu')) # 2st hidden layer with 100 neurons
-    #model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
+    model.add(layers.LSTM(units=60, activation='relu',return_sequences=True))
 
-    model.add(layers.LSTM(40, activation='relu'))
-    #model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
+    model.add(layers.LSTM(units=40, activation='relu',return_sequences=True))
 
-    model.add(layers.LSTM(20, activation='relu'))
-    #model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
+    model.add(layers.LSTM(units=20, activation='relu',return_sequences=True))
 
-    model.add(layers.Dense(6, activation='softmax')) # Output layer that outputs a probability of belonging to the class of "success"
+    # Predictive Dense Layer
+    model.add(layers.Dense(6, activation='softmax'))
 
     return model
 
 #############################
-# 3 - compile  #
+# 3 - Compile  #
 #############################
 
-
+@simple_time_and_memory_tracker
 def compile_model(model):
 
     initial_learning_rate = 0.001
     lr_schedule = ExponentialDecay(initial_learning_rate, decay_steps=1000, decay_rate=0.0001)
+
     opt = optimizers.Adam(learning_rate=lr_schedule)
     model.compile(loss='sparse_categorical_crossentropy',
                   optimizer= opt    ,
@@ -58,39 +49,42 @@ def compile_model(model):
     return model
 
 #############################
-#  4 - train  #
+#  4 - Train  #
 #############################
 
+@simple_time_and_memory_tracker
 def train_model(model,
                 X_train,
                 y_train,
-                batch_size=64,
-                patience=50,
                 validation_split=0.3,
-                validation_data=None):
+                batch_size=batch_size,
+                epochs=epochs,
+                patience=patience):
 
-    es = EarlyStopping(patience=patience,
-                       restore_best_weights=True,
-                       verbose=1)
+    es = EarlyStopping(monitor="val_loss",
+                       patience=patience,
+                       mode="min",
+                       restore_best_weights=True)
 
     history = model.fit(X_train,
                         y_train,
                         validation_split=validation_split,
-                        validation_data=validation_data,
-                        epochs=200,
+                        shuffle=False,
                         batch_size=batch_size,
+                        epochs=epochs,
                         callbacks=[es],
                         verbose=0)
+
     return model, history
 
 #############################
-#  5 - evaluate #
+#  5 - Evaluate #
 #############################
 
+@simple_time_and_memory_tracker
 def evaluate_model(model,
                    X_test,
-                   y_test,
-                   batch_size=32):
+                   y_test):
 
     if model is None:
         print(f"\n❌ no model to evaluate")
@@ -98,15 +92,11 @@ def evaluate_model(model,
 
     metrics = model.evaluate(
         X_test,
-        y_test,
-        batch_size=batch_size,
-        verbose=1,
-        # callbacks=None,
-        return_dict=True)
+        y_test)
 
     loss = metrics["loss"]
     accuracy = metrics["accuracy"]
 
-    print(f"\n✅ model evaluated: loss {round(loss, 2)} accuracy {round(accuracy), 2)}")
+    print(f"\n✅ model evaluated: loss {round(loss, 2)} accuracy {round(accuracy, 2)}")
 
     return metrics
