@@ -7,4 +7,4 @@ def baseline(df):
     accuracy = accuracy_score(y_true, y_baseline) # use accuracy modul from sklearn
     df = df.drop(columns = ['ATMO_baseline'])
 
-    return df,accuracy
+    return df, accuracy
