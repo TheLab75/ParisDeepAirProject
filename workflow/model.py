@@ -21,23 +21,21 @@ from keras.optimizers.optimizer_experimental import optimizer
 #############################
 
 
-def init_model(X):
+def init_model(X_train, y_train):
 
     model = models.Sequential()
 
-    model.add(layers.LSTM(200, activation='relu', input_dim=3, return_sequence = True)) # 1st hidden layer with 200 neurons
+    model.add(layers.LSTM(80, activation='relu', input_dim= X_train[0].shape, return_sequence = True)) # 1st hidden layer with 200 neurons
     #model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
 
-    model.add(layers.LSTM(100, activation='relu')) # 2st hidden layer with 100 neurons
-    model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
+    model.add(layers.LSTM(60, activation='relu')) # 2st hidden layer with 100 neurons
+    #model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
 
-    model.add(layers.LSTM(50, activation='relu'))
-    model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
+    model.add(layers.LSTM(40, activation='relu'))
+    #model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
 
-    model.add(layers.LSTM(50, activation='relu'))
-    model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
-
-    model.add(Flatten())
+    model.add(layers.LSTM(20, activation='relu'))
+    #model.add(layers.Dropout(rate=0.1)) # droupout layer 10%
 
     model.add(layers.Dense(6, activation='softmax')) # Output layer that outputs a probability of belonging to the class of "success"
 
@@ -50,9 +48,11 @@ def init_model(X):
 
 def compile_model(model):
 
-    opt = optimizers.Adam(learning_rate=0.001, decay_rate=0.0001)
-    model.compile(loss='categorical_crossentropy',
-                  optimizer= opt,
+    initial_learning_rate = 0.001
+    lr_schedule = ExponentialDecay(initial_learning_rate, decay_steps=1000, decay_rate=0.0001)
+    opt = optimizers.Adam(learning_rate=lr_schedule)
+    model.compile(loss='sparse_categorical_crossentropy',
+                  optimizer= opt    ,
                   metrics=['accuracy'])
 
     return model
