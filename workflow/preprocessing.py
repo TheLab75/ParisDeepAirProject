@@ -3,7 +3,10 @@
 # Imports de base
 import pandas as pd
 
-df = pd.read_csv('../data/pollution/2_Processed/PA75016.csv').copy()
+from workflow.utils import covid_time
+from workflow.utils import encoder
+from workflow.utils import atmo_encoder
+#df = pd.read_csv('../data/pollution/2_Processed/PA75016.csv').copy()
 
 def preprocess(df):
     """Fonction de preprocessing qui va fonctionner en plusieurs étapes:
@@ -11,6 +14,7 @@ def preprocess(df):
     2 - On passe d'un format horaire à un format journalier
     3 - On calcule l'indice ATMO en utilisant un encoder homemade
     4 - Passage dans un robust scaler
+    5 -
     """
 
     # Pour le moment on ne fait que sur la station du 16ème
@@ -47,7 +51,11 @@ def preprocess(df):
     y.set_index(y['Date_time'],inplace=True)
     y = y[['ATMO']]
 
+    #Reduction de nombre de classe
+    df_daily_cat['ATMO'] = df_daily_cat['ATMO'].apply(atmo_encoder)
+
     #Création d'un dataframe X (X)
+
     X = df_daily.copy()
     X.set_index(X['Date_time'],inplace=True)
     X = X.drop(columns='Date_time')
@@ -61,6 +69,41 @@ def preprocess(df):
 
     #Concat de X et Y en un seul dataframe
     df_concat = pd.concat([X, y], axis = 1)
+
+    #Faire une f-string pour automatiser
+    df_concat.to_csv('../../data/pollution/inputs/Xy_PA75016.csv', index=True)
+
+    #Reset de l'index pour le cyclical engineering
+    df_concat = df_concat.reset_index()
+
+    #Passage en date time puis création de deux colonnes : 1 pour le mois et 1 pour les jours de la semaine
+    df_concat["Date_time"]= pd.to_datetime(df_concat["Date_time"])
+    df_concat["day"] = df_concat["Date_time"].dt.day_of_week
+    df_concat["month"] = df_concat["Date_time"].dt.month
+
+    #Cyclical engineering pour les mois avec une création de deux colonnes
+    months_in_a_year = 12
+
+    df_concat['sin_Month'] = np.sin(2*np.pi*(df_concat.month-1)/months_in_a_year)
+    df_concat['cos_Month'] = np.cos(2*np.pi*(df_concat.month-1)/months_in_a_year)
+
+    #Cyclical engineering pour les jours de la semaine
+    days_in_a_week = 7
+
+    df_concat['sin_day'] = np.sin(2*np.pi*(df_concat.day-1)/days_in_a_week)
+    df_concat['cos_day'] = np.cos(2*np.pi*(df_concat.day-1)/days_in_a_week)
+
+    #Création d'une colonne qui prend en compte le covid
+    df_concat["confinement"] = df_concat["Date_time"].copy()
+
+    #Application de la fonction covidtime qui va indiquer de façon binaire les périodes de Covid
+    df_concat["confinement"]=  df_concat["confinement"].apply(covid_time)
+
+    # Ajout d'une feature permettant de capturer les périodes de pics extreme du PM2.5
+    df_concat["Pollution_peak"] = df_concat["PM25"]
+    df_concat["Pollution_peak"] = df_concat["Pollution_peak"].apply(encoder)
+    df_concat = df_concat.drop(columns=['day'])
+    df_concat = df_concat.drop(columns=['month'])
 
     #Faire une f-string pour exporter en .csv le dataframe concaténé
     df_concat.to_csv('../../data/pollution/inputs/Xy_PA75016.csv', index=True)
