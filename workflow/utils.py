@@ -2,6 +2,7 @@
 
 import time
 import tracemalloc
+import datetime
 
 # Setup a time & memory tracker for functions before functions, to be put as:
 # from workflow.utils import simple_time_and_memory_tracker
@@ -93,3 +94,53 @@ def analyse_df(df, corr_limit = 0.75):
                       f'{df_corr.index[i]} and {col} -> Pearson coef. = {df_corr[col][i]:.2f}')
     if cols_with_correlation_counter == 0:
         print('No linear correlation was found')
+
+
+def covid_time(x):
+
+    #le .apply s'applique à chaque rows
+
+
+    debut_confinement_1 = datetime.datetime.strptime('2020-16-03', "%Y-%d-%m")
+    fin_confinement_1 = datetime.datetime.strptime('2020-11-05', "%Y-%d-%m")
+
+    debut_confinement_2 = datetime.datetime.strptime('2020-30-10', "%Y-%d-%m")
+    fin_confinement_2 = datetime.datetime.strptime('2020-15-12', "%Y-%d-%m")
+
+    debut_confinement_3 = datetime.datetime.strptime('2021-03-04', "%Y-%d-%m")
+    fin_confinement_3 = datetime.datetime.strptime('2021-03-05', "%Y-%d-%m")
+
+
+    if  debut_confinement_1 < x and x < fin_confinement_1:
+        return 1
+
+    elif debut_confinement_2 < x and x < fin_confinement_2:
+        return 1
+
+    elif debut_confinement_3 < x  and x  <  fin_confinement_3:
+        return 1
+
+    else :
+        return 0
+
+
+
+def encoder(x):
+    if x > 80:
+        return 1
+    else:
+        return 0
+
+def atmo_encoder(x):
+    if x == 0:
+        return 3
+    elif  x == 1:
+        return 3
+    elif x== 2:
+        return 3
+    elif x == 3:
+        return 3
+    elif x == 4:
+        return 4
+    else:
+        return 5
