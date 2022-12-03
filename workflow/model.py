@@ -2,6 +2,7 @@
 #  1 - Imports  #
 #############################
 
+import numpy as np
 from tensorflow.keras import models, layers, optimizers
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 from tensorflow.keras.callbacks import EarlyStopping
@@ -12,7 +13,6 @@ from workflow.params import batch_size, epochs, patience
 #  2 - Model  #
 #############################
 
-@simple_time_and_memory_tracker
 def init_model(X_train, y_train):
 
     model = models.Sequential()
@@ -27,7 +27,7 @@ def init_model(X_train, y_train):
     model.add(layers.LSTM(units=20, activation='relu',return_sequences=True))
 
     # Predictive Dense Layer
-    model.add(layers.Dense(6, activation='softmax'))
+    model.add(layers.Dense(3, activation='softmax'))
 
     return model
 
@@ -35,7 +35,6 @@ def init_model(X_train, y_train):
 # 3 - Compile  #
 #############################
 
-@simple_time_and_memory_tracker
 def compile_model(model):
 
     initial_learning_rate = 0.001
@@ -43,7 +42,7 @@ def compile_model(model):
 
     opt = optimizers.Adam(learning_rate=lr_schedule)
     model.compile(loss='sparse_categorical_crossentropy',
-                  optimizer= opt    ,
+                  optimizer= opt,
                   metrics=['accuracy'])
 
     return model
@@ -53,7 +52,7 @@ def compile_model(model):
 #############################
 
 @simple_time_and_memory_tracker
-def train_model(model,
+def fit_model(model,
                 X_train,
                 y_train,
                 validation_split=0.3,
@@ -81,7 +80,6 @@ def train_model(model,
 #  5 - Evaluate #
 #############################
 
-@simple_time_and_memory_tracker
 def evaluate_model(model,
                    X_test,
                    y_test):
@@ -94,9 +92,22 @@ def evaluate_model(model,
         X_test,
         y_test)
 
-    loss = metrics["loss"]
-    accuracy = metrics["accuracy"]
+    loss = metrics[0]
+    accuracy = metrics[1]
 
-    print(f"\n✅ model evaluated: loss {round(loss, 2)} accuracy {round(accuracy, 2)}")
+    print(f"✅ Model evaluated: loss {round(loss, 2)} accuracy {round(accuracy, 2)}")
 
     return metrics
+
+#############################
+#  6 - Predict #
+#############################
+
+def predict(model, X_test):
+    '''
+    Makes a probability prediction for each ATMO class, for each day of the output length
+    '''
+
+    y_pred = np.round(model.predict(X_test),2)
+
+    return y_pred

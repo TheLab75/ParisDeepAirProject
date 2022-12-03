@@ -3,10 +3,11 @@
 # Imports
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Tuple, Sequence
+import matplotlib.pyplot as plt
+from typing import List, Tuple
 from workflow.params import FOLD_LENGTH, FOLD_STRIDE, STRIDE, TRAIN_TEST_RATIO, N_FEATURES, INPUT_LENGTH, TARGET, TARGET_COLUMN_IDX, N_TARGETS, OUTPUT_LENGTH, HORIZON
 from workflow.baseline import baseline
-from workflow.model import init_model, compile_model, train_model, evaluate_model
+from workflow.model import init_model, compile_model, fit_model, evaluate_model
 
 # Folding our dataset
 def get_folds(df: pd.DataFrame,
@@ -28,8 +29,10 @@ def get_folds(df: pd.DataFrame,
         fold = df.iloc[idx:idx + fold_length, :]
         folds.append(fold)
 
+    print(f'Folds shape: {np.array(folds).shape}')
     print(f'The function generated {len(folds)} folds.')
     print(f'Each fold has a shape equal to {folds[0].shape}.')
+    print("\n")
 
     return folds
 
@@ -126,13 +129,48 @@ def get_X_y(fold: pd.DataFrame,
         X = X[idx]
         y = y[idx]
 
-    print("Shapes for the training set:")
-    print(f"X.shape = {X.shape}, y.shape = {y.shape}")
+    print("Split-set shape:")
+    print(f"X: {X.shape}, y: {y.shape}")
 
     return X, y
 
+def plot_history(history):
+    '''
+    PLots the loss & metrics evolution for all epochs, for the training set & the validation set
+    '''
+
+    fig, ax = plt.subplots(1,2, figsize=(20,7))
+
+    # --- LOSS: Sparse_categorical_crossentropy ---
+    ax[0].plot(history.history['loss'])
+    ax[0].plot(history.history['val_loss'])
+    ax[0].set_title('Loss')
+    ax[0].set_ylabel('Loss')
+    ax[0].set_xlabel('Epoch')
+    ax[0].legend(['Train', 'Validation'], loc='best')
+    ax[0].grid(axis="x",linewidth=0.5)
+    ax[0].grid(axis="y",linewidth=0.5)
+
+    # --- METRICS: accuracy ---
+    ax[1].plot(history.history['accuracy'])
+    ax[1].plot(history.history['val_accuracy'])
+    ax[1].set_title('accuracy')
+    ax[1].set_ylabel('accuracy')
+    ax[1].set_xlabel('Epoch')
+    ax[1].legend(['Train', 'Validation'], loc='best')
+    ax[1].grid(axis="x",linewidth=0.5)
+    ax[1].grid(axis="y",linewidth=0.5)
+
+    return ax
+
 # Cross-validate the model
 def cross_validate(df: pd.DataFrame):
+    '''
+    Argument : the dataframe on which to input the model
+
+    Cross-validate the model into a number of folds defined by the FOLD_LENGTH, FOLD_STRIDE & STRIDE defined, returns the mean accuracy for all the folds
+    '''
+
     list_of_accuracy_baseline_model = []
     list_of_accuracy_recurrent_model = []
 
@@ -142,6 +180,10 @@ def cross_validate(df: pd.DataFrame):
     folds = get_folds(df, FOLD_LENGTH, FOLD_STRIDE)
 
     for fold_id, fold in enumerate(folds):
+
+        print('=' * 50)
+        print(f"Fold n°{fold_id+1}")
+        print('=' * 50)
 
         # 2 - CHRONOLOGICAL TRAIN TEST SPLIT of the current FOLD
         # =======================================================
@@ -173,7 +215,6 @@ def cross_validate(df: pd.DataFrame):
         list_of_accuracy_baseline_model.append(accuracy_baseline)
 
         print("-"*50)
-        print(f"Accuracy baseline fold n°{fold_id} = {round(accuracy_baseline, 2)}")
 
         # 4.2 - Model
         # =======================================================
@@ -185,16 +226,29 @@ def cross_validate(df: pd.DataFrame):
         compile_model(model)
 
         # Training
-        model, history = train_model(model, verbose=0)
+        model, history = fit_model(model, X_train, y_train)
+        plot_history(history)
+        plt.show()
 
         # Evaluation
-        res = evaluate_model(X_test, y_test, verbose = 0)
+        res = evaluate_model(model, X_test, y_test)
         accuracy_lstm = res[1]
 
         list_of_accuracy_recurrent_model.append(accuracy_lstm)
 
-        print(f"Accuracy LSTM fold n°{fold_id} = {round(accuracy_lstm, 2)}")
+        print("\n")
+        print(f"Accuracy baseline fold n°{fold_id+1} = {round(accuracy_baseline, 2)}")
+        print(f"Accuracy LSTM fold n°{fold_id+1} = {round(accuracy_lstm, 2)}")
 
         # 4.3 - Comparison model vs baseline for the current fold
         # =======================================================
         print(f"🏋🏽‍♂️ Improvement/Decrease vs. Baseline: {round(((accuracy_lstm-accuracy_baseline)/accuracy_baseline)*100,2)} % \n")
+
+    cv_accuracy_baseline = np.mean(list_of_accuracy_baseline_model)
+    cv_accuracy_lstm = np.mean(list_of_accuracy_recurrent_model)
+
+    print("="*50)
+    print("Result for all folds")
+    print(f"Average accuracy baseline = {round(cv_accuracy_baseline, 2)}")
+    print(f"Average accuracy LSTM = {round(cv_accuracy_lstm, 2)}")
+    print(f"🏋🏽‍♂️ Improvement/Decrease vs. Baseline: {round(((cv_accuracy_lstm-cv_accuracy_baseline)/cv_accuracy_baseline)*100,2)} % \n")
