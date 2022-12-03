@@ -198,3 +198,41 @@ def calcul_ATMO(df):
     df["ATMO"] = df[["PM10_categorical", "PM25_categorical", "NO2_categorical"]].max(axis=1)
 
     return df
+
+def pollution_peak_PM25(x):
+
+    '''
+    Permet d'identifier les pics de pollution selon le PM25
+    '''
+
+    if x > 80:
+        return 1
+    else:
+        return 0
+
+def ATMO_encoder(x):
+
+    '''
+    Permet de réduire le nombre de catégories de l'ATMO de 5 à 3.
+    Classe 3 : anciennes classes 0 (bon), 1 (moyen), 2 (dégradé), 3 (mauvais)
+    Classe 4 : ancienne classe 4 (très mauvais)
+    Classe 5 : ancienne classe 5 (extrêmement mauvais)
+    '''
+
+    if x == 0:
+        return 0
+
+    elif  x == 1:
+        return 0
+
+    elif x== 2:
+        return 0
+
+    elif x == 3:
+        return 0
+
+    elif x == 4:
+        return 1
+
+    else:
+        return 2

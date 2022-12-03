@@ -95,11 +95,15 @@ def analyse_df(df, corr_limit = 0.75):
     if cols_with_correlation_counter == 0:
         print('No linear correlation was found')
 
-
 def covid_time(x):
 
-    #le .apply s'applique à chaque rows
+    '''
+    Permet d'inclure les confinements Covid-19 dans le modèle.
+    1 la date est dans une période de confinement.
+    0 sinon.
+    '''
 
+    #le .apply s'applique à chaque row
 
     debut_confinement_1 = datetime.datetime.strptime('2020-16-03', "%Y-%d-%m")
     fin_confinement_1 = datetime.datetime.strptime('2020-11-05', "%Y-%d-%m")
@@ -109,7 +113,6 @@ def covid_time(x):
 
     debut_confinement_3 = datetime.datetime.strptime('2021-03-04', "%Y-%d-%m")
     fin_confinement_3 = datetime.datetime.strptime('2021-03-05', "%Y-%d-%m")
-
 
     if  debut_confinement_1 < x and x < fin_confinement_1:
         return 1
@@ -122,25 +125,3 @@ def covid_time(x):
 
     else :
         return 0
-
-
-
-def encoder(x):
-    if x > 80:
-        return 1
-    else:
-        return 0
-
-def atmo_encoder(x):
-    if x == 0:
-        return 3
-    elif  x == 1:
-        return 3
-    elif x== 2:
-        return 3
-    elif x == 3:
-        return 3
-    elif x == 4:
-        return 4
-    else:
-        return 5
