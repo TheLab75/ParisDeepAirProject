@@ -28,9 +28,7 @@ def data_viz(df):
     df_days = df.copy()
     df_days['weekday_name'] = df_days['weekday_name'].apply(lambda x: calendar.day_name[x])
 
-
     return df
-
 
 def plot_pollutant_month(df,pollutant):
     """ The DataFrame should be processed without scaling and passed within data_viz
@@ -62,7 +60,6 @@ def plot_pollutant_month(df,pollutant):
     sns.lineplot(x = "month", y = f"{pollutant}", data=df_all_month.iloc[48:59],
                 marker = "o",label="2022").set_title(f"{pollutant} Mean per month per Year")
 
-
     ax1.text("Apr",58,"1er Confinement",
         fontsize = 7,          # Size
         fontstyle = "italic",  # Style
@@ -85,7 +82,6 @@ def plot_pollutant_month(df,pollutant):
         ha = "center", # Horizontal alignment
         va = "top") # Vertical alignment
 
-
     plt.show()
 
     return
@@ -95,9 +91,7 @@ def plot_pollutant_week(df,pollutant):
     ##Création d'un dataframe groupé par année et par semaine
     df_all_week = df.groupby(by=["year","week"],as_index=False).mean()
 
-
-
-    return
+    return df_all_week
 
 def plot_pollutant_month_V2(df,pollutant):
     """to plot pollutant per month per year in 5 different graphics, one for each year !!
@@ -114,7 +108,6 @@ def plot_pollutant_month_V2(df,pollutant):
 
     fig.suptitle('MEAN PM25 per Month - Per Year')
 
-
     # 2018
     sns.lineplot(ax=axes[0], x = "month", y = pollutant, data=df_all_month.iloc[:12],
                 marker = "o",label="2018",color = "green")
@@ -122,7 +115,6 @@ def plot_pollutant_month_V2(df,pollutant):
 
     #sns.lineplot(ax=axes[0], x = "month", y = "PM25", data=df_all_month.iloc[:12],
                 # marker = "o",label="2018",color = "green")
-
 
     # 2019
     sns.lineplot(ax=axes[1],x = "month", y = pollutant, data=df_all_month.iloc[12:24],
@@ -138,12 +130,10 @@ def plot_pollutant_month_V2(df,pollutant):
 
     #axes[3].set_title("2021")
 
-
     sns.lineplot(ax=axes[4],x = "month", y = pollutant, data=df_all_month.iloc[48:59],
                 marker = "o",label="2022",color="orange")
 
     #axes[4].set_title("2022")
-
 
     #Faire un plot de la moyenne à l'année pour ensuite comparer
     plt.show()
@@ -158,4 +148,5 @@ def weekday_pollutant(df,pollutant):
     sns.barplot(data=df_days,x="weekday_name",y=f"{pollutant}")
 
     plt.show()
+
     return
