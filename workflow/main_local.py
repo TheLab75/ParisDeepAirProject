@@ -54,9 +54,10 @@ y_pred = predict(model, X_test)
 
 y_pred[-1]
 
+#To update
 if __name__ == '__main__':
-    preprocess(df)
-    train_test_split()
+    preprocess(raw_df)
+    train_test_split(fold = df, train_test_ratio = TRAIN_TEST_RATIO, input_length = INPUT_LENGTH, horizon = HORIZON)
     get_X_y()
     cross_validate()
     init_model()
