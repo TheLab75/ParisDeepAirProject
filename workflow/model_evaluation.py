@@ -202,7 +202,7 @@ def cross_validate(df: pd.DataFrame):
                                 output_length = OUTPUT_LENGTH,
                                 stride = STRIDE)
 
-        X_test, y_test = get_X_y(fold_test,
+        X_test, y_test = get_X_y(fold = fold_test,
                                 horizon = HORIZON,
                                 input_length = INPUT_LENGTH,
                                 output_length = OUTPUT_LENGTH,
