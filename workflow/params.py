@@ -1,7 +1,9 @@
 # Python file centralizing all the parameters
 
-# Model params
+#Data path
+LOCAL_DATA_PATH = "../data/pollution/2_Processed/PA75016"
 
+# Model params
 # Folds
 FOLD_LENGTH = 521 # dont 365J Train +  156J Test
 FOLD_STRIDE = int(209) # sliding each semester - décalage de 209J pour obtenir 7 folds
