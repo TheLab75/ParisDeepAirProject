@@ -104,7 +104,7 @@ def evaluate_model(model,
 #  6 - Predict #
 #############################
 
-def predict(X_test,model):
+def predict(model, X_test):
     '''
     Makes a probability prediction for each ATMO class, for each day of the output length
     '''

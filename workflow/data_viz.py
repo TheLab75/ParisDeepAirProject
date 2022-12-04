@@ -19,21 +19,15 @@ def data_viz(df):
     #https://github.com/dhaitz/matplotlib-stylesheets
     plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
 
-
     ##Création d'un dataframe groupé par année et par semaine
     #df_all_week = df.groupby(by=["year","week"],as_index=False).mean()
-
 
     #Passage des jours de la semaine allant de 0 à 6 en Lundi jusque Dimanche
     #df_days = df.copy()
     #df_days['weekday_name'] = df_days['weekday_name'].apply(lambda x: calendar.day_name[x])
-
-
     #Shifting sur 7 jours
 
     return df
-
-
 
 def plot_pollutant_v1(df,pollutant,period):
     """ The DataFrame should be processed without scaling and passed within data_viz
@@ -69,7 +63,6 @@ def plot_pollutant_v1(df,pollutant,period):
         sns.lineplot(x = period, y = pollutant, data=df_groupby.iloc[36:48],
                     marker = "o",label="2021")
 
-
         sns.lineplot(x = period, y = pollutant, data=df_groupby.iloc[48:58],
                     marker = "o",label="2022").set_title(f"{pollutant} Mean per month per Year")
 
@@ -95,7 +88,6 @@ def plot_pollutant_v1(df,pollutant,period):
         color = "white",          # Color
         ha = "center", # Horizontal alignment
         va = "top") # Vertical alignment
-
 
     elif period == "week":
         plt.figure(figsize=(12,5))
@@ -123,8 +115,6 @@ def plot_pollutant_v1(df,pollutant,period):
 
     return
 
-
-
 def plot_pollutant_v2(df,pollutant,period):
     """ The DataFrame should be processed without scaling and passed within data_viz
     You just need to chosse a pollutant and a period of time ("month","week")
@@ -137,9 +127,6 @@ def plot_pollutant_v2(df,pollutant,period):
 
     #Passage des mois allant de 1 à 12 en Janvier à Décembre
     #df_all_month['month'] = df_all_month['month'].apply(lambda x: calendar.month_abbr[x])
-
-
-
 
     if period == "month":
         fig, axes = plt.subplots(5, 1, figsize=(18, 18), sharey=True)
@@ -163,7 +150,6 @@ def plot_pollutant_v2(df,pollutant,period):
                     marker = "o",label="2021",color="r")
 
         #axes[3].set_title("2021")
-
 
         sns.lineplot(ax=axes[4],x = period, y = pollutant, data=df_groupby.iloc[48:58],
                     marker = "o",label="2022",color="orange")
@@ -203,13 +189,10 @@ def plot_pollutant_v2(df,pollutant,period):
     sns.lineplot(ax=axes[4],x = "month", y = pollutant, data=df_all_month.iloc[48:59],
                 marker = "o",label="2022",color="orange")
 
-
-
     #Faire un plot de la moyenne à l'année pour ensuite comparer
     plt.show()
 
     return
-
 
 def weekday_pollutant(df,pollutant):
     df_days = df.copy()

@@ -209,8 +209,7 @@ def ATMO_encoder(x):
     Permet de réduire le nombre de catégories de l'ATMO de 5 à 3.
     Classe 0 : anciennes classes 0 (bon), 1 (moyen)
     Classe 1 : ancienne classe 2 (dégradé)
-    Classe 2 : ancienne classe 3 (mauvais)
-    Classe 3 : anciennes classes 4 (très mauvais), 5 (extrêmement mauvais)
+    Classe 2 : ancienne classe 3 (mauvais), 4 (très mauvais), 5 (extrêmement mauvais)
     '''
 
     if x==0:
@@ -226,7 +225,7 @@ def ATMO_encoder(x):
         return 2
 
     elif x==4:
-        return 3
+        return 2
 
     elif x==5:
-        return 3
+        return 2

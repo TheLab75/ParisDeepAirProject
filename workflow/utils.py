@@ -103,8 +103,6 @@ def covid_time(x):
     0 sinon.
     '''
 
-    #le .apply s'applique à chaque row
-
     debut_confinement_1 = datetime.datetime.strptime('2020-16-03', "%Y-%d-%m")
     fin_confinement_1 = datetime.datetime.strptime('2020-11-05', "%Y-%d-%m")
 
