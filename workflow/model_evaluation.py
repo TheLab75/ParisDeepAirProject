@@ -220,7 +220,7 @@ def cross_validate(df: pd.DataFrame):
         # =======================================================
 
         # Initializing the model
-        model = init_model(X_train, y_train)
+        model = init_model(X_train)
 
         # Compiling the model
         compile_model(model)

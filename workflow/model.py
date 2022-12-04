@@ -13,8 +13,7 @@ from workflow.params import batch_size, epochs, patience
 #  2 - Model  #
 #############################
 
-def init_model(X_train, y_train):
-
+def init_model(X_train,y_train):
     model = models.Sequential()
 
     # LSTM layers
@@ -43,9 +42,11 @@ def compile_model(model):
     opt = optimizers.Adam(learning_rate=lr_schedule)
     model.compile(loss='sparse_categorical_crossentropy',
                   optimizer= opt,
-                  metrics=['accuracy','precision'])
+                  metrics=['accuracy'])
 
     return model
+
+
 
 #############################
 #  4 - Train  #
@@ -103,7 +104,7 @@ def evaluate_model(model,
 #  6 - Predict #
 #############################
 
-def predict(model, X_test):
+def predict(X_test,model):
     '''
     Makes a probability prediction for each ATMO class, for each day of the output length
     '''
