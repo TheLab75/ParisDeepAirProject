@@ -1,16 +1,10 @@
 # Python file containing all the code to calculate the daily ATMO index (y in our model)
 
 def general_categorical(df):
-
     '''Function that creates a new colum for each pollutant and encodes the continuous value of the pollutant into one of the 6 classes
     From 0 to 5'''
 
     List_polluant = ["PM25","PM10","NO2","O3","SO2"]
-    # List_PM25 =[]
-    # List_PM10 = []
-    # List_N02 = []
-    # List_O3 =[]
-    # List_S02 = []
 
     for element in df.columns:
 
@@ -31,7 +25,17 @@ def general_categorical(df):
 
     return df
 
-# A mettre à jour ou à supprimer ?
+def calcul_ATMO(df):
+    """
+    Function that calculates the ATMO level
+    """
+    #Fonction spécifique à la station du 16ème
+    #Qui fait le max entre PM10, PM25, NO2 et SO2
+
+    df["ATMO"] = df[["PM10_categorical", "PM25_categorical", "NO2_categorical"]].max(axis=1)
+
+    return df
+
 def general_ATM0(df):
     """
     Fonction pouvant s'appliquer à n'importe quelle station, elle va faire le max des polluants présents dans la station et sortir l'indice ATMO
@@ -51,7 +55,6 @@ def general_ATM0(df):
     return df
 
 def PM25_categorical(x):
-
     """Function that categorizes the pollutant PM 2.5 into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 10
     Class 1 => from 10 to 20
@@ -79,9 +82,7 @@ def PM25_categorical(x):
     elif x>75:
         return 5
 
-
 def PM10_categorical(x):
-
     """Function that categorizes the pollutant PM 10 into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 20
     Class 1 => from 20 to 40
@@ -110,7 +111,6 @@ def PM10_categorical(x):
         return 5
 
 def NO2_categorical(x):
-
     """Function that categorizes the pollutant "Dioxyde d'Azote" (NO2) into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 40
     Class 1 => from 40 to 90
@@ -139,7 +139,6 @@ def NO2_categorical(x):
         return 5
 
 def O3_categorical(x):
-
     """Function that categorizes the pollutant Ozone (03) into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 50
     Class 1 => from 50 to 100
@@ -167,9 +166,7 @@ def O3_categorical(x):
     elif x>=380:
         return 5
 
-
 def SO2_categorical(x):
-
     """Function that categorizes the pollutant "Dioxyde de Souffre" (SO2) into one of the 5 classes in function of the ATMO index
     Class 0 => from 0 to 100
     Class 1 => from 100 to 200
@@ -197,41 +194,24 @@ def SO2_categorical(x):
     elif x>=750:
         return 5
 
-def calcul_ATMO(df):
-
-    """Function that calculates the ATMO level
-    """
-    #Fonction spécifique à la station du 16ème
-    #Qui fait le max entre PM10, PM25, NO2 et SO2
-
-    df["ATMO"] = df[["PM10_categorical", "PM25_categorical", "NO2_categorical"]].max(axis=1)
-
-    return df
-
 def pollution_peak_PM25(x):
-
     '''
     Permet d'identifier les pics de pollution selon le PM25
     '''
 
-    if x > 80:
+    if x > 50:
         return 1
     else:
         return 0
 
 def ATMO_encoder(x):
     '''
-Permet de réduire le nombre de catégories de l'ATMO de 5 à 3.
-
-Classe 3 : anciennes classes 0 (bon), 1 (moyen), 2 (dégradé), 3 (mauvais)
-
-Classe 4 : ancienne classe 4 (très mauvais)
-
-Classe 5 : ancienne classe 5 (extrêmement mauvais)
-
+    Permet de réduire le nombre de catégories de l'ATMO de 5 à 3.
+    Classe 0 : anciennes classes 0 (bon), 1 (moyen)
+    Classe 1 : ancienne classe 2 (dégradé)
+    Classe 2 : ancienne classe 3 (mauvais)
+    Classe 3 : anciennes classes 4 (très mauvais), 5 (extrêmement mauvais)
     '''
-
-
 
     if x==0:
         return 0
@@ -246,7 +226,7 @@ Classe 5 : ancienne classe 5 (extrêmement mauvais)
         return 2
 
     elif x==4:
-        return 2
+        return 3
 
     elif x==5:
-        return 2
+        return 3

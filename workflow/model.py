@@ -27,7 +27,7 @@ def init_model(X_train, y_train):
     model.add(layers.LSTM(units=20, activation='relu',return_sequences=True))
 
     # Predictive Dense Layer
-    model.add(layers.Dense(3, activation='softmax'))
+    model.add(layers.Dense(4, activation='softmax'))
 
     return model
 
@@ -43,7 +43,7 @@ def compile_model(model):
     opt = optimizers.Adam(learning_rate=lr_schedule)
     model.compile(loss='sparse_categorical_crossentropy',
                   optimizer= opt,
-                  metrics=['accuracy','precision'])
+                  metrics=['accuracy'])
 
     return model
 

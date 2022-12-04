@@ -7,6 +7,15 @@ import numpy as np
 from sklearn.pipeline import make_pipeline
 from sklearn.compose import make_column_transformer
 from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import RobustScaler
+
+from workflow.daily_basis import mean_max_categorical
+from workflow.calcul_ATMO import general_categorical
+#from workflow.calcul_ATMO import calcul_ATMO
+from workflow.calcul_ATMO import general_ATM0
+
+#from workflow.pipe import preprocessor_imputer
+#from workflow.pipe import preprocessor_scaler
 
 from workflow.calcul_ATMO import pollution_peak_PM25, ATMO_encoder
 from workflow.utils import covid_time
@@ -20,59 +29,50 @@ def preprocess(df):
     5 -
     """
 
-    # Pour le moment on ne fait que sur la station du 16ème
-
     # Suppression des journées du 14/11/2022 et du 15/11/2022 (car incomplètes)
+    # Suppression des colonnes station name & station type
     df = df[:-25]
+    df = df.drop(columns=['Station_name', 'Station_type'])
 
     # Généralisation du drop des colonnes avec trop de NaN (plus de 30%)
-
     for element in df.columns:
         NA_percent = df[element].isna().sum()/len(df) * 100
         if NA_percent > 30:
             df = df.drop(columns=element)
-            print(f"You have dropped {element} with {NA_percent} % of NA")
+            print(f"You have dropped {element} with {round(NA_percent,2)}% of NA")
 
     # A généraliser
     #df = df.drop(columns=['O3', 'SO2', 'Station_name', 'Station_type'])
 
     # Call & application de l'imputer (sur X & y)
-    from workflow.pipe import preprocessor_imputer
-
     liste_polluant= ["PM25","PM10","NO2","O3","SO2"]
     num_features=[]
-
 
     for element in df.columns:
         if element in liste_polluant:
             num_features.append(element)
 
-
     num_imputer_normal = make_pipeline(
-    SimpleImputer(strategy='median'))
+        SimpleImputer(strategy='median'))
 
-    preprocessor_test_imputer = make_column_transformer(
-    (num_imputer_normal, num_features))
+    preprocessor_imputer = make_column_transformer(
+        (num_imputer_normal, num_features))
 
-
-    df_preprocessed = pd.DataFrame(preprocessor_test_imputer.fit_transform(df))
-
+    df_preprocessed = pd.DataFrame(preprocessor_imputer.fit_transform(df))
 
     #df_preprocessed = df_preprocessed.rename(columns={0:"PM25",1:"PM10",2:"NO2"})
     #=> On généralise
-    #Vu que Louis à au préalable classer les polluants de chaque station se l'ordre suivant : ["PM25","PM10","NO2","O3","SO2"]
 
+    # Vu que Louis à au préalable classer les polluants de chaque station se l'ordre suivant : ["PM25","PM10","NO2","O3","SO2"]
     sorted_list_polluant = []
     for element in df.columns:
         if element in liste_polluant:
             sorted_list_polluant.append(element)
 
-
-
-#on doit faire une condition avec la taille de la liste des polluants présents dans le df
-
+    # On doit faire une condition avec la taille de la liste des polluants présents dans le df
     if len(sorted_list_polluant) == 1:
         df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0]})
+
     elif len(sorted_list_polluant) == 2:
         df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0],
                                                         1:sorted_list_polluant[1]})
@@ -81,11 +81,13 @@ def preprocess(df):
         df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0],
                                                         1:sorted_list_polluant[1],
                                                         2:sorted_list_polluant[2]})
+
     elif len(sorted_list_polluant) == 4:
         df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0],
                                                         1:sorted_list_polluant[1],
                                                         2:sorted_list_polluant[2],
                                                         3:sorted_list_polluant[3]})
+
     elif len(sorted_list_polluant) == 5:
         df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0],
                                                         1:sorted_list_polluant[1],
@@ -96,27 +98,20 @@ def preprocess(df):
     df_preprocessed = df_preprocessed.set_index(df['Date_time'])
 
     # Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis (sur X & y)
-    from workflow.daily_basis import mean_max_categorical
-
     df_daily = mean_max_categorical(df_preprocessed)
 
     #Calcul de l'ATMO (y)
-    from workflow.calcul_ATMO import general_categorical
-    from workflow.calcul_ATMO import calcul_ATMO
-    from workflow.calcul_ATMO import general_ATM0
-
     df_daily_cat = df_daily.copy()
     df_daily_cat = general_categorical(df_daily_cat)
     #df_daily_cat = calcul_ATMO(df_daily_cat)
     df_daily_cat = general_ATM0(df_daily_cat)
 
-    from workflow.calcul_ATMO import ATMO_encoder
     #Réduction de nombre de classes
-    #0 => Classe 1,2
-    #1 => Classe 4
-    #2 => Classe 5
+    #0 => Classe 0, 1
+    #1 => Classe 2
+    #2 => Classe 3
+    #3 => Classe 4, 5
     df_daily_cat['ATMO'] = df_daily_cat['ATMO'].apply(ATMO_encoder)
-
 
     #Création d'un dataframe y pour stocker notre indice ATMO (y)
     y = df_daily_cat[['Date_time','ATMO']]
@@ -129,14 +124,12 @@ def preprocess(df):
     X = X.drop(columns='Date_time')
 
     #Call & application du robust scaler sur les valeurs continues des polluants de X (X)
-    from workflow.pipe import preprocessor_scaler
+    preprocessor_scaler = make_pipeline(
+    RobustScaler())
 
     X = pd.DataFrame(preprocessor_scaler.fit_transform(X))
 
-
-
     #X = X.rename(columns={0:"PM25",1:"PM10",2:"NO2"})
-
 
     if len(sorted_list_polluant) == 1:
         X = X.rename(columns={0:sorted_list_polluant[0]})
@@ -162,6 +155,7 @@ def preprocess(df):
                               2:sorted_list_polluant[2],
                               3:sorted_list_polluant[3],
                               4:sorted_list_polluant[4]})
+
     X = X.set_index(df_daily_cat['Date_time'])
 
     #Concat de X et Y en un seul dataframe
@@ -194,18 +188,14 @@ def preprocess(df):
     df_concat["confinement"] = df_concat["Date_time"].copy()
 
     #Application de la fonction covidtime qui va indiquer de façon binaire les périodes de Covid
-    from workflow.utils import covid_time
     df_concat["confinement"]=  df_concat["confinement"].apply(covid_time)
 
     # Ajout d'une feature permettant de capturer les périodes de pics extreme du PM2.5
-    #Cependant chaque station ne mesure pas les particules 2.5, il faut réussir à généraliser ce truc,
+    # Cependant chaque station ne mesure pas les particules 2.5, il faut réussir à généraliser ce truc,
     # soit on fait un % de plus par rapport à la valeur de la dernière classe pour chaque polluant genre 10% de plus
-    from workflow.calcul_ATMO import pollution_peak_PM25
     if "PM25" in df_concat.columns:
         df_concat["Pollution_peak"] = df_concat["PM25"]
         df_concat["Pollution_peak"] = df_concat["Pollution_peak"].apply(pollution_peak_PM25)
-
-
 
     df_concat = df_concat.drop(columns=['day'])
     df_concat = df_concat.drop(columns=['month'])
@@ -219,44 +209,34 @@ def preprocess(df):
 
     return df_concat
 
-
-
-
-
 def preprocess_without_scaling(df):
-    """Fonction utilisé pour preprocess une station sans la scaler afin de pouvoir faire de la data viz sur cette station
-
+    """
+    Fonction utilisée pour preprocesser une station sans la scaler afin de pouvoir faire de la data viz sur cette station
     """
 
     df = df[:-25]
+    df = df.drop(columns=['Station_name', 'Station_type'])
 
     # Généralisation du drop des colonnes avec trop de NaN (plus de 30%)
-
     for element in df.columns:
         NA_percent = df[element].isna().sum()/len(df) * 100
         if NA_percent > 30:
             df = df.drop(columns=element)
-            print(f"You have dropped {element} with {NA_percent} % of NA")
+            print(f"You have dropped {element} with {round(NA_percent,2)}% of NA")
 
     # Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis (sur X & y)
-    from workflow.daily_basis import mean_max_categorical
-
     df_daily = mean_max_categorical(df)
 
     #Calcul de l'ATMO (y)
-    from workflow.calcul_ATMO import general_categorical
-    from workflow.calcul_ATMO import general_ATM0
-
-
     df_daily_cat = df_daily.copy()
     df_daily_cat = general_categorical(df_daily_cat)
     df_daily_cat = general_ATM0(df_daily_cat)
 
-    from workflow.calcul_ATMO import ATMO_encoder
     #Réduction de nombre de classes
-    #0 => Classe 1,2,3
-    #1 => Classe 4
-    #2 => Classe 5
+    #0 => Classe 0, 1
+    #1 => Classe 2
+    #2 => Classe 3
+    #3 => Classe 4, 5
     df_daily_cat['ATMO'] = df_daily_cat['ATMO'].apply(ATMO_encoder)
 
     #Création d'un dataframe y pour stocker notre indice ATMO (y)
@@ -276,7 +256,6 @@ def preprocess_without_scaling(df):
     #Voir pourquoi le reset_index ne fonctionne pas sur la fonction preprocess without scaling
     df_concat = df_concat.reset_index()
 
-
-    print(f"You have processed{df} without scaling it, now you can play with data viz functions " )
+    print(f"You have processed {df} without scaling it, now you can play with data viz functions " )
 
     return df_concat
