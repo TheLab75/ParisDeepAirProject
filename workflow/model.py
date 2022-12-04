@@ -43,7 +43,7 @@ def compile_model(model):
     opt = optimizers.Adam(learning_rate=lr_schedule)
     model.compile(loss='sparse_categorical_crossentropy',
                   optimizer= opt,
-                  metrics=['accuracy'])
+                  metrics=['accuracy','precision'])
 
     return model
 
@@ -108,6 +108,7 @@ def predict(model, X_test):
     Makes a probability prediction for each ATMO class, for each day of the output length
     '''
 
-    y_pred = np.round(model.predict(X_test),2)
+    #y_pred = np.round(model.predict(X_test),2)
+    y_pred = model.predict(X_test)
 
     return y_pred

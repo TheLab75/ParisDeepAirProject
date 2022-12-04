@@ -11,7 +11,7 @@ num_features_skewed = ['PM25','PM10']
 
 num_imputer_normal = make_pipeline(
     SimpleImputer(strategy='median'))
-print(num_imputer_normal.feature_names_in_)
+#print(num_imputer_normal.feature_names_in_)
 #print(num_imputer_normal.get_feature_names_out())
 
 num_imputer_skewed = make_pipeline(

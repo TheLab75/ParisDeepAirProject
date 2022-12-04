@@ -47,6 +47,7 @@ def preprocess(df):
         if element in liste_polluant:
             num_features.append(element)
 
+
     num_imputer_normal = make_pipeline(
     SimpleImputer(strategy='median'))
 
@@ -111,10 +112,11 @@ def preprocess(df):
 
     from workflow.calcul_ATMO import ATMO_encoder
     #Réduction de nombre de classes
-    #0 => Classe 1,2,3
+    #0 => Classe 1,2
     #1 => Classe 4
     #2 => Classe 5
     df_daily_cat['ATMO'] = df_daily_cat['ATMO'].apply(ATMO_encoder)
+
 
     #Création d'un dataframe y pour stocker notre indice ATMO (y)
     y = df_daily_cat[['Date_time','ATMO']]
@@ -211,8 +213,70 @@ def preprocess(df):
     df_concat = df_concat.drop(columns=['Date_time'])
 
     #Faire une f-string pour exporter en .csv le dataframe concaténé
-    df_concat.to_csv('../../data/pollution/inputs/Xy_PA75016.csv', index=True)
+    #df_concat.to_csv('../../data/pollution/inputs/Xy_PA75016.csv', index=True)
 
     print("DataFrame is processed, you can play with it !")
+
+    return df_concat
+
+
+
+
+
+def preprocess_without_scaling(df):
+    """Fonction utilisé pour preprocess une station sans la scaler afin de pouvoir faire de la data viz sur cette station
+
+    """
+
+    df = df[:-25]
+
+    # Généralisation du drop des colonnes avec trop de NaN (plus de 30%)
+
+    for element in df.columns:
+        NA_percent = df[element].isna().sum()/len(df) * 100
+        if NA_percent > 30:
+            df = df.drop(columns=element)
+            print(f"You have dropped {element} with {NA_percent} % of NA")
+
+    # Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis (sur X & y)
+    from workflow.daily_basis import mean_max_categorical
+
+    df_daily = mean_max_categorical(df)
+
+    #Calcul de l'ATMO (y)
+    from workflow.calcul_ATMO import general_categorical
+    from workflow.calcul_ATMO import general_ATM0
+
+
+    df_daily_cat = df_daily.copy()
+    df_daily_cat = general_categorical(df_daily_cat)
+    df_daily_cat = general_ATM0(df_daily_cat)
+
+    from workflow.calcul_ATMO import ATMO_encoder
+    #Réduction de nombre de classes
+    #0 => Classe 1,2,3
+    #1 => Classe 4
+    #2 => Classe 5
+    df_daily_cat['ATMO'] = df_daily_cat['ATMO'].apply(ATMO_encoder)
+
+    #Création d'un dataframe y pour stocker notre indice ATMO (y)
+    y = df_daily_cat[['Date_time','ATMO']]
+    y.set_index(y['Date_time'],inplace=True)
+    y = y[['ATMO']]
+
+    #Création d'un dataframe X (X)
+    X = df_daily.copy()
+    X.set_index(X['Date_time'],inplace=True)
+    X = X.drop(columns='Date_time')
+
+    #Concat de X et Y en un seul dataframe
+    df_concat = pd.concat([X, y], axis = 1)
+
+    #Reset de l'index pour avoir le Date_time en colonne et pas en index
+    #Voir pourquoi le reset_index ne fonctionne pas sur la fonction preprocess without scaling
+    df_concat = df_concat.reset_index()
+
+
+    print(f"You have processed{df} without scaling it, now you can play with data viz functions " )
 
     return df_concat
