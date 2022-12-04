@@ -32,14 +32,22 @@ def general_categorical(df):
     return df
 
 # A mettre à jour ou à supprimer ?
-def general_ATM0():
+def general_ATM0(df):
 
-    List_categorical = ["PM25_categorical","PM10_categorical","NO2_categorical","O3_categorical","SO2_categorical"]
+    list_categorical = ["PM25_categorical","PM10_categorical","NO2_categorical","O3_categorical","SO2_categorical"]
+    list_categorical_actual = []
 
+
+
+    for element in df.columns:
+        if element in list_categorical:
+            list_categorical_actual.append(element)
     #on veut appliquer une fonction sur plusieurs élements
     #if
 
-    df["general_Atmo"] = df.max(axis=1)
+    df["ATMO"] = df[list_categorical_actual].max(axis=1)
+
+    return df
 
 def PM25_categorical(x):
 
