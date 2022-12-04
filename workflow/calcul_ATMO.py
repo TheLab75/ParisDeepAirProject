@@ -33,11 +33,12 @@ def general_categorical(df):
 
 # A mettre à jour ou à supprimer ?
 def general_ATM0(df):
-
+    """
+    Fonction pouvant s'appliquer à n'importe quelle station, elle va faire le max des polluants présents dans la station et sortir l'indice ATMO
+    pour la journée
+    """
     list_categorical = ["PM25_categorical","PM10_categorical","NO2_categorical","O3_categorical","SO2_categorical"]
     list_categorical_actual = []
-
-
 
     for element in df.columns:
         if element in list_categorical:
@@ -219,28 +220,33 @@ def pollution_peak_PM25(x):
         return 0
 
 def ATMO_encoder(x):
+    '''
+Permet de réduire le nombre de catégories de l'ATMO de 5 à 3.
+
+Classe 3 : anciennes classes 0 (bon), 1 (moyen), 2 (dégradé), 3 (mauvais)
+
+Classe 4 : ancienne classe 4 (très mauvais)
+
+Classe 5 : ancienne classe 5 (extrêmement mauvais)
 
     '''
-    Permet de réduire le nombre de catégories de l'ATMO de 5 à 3.
-    Classe 3 : anciennes classes 0 (bon), 1 (moyen), 2 (dégradé), 3 (mauvais)
-    Classe 4 : ancienne classe 4 (très mauvais)
-    Classe 5 : ancienne classe 5 (extrêmement mauvais)
-    '''
 
-    if x == 0:
+
+
+    if x==0:
         return 0
 
-    elif  x == 1:
+    elif x==1:
         return 0
 
-    elif x== 2:
-        return 0
-
-    elif x == 3:
-        return 0
-
-    elif x == 4:
+    elif x==2:
         return 1
 
-    else:
+    elif x==3:
+        return 2
+
+    elif x==4:
+        return 2
+
+    elif x==5:
         return 2
