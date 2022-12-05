@@ -228,8 +228,28 @@ def preprocess_without_scaling(df):
             df = df.drop(columns=element)
             print(f"You have dropped {element} with {round(NA_percent,2)}% of NA")
 
+    # A généraliser
+    #df = df.drop(columns=['O3', 'SO2', 'Station_name', 'Station_type'])
+
+    # Call & application de l'imputer (sur X & y)
+    liste_polluant= ["PM25","PM10","NO2","O3","SO2"]
+    num_features=[]
+
+    for element in df.columns:
+        if element in liste_polluant:
+            num_features.append(element)
+
+    num_imputer_normal = make_pipeline(
+        SimpleImputer(strategy='median'))
+
+    preprocessor_imputer = make_column_transformer(
+        (num_imputer_normal, num_features))
+
+    df_preprocessed = pd.DataFrame(preprocessor_imputer.fit_transform(df))
+
+
     # Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis (sur X & y)
-    df_daily = mean_max_categorical(df)
+    df_daily = mean_max_categorical(df_preprocessed)
 
     #Calcul de l'ATMO (y)
     df_daily_cat = df_daily.copy()
