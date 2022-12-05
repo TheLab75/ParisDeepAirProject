@@ -152,8 +152,8 @@ def plot_history(history):
     ax[0].grid(axis="y",linewidth=0.5)
 
     # --- METRICS: accuracy ---
-    ax[1].plot(history.history['accuracy'])
-    ax[1].plot(history.history['val_accuracy'])
+    ax[1].plot(history.history['sparse_categorical_accuracy'])
+    ax[1].plot(history.history['val_sparse_categorical_accuracy'])
     ax[1].set_title('accuracy')
     ax[1].set_ylabel('accuracy')
     ax[1].set_xlabel('Epoch')

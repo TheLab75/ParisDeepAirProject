@@ -30,6 +30,23 @@ def init_model(X_train,y_train):
 
     return model
 
+def init_model_linear(X_train,y_train):
+    model = models.Sequential()
+
+    # LSTM layers
+    model.add(layers.LSTM(units=20, activation='relu', input_shape=X_train[0].shape ,return_sequences=True))
+
+    model.add(layers.LSTM(units=20, activation='relu',return_sequences=True))
+
+    model.add(layers.LSTM(units=10, return_sequences=False))
+
+    model.add(layers.Dense(10, activation='relu'))
+
+    # Predictive Dense Layer
+    model.add(layers.Dense(7, activation='linear'))
+
+    return model
+
 #############################
 # 3 - Compile  #
 #############################
@@ -42,7 +59,18 @@ def compile_model(model):
     opt = optimizers.Adam(learning_rate=lr_schedule)
     model.compile(loss='sparse_categorical_crossentropy',
                   optimizer= opt,
-                  metrics=['accuracy'])
+                  metrics=['sparse_categorical_accuracy'])
+
+    return model
+
+def compile_model_linear(model):
+
+    initial_learning_rate = 0.001
+
+    opt = optimizers.Adam(learning_rate=initial_learning_rate)
+    model.compile(loss='mse',
+                  optimizer= opt,
+                  metrics=['mae'])
 
     return model
 
@@ -61,7 +89,6 @@ def fit_model(model,
 
     es = EarlyStopping(monitor="val_loss",
                        patience=patience,
-                       mode="min",
                        restore_best_weights=True)
 
     history = model.fit(X_train,
@@ -71,7 +98,7 @@ def fit_model(model,
                         batch_size=batch_size,
                         epochs=epochs,
                         callbacks=[es],
-                        verbose=0)
+                        verbose=1)
 
     return model, history
 
