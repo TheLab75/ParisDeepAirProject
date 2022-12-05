@@ -1,8 +1,8 @@
 # Description of the workflow directory
 
 ## Workflow order:
-1. data_retrieval (tbd)
-2. data_cleaning (tbd)
+1. data_retrieval (tbd ?)
+2. data_cleaning (tbd ?)
 3. pipe (à supprimer)
 4. daily_basis (OK)
 5. calcul_ATMO (OK)
