@@ -212,6 +212,9 @@ def plot_pollutant_v2(df,pollutant,period):
 
 
 def weekday_pollutant(df,pollutant):
+    """Plot each day of the week
+
+    """
     df_days = df.copy()
     df_days['weekday_name'] = df_days['weekday_name'].apply(lambda x: calendar.day_name[x])
 
