@@ -2,6 +2,7 @@
 
 #Data path
 LOCAL_DATA_PATH = "../data/pollution/2_Processed/PA75016"
+LOCAL_DATA_PATH_2 = "data/pollution/2_Processed/PA75016"
 
 # Model params
 # Folds
