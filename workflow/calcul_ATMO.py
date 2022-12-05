@@ -229,3 +229,13 @@ def ATMO_encoder(x):
 
     elif x==5:
         return 2
+
+def pollution_peak_PM10(x):
+    '''
+    Permet d'identifier les pics de pollution selon le PM25
+    '''
+
+    if x > 100:
+        return 1
+    else:
+        return 0
