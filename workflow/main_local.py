@@ -57,8 +57,15 @@ y_pred[-1]
 #To update
 if __name__ == '__main__':
     preprocess(raw_df)
-    train_test_split(fold = df, train_test_ratio = TRAIN_TEST_RATIO, input_length = INPUT_LENGTH, horizon = HORIZON)
-    get_X_y()
+    train_test_split(fold = df,
+                     train_test_ratio = TRAIN_TEST_RATIO,
+                     input_length = INPUT_LENGTH,
+                     horizon = HORIZON)
+    get_X_y(fold = df_train,
+            horizon = HORIZON,
+            input_length = INPUT_LENGTH,
+            output_length = OUTPUT_LENGTH,
+            stride = STRIDE)
     cross_validate()
     init_model()
     compile_model()
