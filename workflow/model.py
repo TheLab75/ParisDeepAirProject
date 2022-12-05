@@ -26,7 +26,7 @@ def init_model(X_train,y_train):
     model.add(layers.LSTM(units=20, activation='relu',return_sequences=True))
 
     # Predictive Dense Layer
-    model.add(layers.Dense(4, activation='softmax'))
+    model.add(layers.Dense(3, activation='softmax'))
 
     return model
 
@@ -45,8 +45,6 @@ def compile_model(model):
                   metrics=['accuracy'])
 
     return model
-
-
 
 #############################
 #  4 - Train  #
@@ -109,7 +107,6 @@ def predict(model, X_test):
     Makes a probability prediction for each ATMO class, for each day of the output length
     '''
 
-    #y_pred = np.round(model.predict(X_test),2)
-    y_pred = model.predict(X_test)
+    y_pred = np.round(model.predict(X_test),2)
 
     return y_pred

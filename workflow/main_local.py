@@ -57,6 +57,7 @@ y_pred[-1]
 #To update
 if __name__ == '__main__':
     preprocess(raw_df)
+    cross_validate()
     train_test_split(fold = df,
                      train_test_ratio = TRAIN_TEST_RATIO,
                      input_length = INPUT_LENGTH,
@@ -66,9 +67,8 @@ if __name__ == '__main__':
             input_length = INPUT_LENGTH,
             output_length = OUTPUT_LENGTH,
             stride = STRIDE)
-    cross_validate()
-    init_model()
-    compile_model()
-    fit_model()
-    evaluate_model()
-    predict()
+    init_model(X_train, y_train))
+    compile_model(model)
+    fit_model(model, X_train, y_train)
+    evaluate_model(model, X_test, y_test)
+    predict(model, X_test)

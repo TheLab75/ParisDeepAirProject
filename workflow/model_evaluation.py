@@ -210,7 +210,7 @@ def cross_validate(df: pd.DataFrame):
 
         # 4.1 - Baseline Model
         # =======================================================
-        df, accuracy_baseline = baseline(df)
+        accuracy_baseline = baseline(df)
 
         list_of_accuracy_baseline_model.append(accuracy_baseline)
 
