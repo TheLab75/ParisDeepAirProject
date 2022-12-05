@@ -122,6 +122,13 @@ def preprocess(df):
     X.set_index(X['Date_time'],inplace=True)
     X = X.drop(columns='Date_time')
 
+    # Ajout d'une feature permettant de capturer les périodes de pics extreme du PM2.5
+    # Cependant chaque station ne mesure pas les particules 2.5, il faut réussir à généraliser ce truc,
+    # soit on fait un % de plus par rapport à la valeur de la dernière classe pour chaque polluant genre 10% de plus
+    if "PM25" in X.columns:
+        X["Pollution_peak"] = X["PM25"]
+        X["Pollution_peak"] = X["Pollution_peak"].apply(pollution_peak_PM25)
+
     #Call & application du robust scaler sur les valeurs continues des polluants de X (X)
     preprocessor_scaler = make_pipeline(
     RobustScaler())
@@ -157,6 +164,11 @@ def preprocess(df):
 
     X = X.set_index(df_daily_cat['Date_time'])
 
+    col_list = list(X.columns)
+    print(col_list)
+    col_list[-1] = "Pollution_peak"
+    X.columns = col_list
+
     #Concat de X et Y en un seul dataframe
     df_concat = pd.concat([X, y], axis = 1)
 
@@ -188,13 +200,6 @@ def preprocess(df):
 
     #Application de la fonction covidtime qui va indiquer de façon binaire les périodes de Covid
     df_concat["confinement"]=  df_concat["confinement"].apply(covid_time)
-
-    # Ajout d'une feature permettant de capturer les périodes de pics extreme du PM2.5
-    # Cependant chaque station ne mesure pas les particules 2.5, il faut réussir à généraliser ce truc,
-    # soit on fait un % de plus par rapport à la valeur de la dernière classe pour chaque polluant genre 10% de plus
-    if "PM25" in df_concat.columns:
-        df_concat["Pollution_peak"] = df_concat["PM25"]
-        df_concat["Pollution_peak"] = df_concat["Pollution_peak"].apply(pollution_peak_PM25)
 
     df_concat = df_concat.drop(columns=['day'])
     df_concat = df_concat.drop(columns=['month'])
