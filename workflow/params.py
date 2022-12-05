@@ -27,5 +27,5 @@ HORIZON = 1 # - You want to predict this point HORIZON = 1 day after the last kn
 
 # Train parameters
 batch_size = 32
-epochs = 80
+epochs = 200
 patience = 5
