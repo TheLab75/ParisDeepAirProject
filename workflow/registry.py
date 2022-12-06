@@ -4,11 +4,7 @@ import time
 import pickle
 from tensorflow.keras import models
 
-
-
-
 cluster_list=['Paris_est','Paris_south','Paris_north','Paris_west','Paris_center']
-
 
 def save_model(model=None):
     """
@@ -28,7 +24,6 @@ def save_model(model=None):
     print("\n✅ data saved locally")
 
     return None
-
 
 def load_model(save_copy_locally=False):
     """

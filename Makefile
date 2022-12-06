@@ -4,10 +4,7 @@ reinstall_package:
 	@pip uninstall -y ParisDeepAirProject_install_package || :
 	@pip install -e .
 
-##################### TESTS #####################
-
-
-
+##################### API #####################
 # API
 run_api:
 	uvicorn workflow.api:app --reload

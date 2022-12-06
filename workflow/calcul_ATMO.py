@@ -25,6 +25,7 @@ def general_categorical(df):
 
     return df
 
+# A supprimer ?
 def calcul_ATMO(df):
     """
     Function that calculates the ATMO level

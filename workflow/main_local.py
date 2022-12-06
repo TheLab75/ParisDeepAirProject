@@ -80,28 +80,38 @@ from workflow.registry import load_model
 #    predict(model, X_test)
 
 if __name__ == '__main__':
+
     raw_df = pd.read_csv(f"{LOCAL_DATA_PATH_2}.csv").copy()
+
     df = preprocess(raw_df)
+
     (df_train, df_test)=train_test_split(fold = df,
                     train_test_ratio = TRAIN_TEST_RATIO,
                     input_length = INPUT_LENGTH,
                      horizon = HORIZON)
+
     X_train, y_train = get_X_y(fold = df_train,
                         horizon = HORIZON,
                         input_length = INPUT_LENGTH,
                         output_length = OUTPUT_LENGTH,
                         stride = STRIDE)
+
     X_test, y_test = get_X_y(fold = df_test,
                         horizon = HORIZON,
                         input_length = INPUT_LENGTH,
                         output_length = OUTPUT_LENGTH,
                         stride = STRIDE)
+
     model = init_model(X_train, y_train)
 
     model = compile_model(model)
 
     model, history = fit_model(model, X_train, y_train)
+
     save_model(model)
+
     model = load_model()
+
     metrics= evaluate_model(model[0], X_test, y_test)
+
     y_pred = predict(model[0], X_test)
