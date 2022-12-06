@@ -52,6 +52,7 @@ def preprocess(df):
         if element in liste_polluant:
             num_features.append(element)
 
+
     num_imputer_normal = make_pipeline(
         SimpleImputer(strategy='median'))
 
@@ -60,10 +61,11 @@ def preprocess(df):
 
     df_preprocessed = pd.DataFrame(preprocessor_imputer.fit_transform(df))
 
+
     #df_preprocessed = df_preprocessed.rename(columns={0:"PM25",1:"PM10",2:"NO2"})
     #=> On généralise
 
-    # Vu que Louis à au préalable classer les polluants de chaque station se l'ordre suivant : ["PM25","PM10","NO2","O3","SO2"]
+    # Vu que Louis a, au préalable classer les polluants de chaque station se l'ordre suivant : ["PM25","PM10","NO2","O3","SO2"]
     sorted_list_polluant = []
     for element in df.columns:
         if element in liste_polluant:
@@ -231,6 +233,7 @@ def preprocess_without_scaling(df):
     # A généraliser
     #df = df.drop(columns=['O3', 'SO2', 'Station_name', 'Station_type'])
 
+
     # Call & application de l'imputer (sur X & y)
     liste_polluant= ["PM25","PM10","NO2","O3","SO2"]
     num_features=[]
@@ -238,6 +241,11 @@ def preprocess_without_scaling(df):
     for element in df.columns:
         if element in liste_polluant:
             num_features.append(element)
+
+
+
+    #df = df.set_index(df['Date_time'])
+
 
     num_imputer_normal = make_pipeline(
         SimpleImputer(strategy='median'))
@@ -248,12 +256,50 @@ def preprocess_without_scaling(df):
     df_preprocessed = pd.DataFrame(preprocessor_imputer.fit_transform(df))
 
 
+    sorted_list_polluant = []
+    for element in df.columns:
+        if element in liste_polluant:
+            sorted_list_polluant.append(element)
+
+    # On doit faire une condition avec la taille de la liste des polluants présents dans le df
+    if len(sorted_list_polluant) == 1:
+        df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0]})
+
+    elif len(sorted_list_polluant) == 2:
+        df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0],
+                                                        1:sorted_list_polluant[1]})
+
+    elif len(sorted_list_polluant) == 3:
+        df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0],
+                                                        1:sorted_list_polluant[1],
+                                                        2:sorted_list_polluant[2]})
+
+    elif len(sorted_list_polluant) == 4:
+        df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0],
+                                                        1:sorted_list_polluant[1],
+                                                        2:sorted_list_polluant[2],
+                                                        3:sorted_list_polluant[3]})
+
+    elif len(sorted_list_polluant) == 5:
+        df_preprocessed = df_preprocessed.rename(columns={0:sorted_list_polluant[0],
+                                                        1:sorted_list_polluant[1],
+                                                        2:sorted_list_polluant[2],
+                                                        3:sorted_list_polluant[3],
+                                                        4:sorted_list_polluant[4]})
+
+    df_preprocessed = df_preprocessed.set_index(df['Date_time'])
+
+    print(df_preprocessed)
+
+
     # Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis (sur X & y)
     df_daily = mean_max_categorical(df_preprocessed)
 
     #Calcul de l'ATMO (y)
     df_daily_cat = df_daily.copy()
+
     df_daily_cat = general_categorical(df_daily_cat)
+
     df_daily_cat = general_ATM0(df_daily_cat)
 
     #Réduction de nombre de classes
@@ -279,6 +325,6 @@ def preprocess_without_scaling(df):
     #Voir pourquoi le reset_index ne fonctionne pas sur la fonction preprocess without scaling
     df_concat = df_concat.reset_index()
 
-    print(f"You have processed {df} without scaling it, now you can play with data viz functions " )
+    print(f"You have processed the dataframe without scaling it, now you can play with data viz functions " )
 
     return df_concat

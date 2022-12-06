@@ -102,6 +102,8 @@ def covid_time(x):
     1 la date est dans une période de confinement.
     0 sinon.
     '''
+    #x = x.astype(str)[:10]
+    #x = datetime.datetime.strptime(x,"%Y-%d-%m")
 
     debut_confinement_1 = datetime.datetime.strptime('2020-16-03', "%Y-%d-%m")
     fin_confinement_1 = datetime.datetime.strptime('2020-11-05', "%Y-%d-%m")
