@@ -103,5 +103,5 @@ if __name__ == '__main__':
     model, history = fit_model(model, X_train, y_train)
     save_model(model)
     model = load_model()
-    metrics= evaluate_model(model, X_test, y_test)
-    y_pred = predict(model, X_test)
+    metrics= evaluate_model(model[0], X_test, y_test)
+    y_pred = predict(model[0], X_test)
