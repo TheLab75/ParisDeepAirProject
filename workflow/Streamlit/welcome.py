@@ -25,8 +25,8 @@ st.sidebar.success("Select a demo above.")
 st.markdown(
     """
     Paris_Deepair is an open-source application framework built specifically for Parisian citizens to find out the air quality in Paris up to 7 days in advance with an overall accuracy rate of 80%.
-    **👈 Select a demo from the sidebar** to see some examples
-    of what Streamlit can do!
+
+
     ### Want to learn more?
     - Check out [Atmo-France](https://www.atmo-france.org/article/lindice-atmo)
     - Other provider [The air quality observatory in Île-de-France](https://www.airparif.asso.fr/accueil-airparif)

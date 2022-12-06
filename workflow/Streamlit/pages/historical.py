@@ -1,6 +1,12 @@
 import streamlit as st
 import datetime
 import requests
+import plotly.figure_factory as ff
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+
 
 #Imports de base
 import pandas as pd
@@ -10,13 +16,21 @@ import calendar
 
 st.title('What is the historical evolution of the pollution in paris ?')
 
+from streamlit_extras.app_logo import add_logo
+
+
+
+add_logo("http://placekitten.com/120/120")
+st.write("👈 Check out the cat in the nav-bar!")
+
+
 
 
 with st.form(key='params_for_api'):
 
    station = st.selectbox(
         'Select a station  ?',
-        ('16', 'South', 'West','Est','Center'))
+        ('Paris-16', 'Paris South', 'Paris West','Paris East','Paris Center'))
    polluant = st.selectbox(
         'Select a polluant / ATMO ?',
         ('PM25', 'PM10', 'NO2','O3','SO2','ATMO'))
@@ -27,17 +41,17 @@ with st.form(key='params_for_api'):
                         ('month','week'))
 
 
-   st.write('You selected the area of paris:',station)
-   st.write('You selected the polluant:',polluant)
-   st.write('You selected the year:',year)
-   st.write(f'You selected the {scale} scale')
+#    st.write('You selected the area of paris:',station)
+#    st.write('You selected the polluant:',polluant)
+#    st.write('You selected the year:',year)
+#    st.write(f'You selected the {scale} scale')
    st.form_submit_button('reload')
 
 
 
 
 #Data frame de Base
-if station == "16":
+if station == "Paris-16":
     df = pd.read_csv("data/pollution/2_Processed/PA75016.csv")
     st.dataframe(df,200,20)
     st.write('You selected the station :', station )
@@ -63,54 +77,93 @@ if scale == 'month':
         df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
         df_ready_for_data_viz['month'] = df_ready_for_data_viz['month'].apply(lambda x: calendar.month_abbr[x])
 
-        plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
+        df_mean_all_year = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
+
+
+
+        plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-light.mplstyle')
 
         if year == "2018":
             fig = plt.figure(figsize=(10,5))
             sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:12],
                         marker = "o",label="2018").set_title(f"{polluant} Mean per month per Year")
 
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
+
         if year == "2019":
             fig = plt.figure(figsize=(10,5))
             sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[12:24],
                         marker = "o",label="2019").set_title(f"{polluant} Mean per month per Year")
+
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
+
         if year == "2020":
             fig = plt.figure(figsize=(10,5))
             sns.lineplot(x = scale, y =polluant, data=df_ready_for_data_viz.iloc[24:36],
                         marker = "o",label="2020").set_title(f"{polluant} Mean per month per Year")
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
         if year == "2021":
             fig = plt.figure(figsize=(10,5))
             sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[36:48],
                         marker = "o",label="2021").set_title(f"{polluant} Mean per month per Year")
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
         if year == "2022":
             fig = plt.figure(figsize=(10,5))
             sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[48:58],
                         marker = "o",label="2022").set_title(f"{polluant} Mean per month per Year")
 
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
 if scale == "week":
     df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
+
+    df_mean_all_week = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
+
 
     if year == "2018":
         fig = plt.figure(figsize=(10,5))
         sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
                     marker = "o",label="2018").set_title(f"{polluant} Mean per week per Year")
 
+        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
     if year == "2019":
         fig = plt.figure(figsize=(10,5))
         sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[52:104],
                     marker = "o",label="2019").set_title(f"{polluant} Mean per week per Year")
+        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
     if year == "2020":
         fig = plt.figure(figsize=(10,5))
         sns.lineplot(x = scale, y =polluant, data=df_ready_for_data_viz.iloc[104:156],
                     marker = "o",label="2020").set_title(f"{polluant} Mean per week per Year")
+        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
     if year == "2021":
         fig = plt.figure(figsize=(10,5))
         sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[156:208],
                     marker = "o",label="2021").set_title(f"{polluant} Mean per week per Year")
+        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
     if year == "2022":
         fig = plt.figure(figsize=(10,5))
         sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[208:255],
                     marker = "o",label="2022").set_title(f"{polluant} Mean per week per Year")
+        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                        marker = "o",label="Mean per month of all years",c="orange")
 
 
 st.pyplot(fig)
@@ -123,8 +176,10 @@ if polluant == "ATMO":
         st.write("")
 
     with col2:
-        image = "pages/index ATMO.jpg"
 
+        #from PIL import Image
+        #image = Image.open("pages/index ATMO.jpg")
+        image = 'workflow/Streamlit/index ATMO.jpg'
         st.image(image, caption='ATMO Index')
 
     with col3:
@@ -138,21 +193,56 @@ if polluant != 'ATMO':
         st.write("")
 
     with col2:
-        image = "pages/grille polluant ATMO.jpg"
+        # from PIL import Image
+        # image = Image.open("pages/grille polluant ATMO.jpg")
+        #image = "pages/grille polluant ATMO.jpg"
+        st.image("https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg",caption='ATMO Index')
+        #st.image(image, caption='ATMO Index')
 
-        st.image(image, caption='ATMO Index')
 
     with col3:
         st.write("")
 
+from streamlit_extras.stodo import to_do
+
+to_do(
+    [(st.write, "❤️ Index ATMO")],
+    "index ATMO ",
+)
+
+
+from streamlit_extras.metric_cards import style_metric_cards
+
+col1, col2, col3 = st.columns(3)
+col1.metric(label="ATMO INDEX ", value=" ✅ Great",delta=-1)
+col2.metric(label="Loss", value=5000, delta=-1000)
+col3.metric(label="No Change", value=5000, delta=0)
+style_metric_cards()
 
 
 
+if scale == "week":
+    df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
+
+    df_mean_all_week = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
 
 
-# Maintenant on veut afficher un index ATMO
+    if year == "2018":
 
-# from PIL import Image
-# image = "pages/index ATMO.jpg"
+        #sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
+                    #marker = "o",label="2018").set_title(f"{polluant} Mean per week per Year")
 
-# st.image(image, caption='ATMO Index')
+        #fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+        fig = px.bar(df_ready_for_data_viz.iloc[:52],x =scale, y = polluant,template= 'seaborn')
+        fig.update_traces(marker_color = 'blue')
+
+        #fig.add_trace(px.line(df_mean_all_week,x=scale,y=polluant))
+
+        #fig = px.line(df_mean_all_week,x=scale,y=polluant)
+
+
+        # sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+        #                 marker = "o",label="Mean per month of all years",c="orange")
+
+        st.plotly_chart(fig, use_container_width=True)

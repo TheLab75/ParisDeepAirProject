@@ -32,7 +32,7 @@ def preprocess(df):
     # Suppression des journées du 14/11/2022 et du 15/11/2022 (car incomplètes)
     # Suppression des colonnes station name & station type
     df = df[:-25]
-    df = df.drop(columns=['Station_name', 'Station_type'])
+    #df = df.drop(columns=['Station_name', 'Station_type'])
 
     # Généralisation du drop des colonnes avec trop de NaN (plus de 30%)
     for element in df.columns:
@@ -289,7 +289,7 @@ def preprocess_without_scaling(df):
 
     df_preprocessed = df_preprocessed.set_index(df['Date_time'])
 
-    print(df_preprocessed)
+
 
 
     # Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis (sur X & y)
