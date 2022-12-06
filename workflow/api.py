@@ -4,8 +4,9 @@ import pandas as pd
 from fastapi import FastAPI
 
 from fastapi.middleware.cors import CORSMiddleware
-
-
+from workflow.registry import load_model
+from workflow.model import predict
+from workflow.preprocessing import preprocess
 
 app = FastAPI()
 
@@ -23,36 +24,26 @@ app.add_middleware(
 #app.state.model = load_model()
 
 from workflow.model import predict
+
+
+@app.get("/")
+def root():
+    return dict(greeting="Hello")
+
+
+app.state.model = load_model()
 @app.get("/predict")
-def predict_1(X_test):
+def model_predict(model = None, X_new=None):
+    cluster_list=['Paris_est','Paris_south',
+                   'Paris_north','Paris_west','Paris_center']
 
-    y_pred = predict(X_test)
-
-    return dict(prédiction=(y_pred))
-
-
-from workflow.data_viz import plot_pollutant_v1
-from workflow.data_viz import plot_pollutant_v2
-from workflow.data_viz import weekday_pollutant
-from workflow.data_viz import plot_shift_pollutant
-
-@app.get("/data_viz")
-def data_viz(df,pollutant,period,choice_of_plot,year):
-    #On doit faire choisir à l'utilisateur la station
-    #Puis lui montrer dans une liste déroulante, les polluants disponibles
-
-    if choice_of_plot == "All in one graph":
-        plot = plot_pollutant_v1(df,pollutant,period)
-
-    elif choice_of_plot == "1 graph for one year":
-        plot = plot_pollutant_v2(df,pollutant,period)
-
-    elif choice_of_plot == " Week day":
-        plot = weekday_pollutant(df,pollutant)
-
-    elif choice_of_plot == "Shifting":
-        #on doit faire sélectionenr à l'utilisateur une année afin de plot l'année sélectionnée
-        plot = plot_shift_pollutant(df,year)
-
-
-    return dict(plot_1 = plot)
+    X_preprocess = preprocess(X_new)
+    result = {}
+    if model != None:
+        model_index = cluster_list.index(model)
+        specific_model = app.state.model[model_index]
+        result[model] = specific_model.predict(X_new)
+    else:
+        for i,v in enumerate(cluster_list):
+            result[v]=app.state.model[i].predict(i,X_new)
+    return result
