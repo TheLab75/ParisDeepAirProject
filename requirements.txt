@@ -32,8 +32,10 @@ tensorflow-macos==2.10.0; sys_platform == 'darwin' and 'ARM' in platform_version
 tensorflow==2.10.0; sys_platform == 'darwin' and 'ARM' not in platform_version # Mac Intel chips
 tensorflow==2.10.0; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
 
-# Facebook prophet
-greykite
 # Facebook prophet - Complement package for Windows only
-cmake; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
 pystan; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
+
+# Facebook prophet
+Cmake
+greykite
+prophet
