@@ -18,18 +18,15 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-
 #On va load le modèle pour que l'API soit plus réactive
 
 #app.state.model = load_model()
 
 from workflow.model import predict
 
-
 @app.get("/")
 def root():
     return dict(greeting="Hello")
-
 
 app.state.model = load_model()
 @app.get("/predict")

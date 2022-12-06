@@ -1,4 +1,5 @@
 # Python file containing all the code to convert datasets from an hourly-basis to a daily-basis
+
 import pandas as pd
 
 def mean_max_categorical(df):

@@ -6,6 +6,5 @@ def baseline(df):
     y_baseline = df_baseline['ATMO_baseline'][8:] #take off the 7 first values to drop nan
     y_true = df_baseline['ATMO'][8:] #take off the 7 first values to drop nan
     accuracy = accuracy_score(y_true, y_baseline) # use accuracy modul from sklearn
-#    df_baseline = df_baseline.drop(columns = ['ATMO_baseline'])
 
     return accuracy

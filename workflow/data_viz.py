@@ -37,7 +37,6 @@ def data_viz(df):
         # df["J-6"] = df["PM25"].shift(6)
         # df["J-7"] = df["PM25"].shift(7)
 
-
     return df
 
 def plot_pollutant_v1(df,pollutant,period):
@@ -48,9 +47,7 @@ def plot_pollutant_v1(df,pollutant,period):
     #Création d'un dataframe groupé par année et par la période indiquée en input
     df_groupby = df.groupby(by=["year",period],as_index=False).mean()
 
-
     #df_all_month = df.groupby(by=["year","month"],as_index=False).mean()
-
 
     if period == "month":
 
@@ -77,8 +74,6 @@ def plot_pollutant_v1(df,pollutant,period):
         sns.lineplot(x = period, y = pollutant, data=df_groupby.iloc[48:58],
                     marker = "o",label="2022").set_title(f"{pollutant} Mean per month per Year")
 
-
-
         # ax1.text("Apr",58,"1er Confinement",
 
         # fontsize = 7,          # Size
@@ -86,7 +81,6 @@ def plot_pollutant_v1(df,pollutant,period):
         # color = "white",          # Color
         # ha = "center", # Horizontal alignment
         # va = "center") # Vertical alignment
-
 
         # ax1.text("Nov",58,"2ème Confinement",
         # fontsize = 7,          # Size
@@ -107,10 +101,8 @@ def plot_pollutant_v1(df,pollutant,period):
 
         plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
 
-
         sns.lineplot(x = period, y = pollutant, data=df_groupby.iloc[:52],
                     marker = "o",label="2018")
-
 
         sns.lineplot(x = period, y = pollutant, data=df_groupby.iloc[53:104],
                     marker = "o",label="2019")
@@ -137,7 +129,6 @@ def plot_pollutant_v2(df,pollutant,period):
 
     #Création d'un dataframe groupé par année et par la période indiquée par l'utilisateur
     df_groupby = df.groupby(by=["year",period],as_index=False).mean()
-
 
     if period == "month":
 
@@ -199,7 +190,6 @@ def plot_pollutant_v2(df,pollutant,period):
             sns.lineplot(ax=axes[4],x = period, y = pollutant, data=df_groupby.iloc[208:255],
                     marker = "o",label="2022",color="orange")
 
-
     #Faire un plot de la moyenne à l'année pour ensuite comparer
     plt.show()
 
@@ -217,7 +207,6 @@ def weekday_pollutant(df,pollutant):
     plt.show()
 
     return
-
 
 def plot_shift_pollutant(df,pollutant, year):
     """Plot any pollutant with a shifting of 7 days over any year
@@ -267,7 +256,6 @@ def plot_shift_pollutant(df,pollutant, year):
         df["J-6"] = df["SO2"].shift(6)
         df["J-7"] = df["SO2"].shift(7)
 
-
     #Drop des NA des 7 premiers jours
     df = df.dropna()
 
@@ -301,7 +289,6 @@ def plot_shift_pollutant(df,pollutant, year):
     elif year == "2022":
         sns.lineplot( x = "Date_time", y = "mean_shift", data=df[1430:1795],
              marker = "o",label="2022",color = "red")
-
 
     plt.show()
     return

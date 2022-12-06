@@ -14,9 +14,6 @@ from workflow.calcul_ATMO import general_categorical
 #from workflow.calcul_ATMO import calcul_ATMO
 from workflow.calcul_ATMO import general_ATM0
 
-#from workflow.pipe import preprocessor_imputer
-#from workflow.pipe import preprocessor_scaler
-
 from workflow.calcul_ATMO import pollution_peak_PM25, ATMO_encoder
 from workflow.utils import covid_time
 
@@ -29,9 +26,10 @@ def preprocess(df):
     5 -
     """
 
-    # Suppression des journées du 14/11/2022 et du 15/11/2022 (car incomplètes)
-    # Suppression des colonnes station name & station type
+    # Suppression des journées des J-1 et J-2 (car incomplètes)
     df = df[:-25]
+
+    # Suppression des colonnes station name & station type
     #df = df.drop(columns=['Station_name', 'Station_type'])
 
     # Généralisation du drop des colonnes avec trop de NaN (plus de 30%)
@@ -59,7 +57,6 @@ def preprocess(df):
         (num_imputer_normal, num_features))
 
     df_preprocessed = pd.DataFrame(preprocessor_imputer.fit_transform(df))
-
 
     #df_preprocessed = df_preprocessed.rename(columns={0:"PM25",1:"PM10",2:"NO2"})
     #=> On généralise
@@ -233,7 +230,6 @@ def preprocess_without_scaling(df):
     # A généraliser
     #df = df.drop(columns=['O3', 'SO2', 'Station_name', 'Station_type'])
 
-
     # Call & application de l'imputer (sur X & y)
     liste_polluant= ["PM25","PM10","NO2","O3","SO2"]
     num_features=[]
@@ -251,7 +247,6 @@ def preprocess_without_scaling(df):
         (num_imputer_normal, num_features))
 
     df_preprocessed = pd.DataFrame(preprocessor_imputer.fit_transform(df))
-
 
     sorted_list_polluant = []
     for element in df.columns:
@@ -285,9 +280,6 @@ def preprocess_without_scaling(df):
                                                         4:sorted_list_polluant[4]})
 
     df_preprocessed = df_preprocessed.set_index(df['Date_time'])
-
-
-
 
     # Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis (sur X & y)
     df_daily = mean_max_categorical(df_preprocessed)

@@ -1,6 +1,6 @@
-#############################
+#################################
 #  1 - Imports  #
-#############################
+#################################
 
 import numpy as np
 from tensorflow.keras import models, layers, optimizers
@@ -9,9 +9,9 @@ from tensorflow.keras.callbacks import EarlyStopping
 from workflow.utils import simple_time_and_memory_tracker
 from workflow.params import batch_size, epochs, patience
 
-#############################
-#  2 - Model  #
-#############################
+#################################
+#  2.1 - Model - Classification #
+#################################
 
 def init_model(X_train,y_train):
     model = models.Sequential()
@@ -30,6 +30,10 @@ def init_model(X_train,y_train):
 
     return model
 
+#################################
+#  2.2 - Model - Regression #
+#################################
+
 def init_model_linear(X_train,y_train):
     model = models.Sequential()
 
@@ -47,9 +51,9 @@ def init_model_linear(X_train,y_train):
 
     return model
 
-#############################
-# 3 - Compile  #
-#############################
+#################################
+# 3 - Compile - Classification  #
+#################################
 
 def compile_model(model):
 
@@ -63,6 +67,10 @@ def compile_model(model):
 
     return model
 
+#################################
+# 3 - Compile - Regression #
+#################################
+
 def compile_model_linear(model):
 
     initial_learning_rate = 0.001
@@ -74,9 +82,9 @@ def compile_model_linear(model):
 
     return model
 
-#############################
+#################################
 #  4 - Train  #
-#############################
+#################################
 
 @simple_time_and_memory_tracker
 def fit_model(model,
@@ -102,9 +110,9 @@ def fit_model(model,
 
     return model, history
 
-#############################
+#################################
 #  5 - Evaluate #
-#############################
+#################################
 
 def evaluate_model(model,
                    X_test,
@@ -125,9 +133,9 @@ def evaluate_model(model,
 
     return metrics
 
-#############################
+#################################
 #  6 - Predict #
-#############################
+#################################
 
 def predict(model, X_test):
     '''
