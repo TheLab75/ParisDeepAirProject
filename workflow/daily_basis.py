@@ -10,7 +10,10 @@ def mean_max_categorical(df):
 
     # Convertir la colonne Date_time en date
     df = df.reset_index()
-    df['Date_time'] = df['Date_time'].astype(str).str[0:10]
+    #df.loc[:]["Date_time"] = df.loc[:]['Date_time'].astype(str).str[0:10].copy()
+
+
+    df["Date_time"] = df['Date_time'].astype(str).str[0:10].copy()
 
     # Ici on groupby par date pour les colonnes liées aux particules qui sont calculées en réalisant une moyenne journalière
     list_PM = ["PM25","PM10"]
