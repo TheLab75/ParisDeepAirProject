@@ -32,7 +32,7 @@ def preprocess(df):
     # Suppression des journées du 14/11/2022 et du 15/11/2022 (car incomplètes)
     # Suppression des colonnes station name & station type
     df = df[:-25]
-    df = df.drop(columns=['Station_name', 'Station_type'])
+    #df = df.drop(columns=['Station_name', 'Station_type'])
 
     # Généralisation du drop des colonnes avec trop de NaN (plus de 30%)
     for element in df.columns:
@@ -51,7 +51,6 @@ def preprocess(df):
     for element in df.columns:
         if element in liste_polluant:
             num_features.append(element)
-
 
     num_imputer_normal = make_pipeline(
         SimpleImputer(strategy='median'))
@@ -131,45 +130,46 @@ def preprocess(df):
         X["Pollution_peak"] = X["PM25"]
         X["Pollution_peak"] = X["Pollution_peak"].apply(pollution_peak_PM25)
 
-    #Call & application du robust scaler sur les valeurs continues des polluants de X (X)
-    preprocessor_scaler = make_pipeline(
-    RobustScaler())
+    # Code du scaler, à activer si modèle régression ou classification, à désactiver si Facebook prophet
+    # #Call & application du robust scaler sur les valeurs continues des polluants de X (X)
+    # preprocessor_scaler = make_pipeline(
+    # RobustScaler())
 
-    X = pd.DataFrame(preprocessor_scaler.fit_transform(X))
+    # X = pd.DataFrame(preprocessor_scaler.fit_transform(X))
 
-    #X = X.rename(columns={0:"PM25",1:"PM10",2:"NO2"})
+    # #X = X.rename(columns={0:"PM25",1:"PM10",2:"NO2"})
 
-    if len(sorted_list_polluant) == 1:
-        X = X.rename(columns={0:sorted_list_polluant[0]})
+    # if len(sorted_list_polluant) == 1:
+    #     X = X.rename(columns={0:sorted_list_polluant[0]})
 
-    elif len(sorted_list_polluant) == 2:
-        X = X.rename(columns={0:sorted_list_polluant[0],
-                              1:sorted_list_polluant[1]})
+    # elif len(sorted_list_polluant) == 2:
+    #     X = X.rename(columns={0:sorted_list_polluant[0],
+    #                           1:sorted_list_polluant[1]})
 
-    elif len(sorted_list_polluant) == 3:
-        X = X.rename(columns={0:sorted_list_polluant[0],
-                              1:sorted_list_polluant[1],
-                              2:sorted_list_polluant[2]})
+    # elif len(sorted_list_polluant) == 3:
+    #     X = X.rename(columns={0:sorted_list_polluant[0],
+    #                           1:sorted_list_polluant[1],
+    #                           2:sorted_list_polluant[2]})
 
-    elif len(sorted_list_polluant) == 4:
-        X = X.rename(columns={0:sorted_list_polluant[0],
-                              1:sorted_list_polluant[1],
-                              2:sorted_list_polluant[2],
-                              3:sorted_list_polluant[3]})
+    # elif len(sorted_list_polluant) == 4:
+    #     X = X.rename(columns={0:sorted_list_polluant[0],
+    #                           1:sorted_list_polluant[1],
+    #                           2:sorted_list_polluant[2],
+    #                           3:sorted_list_polluant[3]})
 
-    elif len(sorted_list_polluant) == 5:
-        X = X.rename(columns={0:sorted_list_polluant[0],
-                              1:sorted_list_polluant[1],
-                              2:sorted_list_polluant[2],
-                              3:sorted_list_polluant[3],
-                              4:sorted_list_polluant[4]})
+    # elif len(sorted_list_polluant) == 5:
+    #     X = X.rename(columns={0:sorted_list_polluant[0],
+    #                           1:sorted_list_polluant[1],
+    #                           2:sorted_list_polluant[2],
+    #                           3:sorted_list_polluant[3],
+    #                           4:sorted_list_polluant[4]})
 
-    X = X.set_index(df_daily_cat['Date_time'])
+    # X = X.set_index(df_daily_cat['Date_time'])
 
-    col_list = list(X.columns)
-    print(col_list)
-    col_list[-1] = "Pollution_peak"
-    X.columns = col_list
+    # col_list = list(X.columns)
+    # print(col_list)
+    # col_list[-1] = "Pollution_peak"
+    # X.columns = col_list
 
     #Concat de X et Y en un seul dataframe
     df_concat = pd.concat([X, y], axis = 1)
@@ -177,7 +177,7 @@ def preprocess(df):
     #Faire une f-string pour automatiser
     # df_concat.to_csv('../../data/pollution/inputs/Xy_PA75016.csv', index=True)
 
-    #Reset de l'index pour le cyclical engineering
+    #Récupération de la colonne "Date_time" en faisant reset de l'index pour le cyclical engineering
     df_concat = df_concat.reset_index()
 
     #Passage en date time puis création de deux colonnes : 1 pour le mois et 1 pour les jours de la semaine
@@ -242,10 +242,7 @@ def preprocess_without_scaling(df):
         if element in liste_polluant:
             num_features.append(element)
 
-
-
     #df = df.set_index(df['Date_time'])
-
 
     num_imputer_normal = make_pipeline(
         SimpleImputer(strategy='median'))
