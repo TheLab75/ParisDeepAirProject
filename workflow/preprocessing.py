@@ -286,7 +286,7 @@ def preprocess_without_scaling(df):
 
     df_preprocessed = df_preprocessed.set_index(df['Date_time'])
 
-    print(df_preprocessed)
+
 
 
     # Passage d'un format horaire à un format journalier avec la fonction du fichier daily basis (sur X & y)
