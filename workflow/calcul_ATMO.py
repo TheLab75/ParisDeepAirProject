@@ -238,5 +238,6 @@ def pollution_peak_PM10(x):
 
     if x > 100:
         return 1
+
     else:
         return 0
