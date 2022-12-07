@@ -35,18 +35,20 @@ for uploaded_file in uploaded_files:
 
 with st.form(key='params_for_api'):
 
-   station = st.selectbox(
+    station = st.selectbox(
         'Select a station  ?',
         ('Paris 16','Paris North', 'Paris South', 'Paris West','Paris East','Paris Center'))
 
-   polluant = st.selectbox(
+    df = pd.read_csv
+
+    polluant = st.selectbox(
         'Select a polluant / ATMO ?',
         ('PM25', 'PM10', 'NO2','O3','SO2','ATMO'))
 
-   year = st.selectbox('Select a year'
+    year = st.selectbox('Select a year'
                        ,('2018', '2019', '2020','2021','2022',"2018-2022"))
 
-   scale = st.selectbox('Select a scale',
+    scale = st.selectbox('Select a scale',
                         ('month','week'))
 
 
@@ -54,31 +56,51 @@ with st.form(key='params_for_api'):
 #    st.write('You selected the polluant:',polluant)
 #    st.write('You selected the year:',year)
 #    st.write(f'You selected the {scale} scale')
-   st.form_submit_button('reload')
-
+    st.form_submit_button('reload')
 
 
 
 #Data frame de Base
 if station == "Paris 16":
-    df = pd.read_csv("data/pollution/2_Processed/PA75016.csv")
-    st.dataframe(df,200,20)
-    st.write('You selected the station :', station )
+    element = "PA75016"
+    df = pd.read_csv("data/data/pollution/2_Processed/"f"{element}"".csv")
+    # st.dataframe(df,200,20)
+    # st.write('You selected the station :', station )
 
+if station == "Paris North":
+    element = "cluster2_Nord"
+    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
+
+
+if station == "Paris South":
+    element = "cluster4_Sud"
+    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
+
+if station == "Paris West":
+    element = "cluster1_Ouest"
+    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
+
+if station == "Paris East":
+    element = "cluster3_Est"
+    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
+
+if station == "Paris Center":
+    element = "cluster5_Centre"
+    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
 
 #Preprocess du dataframe sans scaling
 from workflow.preprocessing import preprocess_without_scaling
 
-st.write('Now you will see the effects of processing WOW ! 🥵' )
-#Voir pourquoi l'imputer ne fonctionne pas ici
+# st.write('Now you will see the effects of processing WOW ! 🥵' )
+# #Voir pourquoi l'imputer ne fonctionne pas ici
 df_preprocessed_without_scaling = preprocess_without_scaling(df)
-st.dataframe(df_preprocessed_without_scaling,200, 20)
+# st.dataframe(df_preprocessed_without_scaling,200, 20)
 
 
 from workflow.data_viz import data_viz
-st.write('Your dataframe will be ready for data viz ! 🥵' )
+# st.write('Your dataframe will be ready for data viz ! 🥵' )
 df_ready_for_data_viz = data_viz(df_preprocessed_without_scaling)
-st.dataframe(df_ready_for_data_viz,200, 20)
+# st.dataframe(df_ready_for_data_viz,200, 20)
 
 
 if scale == 'month':
@@ -136,7 +158,7 @@ if scale == 'month':
         if year =="2018-2022":
             fig = plt.figure(figsize=(10,5))
             sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz,
-                        marker = "o",label="2022").set_title(f"{polluant} Mean per month between 2018-2022")
+                        marker = "o",label="2018-2022").set_title(f"{polluant} Mean per month between 2018-2022")
 
             sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
                         marker = "o",label="Mean per month of all years",c="orange")
@@ -230,29 +252,28 @@ if polluant != 'ATMO':
     with col3:
         st.write("")
 
-from streamlit_extras.stodo import to_do
+# from streamlit_extras.stodo import to_do
 
-to_do(
-    [(st.write, "❤️ Index ATMO")],
-    "index ATMO ",
-)
+# to_do(
+#     [(st.write, "❤️ Index ATMO")],
+#     "index ATMO ",)
 
 
-from streamlit_extras.metric_cards import style_metric_cards
+# from streamlit_extras.metric_cards import style_metric_cards
 
-col1, col2, col3,col4 = st.columns(4)
-col1.metric(label="ATMO J+1 ", value=" ✅ Great",delta=-1)
-col2.metric(label="ATMO J+2", value=5000, delta=-1000)
-col3.metric(label="ATMO J+3", value=5000, delta=0)
-col4.metric(label="ATMO J+4",value="🚫 Bad ",delta =-1 )
+# col1, col2, col3,col4 = st.columns(4)
+# col1.metric(label="ATMO J+1 ", value=" ✅ Great",delta=-1)
+# col2.metric(label="ATMO J+2", value=5000, delta=-1000)
+# col3.metric(label="ATMO J+3", value=5000, delta=0)
+# col4.metric(label="ATMO J+4",value="🚫 Bad ",delta =-1 )
 
-style_metric_cards()
+# style_metric_cards()
 
-col5,col6,col7=  st.columns(3)
-col5.metric(label="ATMO J+5",value="🚫 Bad ",delta =-1 )
-col6.metric(label="ATMO J+6",value="🚫 Bad ",delta =-1 )
-col7.metric(label="ATMO J+7",value="🚫 Bad ",delta =-1 )
-style_metric_cards()
+# col5,col6,col7=  st.columns(3)
+# col5.metric(label="ATMO J+5",value="🚫 Bad ",delta =-1 )
+# col6.metric(label="ATMO J+6",value="🚫 Bad ",delta =-1 )
+# col7.metric(label="ATMO J+7",value="🚫 Bad ",delta =-1 )
+# style_metric_cards()
 
 
 
