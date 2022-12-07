@@ -14,11 +14,13 @@ from pathlib import Path
 
 
 
-# PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
-os.path.direname(os.path.abspath(__file__))
-PATH = os.environ.get("LOCAL_PATH")
+PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
 
-cluster_list=['Paris_est','Paris_south','Paris_north','Paris_west','Paris_center']
+
+#os.path.direname(os.path.abspath(__file__))
+#PATH = os.environ.get("LOCAL_PATH")
+
+cluster_list=['Paris_east','Paris_south','Paris_north','Paris_west','Paris_center']
 
 def save_model(forecaster) -> None:
 
@@ -50,16 +52,16 @@ def save_model(forecaster) -> None:
 
 def load_model(save_copy_locally=False):
 
-
+    cluster_list_2 = ["cluster1_Ouest","cluster2_Nord","cluster3_Est","cluster4_Sud","cluster5_Centre"]
     list_model= []
-    for cluster in cluster_list:
-        source_dir = os.path.join(f"{PATH}",'model_save','models',f"{cluster}")
-        return source_dir
-        # forecaster = Forecaster()
-        # forecaster.load_forecast_result(source_dir,load_design_info=True)
-        # result = forecaster.forecast_result
-        # list_model.append(result)
 
+    for cluster in cluster_list_2:
+        source_dir = os.path.join(f"{PATH}",'model_greykite',f"{cluster}")
+
+        forecaster = Forecaster()
+        forecaster.load_forecast_result(source_dir,load_design_info=True)
+        result = forecaster.forecast_result
+        list_model.append(result)
 
     return list_model
 
@@ -137,4 +139,3 @@ if __name__ == '__main__':
 
 # if __name__ == '__main__':
 #     print(type(load_model()))
-
