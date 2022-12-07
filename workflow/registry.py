@@ -12,33 +12,28 @@ from greykite.framework.templates.forecaster import Forecaster
 import numpy as np
 from pathlib import Path
 
-LOCAL_REGISTRY_PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
+# LOCAL_REGISTRY_PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
+LOCAL_REGISTRY_PATH = os.environ.get("LOCAL_DATA_PATH","error")
 
 cluster_list=['Paris_est','Paris_south','Paris_north','Paris_west','Paris_center']
 
-def save_model(forecaster):
 
+def save_model(forecaster) -> None:
 
     for cluster in cluster_list:
 
 
-        from pathlib import Path
-
-        # # Create the LOCAL_REGISTRY_PATH directory if it does exist
-        # Path(LOCAL_REGISTRY_PATH).mkdir(parents=True, exist_ok=True)
-        # timestamp = time.strftime("%Y%m%d-%H%M%S")
-        # model_path = os.path.join(LOCAL_REGISTRY_PATH, "models", timestamp)
-        # model.save(model_path)
-
-
+        # Create the LOCAL_REGISTRY_PATH directory if it does exist
+        Path(LOCAL_REGISTRY_PATH).mkdir(parents=True, exist_ok=True)
+        #model_path = os.path.join(LOCAL_REGISTRY_PATH, "model_save",'models', cluster)
 
         destination_dir = os.path.join(LOCAL_REGISTRY_PATH,'model_save','models',cluster)
 
         forecaster.dump_forecast_result(
-        destination_dir,
-        object_name=cluster,
-        dump_design_info=True,
-        overwrite_exist_dir=True)
+            destination_dir,
+            object_name=cluster,
+            dump_design_info=True,
+            overwrite_exist_dir=True)
         print(f"You have saved the model in {destination_dir}")
 
 
