@@ -1,0 +1,16 @@
+#Facebook prophet
+Cmake
+greykite
+prophet
+
+
+#Import de base
+numpy
+pandas
+seaborn
+
+
+fastAPI
+uvicorn
+streamlit
+streamlit-extras

@@ -137,11 +137,11 @@ def evaluate_model(model,
 #  6 - Predict #
 #################################
 
-def predict(model, X_test):
-    '''
-    Makes a probability prediction for each ATMO class, for each day of the output length
-    '''
+# def predict(model, X_test):
+#     '''
+#     Makes a probability prediction for each ATMO class, for each day of the output length
+#     '''
 
-    y_pred = np.round(model.predict(X_test),2)
+#     y_pred = np.round(model.predict(X_test),2)
 
-    return y_pred
+#     return y_pred

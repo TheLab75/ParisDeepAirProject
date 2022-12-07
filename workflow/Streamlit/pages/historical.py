@@ -132,6 +132,16 @@ if scale == 'month':
             sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
                         marker = "o",label="Mean per month of all years",c="orange")
 
+
+        if year =="2018-2022":
+            fig = plt.figure(figsize=(10,5))
+            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz,
+                        marker = "o",label="2022").set_title(f"{polluant} Mean per month between 2018-2022")
+
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
+
 if scale == "week":
     df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
 
@@ -173,6 +183,14 @@ if scale == "week":
                     marker = "o",label="2022").set_title(f"{polluant} Mean per week per Year")
         sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
                         marker = "o",label="Mean per month of all years",c="orange")
+
+    if year == "2018-2022":
+        fig = plt.figure(figsize=(10,5))
+        sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz,
+                    marker = "o",label="2018-2022").set_title(f"{polluant} Mean per week between 2018-2022")
+        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                        marker = "o",label="Mean per month of all years",c="orange")
+
 
 
 st.pyplot(fig)
@@ -241,8 +259,6 @@ style_metric_cards()
 
 if scale == "week":
 
-
-
     if year == "2018":
 
         #sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
@@ -251,7 +267,11 @@ if scale == "week":
         #fig = make_subplots(specs=[[{"secondary_y": True}]])
 
         fig = px.bar(df_ready_for_data_viz.iloc[:52],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per week per Year")
+                     title=f"{polluant} Mean per week per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+
         fig.update_traces(marker_color = 'blue')
 
         #fig.add_trace(px.line(df_mean_all_week,x=scale,y=polluant))
@@ -262,8 +282,38 @@ if scale == "week":
         # sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
         #                 marker = "o",label="Mean per month of all years",c="orange")
 
-        st.plotly_chart(fig, use_container_width=True)
 
+    if year == "2019":
+
+        fig = px.bar(df_ready_for_data_viz.iloc[52:104],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per week per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+    if year == "2020":
+        fig = px.bar(df_ready_for_data_viz.iloc[104:156],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per week per Year",
+                     text_auto='.3s',
+                     color=polluant)
+    if year == "2021":
+        fig = px.bar(df_ready_for_data_viz.iloc[156:208],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per week per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+    if year == "2022":
+        fig = px.bar(df_ready_for_data_viz.iloc[208:255],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per week per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+    if year == "2018-2022":
+        fig = px.bar(df_ready_for_data_viz,x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per week between 2018-2022",
+                     text_auto='.3s',
+                     color=polluant)
+
+    st.plotly_chart(fig, use_container_width=True)
 
 if scale == "month":
 
@@ -326,4 +376,49 @@ if scale == "month":
         # sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
         #                 marker = "o",label="Mean per month of all years",c="orange")
 
-        st.plotly_chart(fig, use_container_width=True)
+
+    if year == "2019":
+        fig = px.bar(df_ready_for_data_viz.iloc[12:24],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per month per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+        #fig.update_traces(marker_color = 'green')
+        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+    if year == "2020":
+        fig = px.bar(df_ready_for_data_viz.iloc[24:36],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per month per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+        #fig.update_traces(marker_color = 'green')
+        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+    if year == "2021":
+        fig = px.bar(df_ready_for_data_viz.iloc[36:48],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per month per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+        #fig.update_traces(marker_color = 'green')
+        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+    if year == "2022":
+        fig = px.bar(df_ready_for_data_viz.iloc[48:60],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per month per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+        #fig.update_traces(marker_color = 'green')
+        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+
+    if year == "2018-2022":
+        fig = px.bar(df_ready_for_data_viz,x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per month between 2018-2022",
+                     text_auto='.3s',
+                     color=polluant)
+        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+
+
+
+
+
+    st.plotly_chart(fig, use_container_width=True)
