@@ -40,7 +40,8 @@ with col1:
     st.write("")
 
 with col2:
-    st.image("https://hospitality-on.com/sites/default/files/2017-09/Paris.jpg",width=700)
+    #st.image("https://hospitality-on.com/sites/default/files/2017-09/Paris.jpg",width=700)
+    st.image("workflow/Streamlit/Capture d’écran 2022-12-01 à 01.11.40-min.jpg")
 
 with col3:
     st.write("")
