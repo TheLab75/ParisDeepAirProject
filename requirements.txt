@@ -1,6 +1,7 @@
 colorama
 ipdb
 ipykernel
+
 jupyter_client
 jupyter-contrib-core
 jupyter-contrib-nbextensions
@@ -10,6 +11,8 @@ jupyter-latex-envs
 jupyter-nbextensions-configurator
 jupyter-resource-usage
 jupyter-server
+
+
 matplotlib
 nbresult
 numpy
@@ -27,10 +30,11 @@ uvicorn
 streamlit
 streamlit-extras
 
+
 # Trick to install the version of Tensorflow depending on your processor: darwin == Mac, ARM == M1
-tensorflow-macos==2.10.0; sys_platform == 'darwin' and 'ARM' in platform_version # Mac M-chips
-tensorflow==2.10.0; sys_platform == 'darwin' and 'ARM' not in platform_version # Mac Intel chips
-tensorflow==2.10.0; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
+# tensorflow-macos==2.10.0; sys_platform == 'darwin' and 'ARM' in platform_version # Mac M-chips
+# tensorflow==2.10.0; sys_platform == 'darwin' and 'ARM' not in platform_version # Mac Intel chips
+# tensorflow==2.10.0; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
 
 # Facebook prophet - Complement package for Windows only
 pystan; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
