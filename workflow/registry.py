@@ -12,8 +12,11 @@ from greykite.framework.templates.forecaster import Forecaster
 import numpy as np
 from pathlib import Path
 
-# LOCAL_REGISTRY_PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
-LOCAL_REGISTRY_PATH = os.environ.get("LOCAL_DATA_PATH","error")
+
+
+# PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
+os.path.direname(os.path.abspath(__file__))
+PATH = os.environ.get("LOCAL_PATH")
 
 cluster_list=['Paris_est','Paris_south','Paris_north','Paris_west','Paris_center']
 
@@ -22,12 +25,12 @@ def save_model(forecaster) -> None:
 
     for cluster in cluster_list:
 
+        # TODO : ATTENTION A MODIF
+        # Create the PATH directory if it does exist
+        # Path(PATH).mkdir(parents=True, exist_ok=True)
+        #model_path = os.path.join(PATH, "model_save",'models', cluster)
 
-        # Create the LOCAL_REGISTRY_PATH directory if it does exist
-        Path(LOCAL_REGISTRY_PATH).mkdir(parents=True, exist_ok=True)
-        #model_path = os.path.join(LOCAL_REGISTRY_PATH, "model_save",'models', cluster)
-
-        destination_dir = os.path.join(LOCAL_REGISTRY_PATH,'model_save','models',cluster)
+        destination_dir = os.path.join(PATH,'model_save','models', cluster)
 
         forecaster.dump_forecast_result(
             destination_dir,
@@ -43,16 +46,18 @@ def save_model(forecaster) -> None:
 
 def load_model(save_copy_locally=False):
 
+
     list_model= []
     for cluster in cluster_list:
-        source_dir = os.path.join(LOCAL_REGISTRY_PATH,'model_save','models',cluster)
-        forecaster = Forecaster()
-        forecaster.load_forecast_result(source_dir,load_design_info=True)
-        result = forecaster.forecast_result
-        list_model.append(result)
+        source_dir = os.path.join(f"{PATH}",'model_save','models',f"{cluster}")
+        return source_dir
+        # forecaster = Forecaster()
+        # forecaster.load_forecast_result(source_dir,load_design_info=True)
+        # result = forecaster.forecast_result
+        # list_model.append(result)
 
 
-    return list_model
+    # return list_model
 
 
 def predict(list_model):
@@ -86,7 +91,8 @@ def predict(list_model):
 
 
 if __name__ == '__main__':
-    print(type(load_model()))
+    pass
+    # print(type(load_model()))
 
 
 
@@ -134,6 +140,3 @@ if __name__ == '__main__':
 
 #     #return model_Paris_est, model_Paris_south, model_Paris_north, model_Paris_west, model_Paris_center
 #     return model
-
-if __name__ == '__main__':
-    print(type(load_model()))

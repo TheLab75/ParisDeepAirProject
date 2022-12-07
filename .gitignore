@@ -1,5 +1,6 @@
 #Structure
 .env
+.envrc
 *.egg-info
 *PKG-INFO
 
