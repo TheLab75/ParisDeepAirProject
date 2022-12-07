@@ -105,9 +105,8 @@ def preprocess(df):
     df_daily_cat = general_ATM0(df_daily_cat)
 
     #Réduction de nombre de classes
-    #0 => Classe 0, 1
-    #1 => Classe 2
-    #2 => Classe 3, 4, 5
+    #0 => Classes 0, 1
+    #1 => Classes 2, 3, 4, 5
     df_daily_cat['ATMO'] = df_daily_cat['ATMO'].apply(ATMO_encoder)
 
     #Création d'un dataframe y pour stocker notre indice ATMO (y)
@@ -292,9 +291,8 @@ def preprocess_without_scaling(df):
     df_daily_cat = general_ATM0(df_daily_cat)
 
     #Réduction de nombre de classes
-    #0 => Classe 0, 1
-    #1 => Classe 2
-    #2 => Classe 3, 4, 5
+    #0 => Classes 0, 1
+    #1 => Classes 2, 3, 4, 5
     df_daily_cat['ATMO'] = df_daily_cat['ATMO'].apply(ATMO_encoder)
 
     #Création d'un dataframe y pour stocker notre indice ATMO (y)
