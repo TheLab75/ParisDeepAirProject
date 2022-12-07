@@ -217,7 +217,7 @@ def preprocess_without_scaling(df):
     """
 
     df = df[:-25]
-    df = df.drop(columns=['Station_name', 'Station_type'])
+    #df = df.drop(columns=['Station_name', 'Station_type'])
 
     # Généralisation du drop des colonnes avec trop de NaN (plus de 30%)
     for element in df.columns:
