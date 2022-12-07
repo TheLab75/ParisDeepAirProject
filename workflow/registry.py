@@ -17,11 +17,9 @@ LOCAL_REGISTRY_PATH = os.environ.get("LOCAL_DATA_PATH","error")
 
 cluster_list=['Paris_est','Paris_south','Paris_north','Paris_west','Paris_center']
 
-
 def save_model(forecaster) -> None:
 
     for cluster in cluster_list:
-
 
         # Create the LOCAL_REGISTRY_PATH directory if it does exist
         Path(LOCAL_REGISTRY_PATH).mkdir(parents=True, exist_ok=True)
@@ -36,10 +34,7 @@ def save_model(forecaster) -> None:
             overwrite_exist_dir=True)
         print(f"You have saved the model in {destination_dir}")
 
-
     return None
-
-
 
 def load_model(save_copy_locally=False):
 
@@ -51,12 +46,9 @@ def load_model(save_copy_locally=False):
         result = forecaster.forecast_result
         list_model.append(result)
 
-
     return list_model
 
-
 def predict(list_model):
-
 
     list_prediction = []
     for element in list_model:
@@ -70,8 +62,6 @@ def predict(list_model):
         seven_days_predicted.columns = ['days', 'forecast'] # rename columns
         list_prediction.append(seven_days_predicted)
 
-
-
     dico_general ={}
     dico_specific ={}
     for element,name in zip(list_prediction,cluster_list):
@@ -83,15 +73,8 @@ def predict(list_model):
 
     return dico_general
 
-
-
 if __name__ == '__main__':
     print(type(load_model()))
-
-
-
-
-
 
 # def save_model(model=None):
 #     """
@@ -135,5 +118,5 @@ if __name__ == '__main__':
 #     #return model_Paris_est, model_Paris_south, model_Paris_north, model_Paris_west, model_Paris_center
 #     return model
 
-if __name__ == '__main__':
-    print(type(load_model()))
+# if __name__ == '__main__':
+#     print(type(load_model()))

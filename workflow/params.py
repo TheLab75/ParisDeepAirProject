@@ -1,6 +1,5 @@
 # Python file centralizing all the parameters
 
-
 import os
 
 #Data path
@@ -8,11 +7,8 @@ LOCAL_DATA_PATH = "../data/pollution/2_Processed/PA75016"
 LOCAL_DATA_PATH_2 = "data/pollution/2_Processed/PA75016"
 LOCAL_DATA_PATH_3 = 'data/pollution/'
 
-
 # LOCAL_DATA_PATH = os.path.join(os.path.expanduser(‘~’), “.lewagon”, “mlops”, “data”)
 # LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser(‘~’), “.lewagon”, “mlops”, “training_outputs”)
-
-
 
 # Model params
 # Folds

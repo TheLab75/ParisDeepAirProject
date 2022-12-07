@@ -22,11 +22,9 @@ app.add_middleware(
 
 #app.state.model = load_model()
 
-
 @app.get("/")
 def root():
     return dict(greeting="Hello Philippe le BOSS")
-
 
 # app.state.model = load_model()
 # test = load_model()
@@ -48,8 +46,6 @@ def root():
 # #             result[v]=app.state.model[i].predict(i,X_new)
 # #     return result
 
-
-
 app.state.model = load_model()
 
 @app.get("/predict")
@@ -60,26 +56,19 @@ def predict_model(station=None):
                    'Paris_north','Paris_west','Paris_center']
     models = app.state.model
 
-
     if not station or station== "All":
         return predict(models)
 
     return predict(models)[station]
 
-
-
-
     # la fonction predict prend comme argument le résultat de la fonction load_model
     prediction = predict(test)
 
-
     prediction = predict(test)
-
 
     for element in cluster_list:
         for pred in prediction:
             dico_pred[element] = pred
-
 
     # if model != None:
     #     model_index = cluster_list.index(model)
@@ -89,6 +78,5 @@ def predict_model(station=None):
     #     for i,v in enumerate(cluster_list):
     #         result[v]=app.state.model[i].predict(i,X_new)
     # return result
-
 
     return dico_pred
