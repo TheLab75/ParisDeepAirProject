@@ -186,7 +186,6 @@ def plot_pollutant_v2(df,pollutant,period):
 
         #axes[3].set_title("2021")
 
-
             sns.lineplot(ax=axes[4],x = period, y = pollutant, data=df_groupby.iloc[208:255],
                     marker = "o",label="2022",color="orange")
 
