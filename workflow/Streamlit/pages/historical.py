@@ -23,6 +23,13 @@ from streamlit_extras.app_logo import add_logo
 add_logo("http://placekitten.com/120/120")
 st.write("👈 Check out the cat in the nav-bar!")
 
+uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write("filename:", uploaded_file.name)
+    st.write(bytes_data)
+
+
 
 
 
@@ -30,13 +37,15 @@ with st.form(key='params_for_api'):
 
    station = st.selectbox(
         'Select a station  ?',
-        ('Paris-16', 'Paris South', 'Paris West','Paris East','Paris Center'))
+        ('Paris 16','Paris North', 'Paris South', 'Paris West','Paris East','Paris Center'))
+
    polluant = st.selectbox(
         'Select a polluant / ATMO ?',
         ('PM25', 'PM10', 'NO2','O3','SO2','ATMO'))
 
    year = st.selectbox('Select a year'
-                       ,('2018', '2019', '2020','2021','2022'))
+                       ,('2018', '2019', '2020','2021','2022',"2018-2022"))
+
    scale = st.selectbox('Select a scale',
                         ('month','week'))
 
@@ -51,7 +60,7 @@ with st.form(key='params_for_api'):
 
 
 #Data frame de Base
-if station == "Paris-16":
+if station == "Paris 16":
     df = pd.read_csv("data/pollution/2_Processed/PA75016.csv")
     st.dataframe(df,200,20)
     st.write('You selected the station :', station )
@@ -213,18 +222,25 @@ to_do(
 
 from streamlit_extras.metric_cards import style_metric_cards
 
-col1, col2, col3 = st.columns(3)
-col1.metric(label="ATMO INDEX ", value=" ✅ Great",delta=-1)
-col2.metric(label="Loss", value=5000, delta=-1000)
-col3.metric(label="No Change", value=5000, delta=0)
+col1, col2, col3,col4 = st.columns(4)
+col1.metric(label="ATMO J+1 ", value=" ✅ Great",delta=-1)
+col2.metric(label="ATMO J+2", value=5000, delta=-1000)
+col3.metric(label="ATMO J+3", value=5000, delta=0)
+col4.metric(label="ATMO J+4",value="🚫 Bad ",delta =-1 )
+
+style_metric_cards()
+
+col5,col6,col7=  st.columns(3)
+col5.metric(label="ATMO J+5",value="🚫 Bad ",delta =-1 )
+col6.metric(label="ATMO J+6",value="🚫 Bad ",delta =-1 )
+col7.metric(label="ATMO J+7",value="🚫 Bad ",delta =-1 )
 style_metric_cards()
 
 
 
-if scale == "week":
-    df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
 
-    df_mean_all_week = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
+if scale == "week":
+
 
 
     if year == "2018":
@@ -234,13 +250,78 @@ if scale == "week":
 
         #fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-        fig = px.bar(df_ready_for_data_viz.iloc[:52],x =scale, y = polluant,template= 'seaborn')
+        fig = px.bar(df_ready_for_data_viz.iloc[:52],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per week per Year")
         fig.update_traces(marker_color = 'blue')
 
         #fig.add_trace(px.line(df_mean_all_week,x=scale,y=polluant))
 
         #fig = px.line(df_mean_all_week,x=scale,y=polluant)
 
+
+        # sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+        #                 marker = "o",label="Mean per month of all years",c="orange")
+
+        st.plotly_chart(fig, use_container_width=True)
+
+
+if scale == "month":
+
+
+    if year == "2018":
+
+        #sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
+                    #marker = "o",label="2018").set_title(f"{polluant} Mean per week per Year")
+
+
+
+        fig = px.bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn',
+                     title=f"{polluant} Mean per month per Year",
+                     text_auto='.3s',
+                     color=polluant)
+
+        #fig.update_traces(marker_color = 'green')
+        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+
+        #Slider
+#         fig.update_layout(xaxis=dict(
+#         rangeselector=dict(
+#             buttons=list([
+#                 dict(count=1,
+#                      label="1m",
+#                      step="month",
+#                      stepmode="backward"),
+#                 dict(count=6,
+#                      label="6m",
+#                      step="month",
+#                      stepmode="backward"),
+#                 dict(count=1,
+#                      label="YTD",
+#                      step="year",
+#                      stepmode="todate"),
+#                 dict(count=1,
+#                      label="1y",
+#                      step="year",
+#                      stepmode="backward"),
+#                 dict(step="all")
+#             ])
+#         ),
+#         rangeslider=dict(
+#             visible=True
+#         ),
+#         type="date"
+#     )
+# )
+
+
+        #fig.add_trace(px.line(df_mean_all_week,x=scale,y=polluant))
+
+        #fig = px.line(df_mean_all_week,x=scale,y=polluant)
+
+
+
+        #fig.add_bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn', title=f"{polluant} Mean per month per Year")
+        #fig.update_traces(marker_color = 'green')
 
         # sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
         #                 marker = "o",label="Mean per month of all years",c="orange")
