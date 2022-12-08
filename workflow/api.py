@@ -1,7 +1,7 @@
 import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from workflow.registry import predict,load_model,save_model
+from workflow.registry import predict,load_model
 from workflow.preprocessing import preprocess
 
 app = FastAPI()
