@@ -2,7 +2,6 @@ import glob
 import os
 import time
 import pickle
-from tensorflow.keras import models
 import datetime
 import pandas as pd
 import plotly.express as px
@@ -14,41 +13,38 @@ from pathlib import Path
 
 
 
-PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
 
 
-#os.path.direname(os.path.abspath(__file__))
-#PATH = os.environ.get("LOCAL_PATH")
 
 cluster_list=['Paris_east','Paris_south','Paris_north','Paris_west','Paris_center']
 
-def save_model(forecaster) -> None:
+# def save_model(forecaster) -> None:
 
-    for cluster in cluster_list:
-
-
-        # TODO : ATTENTION A MODIF
-        # Create the PATH directory if it does exist
-        # Path(PATH).mkdir(parents=True, exist_ok=True)
-        #model_path = os.path.join(PATH, "model_save",'models', cluster)
-
-        destination_dir = os.path.join(PATH,'model_save','models', cluster)
-
-        # Create the LOCAL_REGISTRY_PATH directory if it does exist
-        Path(LOCAL_REGISTRY_PATH).mkdir(parents=True, exist_ok=True)
-        #model_path = os.path.join(LOCAL_REGISTRY_PATH, "model_save",'models', cluster)
-
-        destination_dir = os.path.join(LOCAL_REGISTRY_PATH,'model_save','models',cluster)
+#     for cluster in cluster_list:
 
 
-        forecaster.dump_forecast_result(
-            destination_dir,
-            object_name=cluster,
-            dump_design_info=True,
-            overwrite_exist_dir=True)
-        print(f"You have saved the model in {destination_dir}")
+#         # TODO : ATTENTION A MODIF
+#         # Create the PATH directory if it does exist
+#         # Path(PATH).mkdir(parents=True, exist_ok=True)
+#         #model_path = os.path.join(PATH, "model_save",'models', cluster)
 
-    return None
+#         destination_dir = os.path.join(PATH,'model_save','models', cluster)
+
+#         # Create the LOCAL_REGISTRY_PATH directory if it does exist
+#         Path(LOCAL_REGISTRY_PATH).mkdir(parents=True, exist_ok=True)
+#         #model_path = os.path.join(LOCAL_REGISTRY_PATH, "model_save",'models', cluster)
+
+#         destination_dir = os.path.join(LOCAL_REGISTRY_PATH,'model_save','models',cluster)
+
+
+#         forecaster.dump_forecast_result(
+#             destination_dir,
+#             object_name=cluster,
+#             dump_design_info=True,
+#             overwrite_exist_dir=True)
+#         print(f"You have saved the model in {destination_dir}")
+
+#     return None
 
 def load_model(save_copy_locally=False):
 
@@ -56,7 +52,7 @@ def load_model(save_copy_locally=False):
     list_model= []
 
     for cluster in cluster_list_2:
-        source_dir = os.path.join(f"{PATH}",'model_greykite',f"{cluster}")
+        source_dir = os.path.join("/code/ParisDeepAirProject/model_greykite",f"{cluster}")
 
         forecaster = Forecaster()
         forecaster.load_forecast_result(source_dir,load_design_info=True)
@@ -94,49 +90,3 @@ if __name__ == '__main__':
     test = load_model()
     predict(test)
     pass
-    # print(type(load_model()))
-
-# def save_model(model=None):
-#     """
-#     persist trained model, params and metrics
-#     """
-
-#     timestamp = time.strftime("%Y%m%d-%H%M%S")
-
-#     print( "\nSave model to local disk..." )
-#     for cluster in cluster_list:
-#     # save model
-#         if model is not None:
-#             model_path = os.path.join('model_save','models',cluster)
-#             print(f"- model path: {model_path}")
-#             model.save(model_path)
-
-#     print("\n✅ data saved locally")
-
-#     return None
-
-# def load_model(save_copy_locally=False):
-#     """
-#     load the latest saved model, return None if no model found
-#     """
-#     print("\nLoad model from local disk...")
-#     timestamp = time.strftime("%Y%m%d-%H%M%S")
-#     for cluster in cluster_list:
-#         # get latest model version
-#         model_directory = os.path.join('model_save','models',cluster)
-#         print(model_directory)
-#         results = glob.glob(f"{model_directory}/*")
-#         if not results:
-#             return None
-
-#         #model_path = sorted(results)[-1]
-#         #print(f"- path: {model_path}")
-
-#         model = models.load_model(model_directory)
-#         print("\n✅ model loaded from disk")
-
-#     #return model_Paris_est, model_Paris_south, model_Paris_north, model_Paris_west, model_Paris_center
-#     return model
-
-# if __name__ == '__main__':
-#     print(type(load_model()))
