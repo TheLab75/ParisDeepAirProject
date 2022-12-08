@@ -60,28 +60,28 @@ with st.form(key='params_for_api'):
 
 if station == "Paris North":
     element = "cluster2_Nord"
-    print(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
-    df=pd.read_csv(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    print(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    df=pd.read_csv(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
 
 if station == "Paris South":
     element = "cluster4_Sud"
-    print(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
-    df=pd.read_csv(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    print(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    df=pd.read_csv(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
 
 if station == "Paris West":
     element = "cluster1_Ouest"
-    print(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
-    df=pd.read_csv(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    print(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    df=pd.read_csv(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
 
 if station == "Paris East":
     element = "cluster3_Est"
-    print(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
-    df=pd.read_csv(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    print(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    df=pd.read_csv(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
 
 if station == "Paris Center":
     element = "cluster5_Centre"
-    print(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
-    df=pd.read_csv(f"/app/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    print(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
+    df=pd.read_csv(f"thelab75/parisdeepairproject/workflow/assets/pollution/5_Clusters/{element}.csv")
 
 #Preprocess du dataframe sans scaling
 from workflow.preprocessing import preprocess_without_scaling
