@@ -15,3 +15,4 @@ uvicorn
 Cmake
 greykite
 prophet
+git+https://github.com/TheLab75/ParisDeepAirProject.git
