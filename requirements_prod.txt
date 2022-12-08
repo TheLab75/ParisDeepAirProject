@@ -3,14 +3,17 @@ Cmake
 greykite
 prophet
 
-
 #Import de base
 numpy
 pandas
 seaborn
+ipython
+wheel
+plotly
 
 
-fastAPI
+#install fast api
+fastapi
 uvicorn
 streamlit
 streamlit-extras

@@ -17,7 +17,7 @@ with st.form(key='params_for_api'):
 
     station = st.selectbox(
         'Select a station  ?',
-        ('Paris_est', 'Paris_south', 'Paris_north','Paris_west','Paris_center',"All"))
+        ('Paris_east', 'Paris_south', 'Paris_north','Paris_west','Paris_center',"All"))
 
     st.form_submit_button('Predict')
 
@@ -34,7 +34,7 @@ response = requests.get(api_url, params=params)
 prediction = response.json()
 
 
-st.write(prediction)
+#st.write(prediction)
 
 
 
@@ -53,30 +53,68 @@ st.write(prediction)
 # style_metric_cards()
 
 
-#if prediction ==0:
+#if prediction == 0:
+
+if station != "All":
+
+    if prediction["day1"] == 1:
+        reco = "You can run"
+    else:
+        reco="-You can't run"
+
+    if prediction["day2"] == 1:
+        reco2 = "You can run"
+    else:
+        reco2="-You can't run"
 
 
-# if prediction["day 1"] == 0:
-#     reco = "You can run"
+    if prediction["day3"] == 1:
+        reco3= "You can run"
+    else:
+        reco3="-You can't run"
+
+
+    if prediction["day4"] == 1:
+        reco4= "You can run"
+    else:
+        reco4="-You can't run"
+
+
+    if prediction["day5"] == 1:
+        reco5= "You can run"
+    else:
+        reco5="-You can't run"
+
+
+    if prediction["day6"] == 1:
+        reco6= "You can run"
+    else:
+        reco6="-You can't run"
+
+
+    if prediction["day7"] == 1:
+        reco7= "You can run"
+    else:
+        reco7="-You can't run"
 
 
 
-col1, col2, col3 = st.columns(3)
-col1.metric("Air Quality", "Day 1", "You can run")
-col2.metric("Air Quality", "Day 2", " - You can't run ")
-col3.metric("Air Quality", "Day 3"," - You can't run")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Air Quality", "Day 1", reco)
+    col2.metric("Air Quality", "Day 2", reco2)
+    col3.metric("Air Quality", "Day 3",reco3)
 
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.write("")
-with col2:
-    st.write("")
-with col3:
-    st.write("")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.write("")
+    with col2:
+        st.write("")
+    with col3:
+        st.write("")
 
 
-col1, col2, col3,col4 = st.columns(4)
-col1.metric("Air Quality", "Day 4", "1.2 °F")
-col2.metric("Air Quality", "Day 5", "-8%")
-col3.metric("Air Quality", "Day 6", "4%")
-col4.metric("Air Quality", "Day 7", "4%")
+    col1, col2, col3,col4 = st.columns(4)
+    col1.metric("Air Quality", "Day 4", reco4)
+    col2.metric("Air Quality", "Day 5", reco5)
+    col3.metric("Air Quality", "Day 6", reco6)
+    col4.metric("Air Quality", "Day 7", reco7)
