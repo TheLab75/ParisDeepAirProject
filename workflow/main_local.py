@@ -59,7 +59,7 @@ from workflow.registry import load_model
 
 #y_pred[-1]
 
-#To update
+#Old
 #if __name__ == '__main__':
 #    preprocess(raw_df)
 #    cross_validate()
