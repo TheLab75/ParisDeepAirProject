@@ -79,7 +79,7 @@ if station == "Paris Center":
     df=pd.read_csv(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
 
 #Preprocess du dataframe sans scaling
-from ParisDeepAirProject-install-package.preprocessing import preprocess_without_scaling
+from ParisDeepAirProject_install_package.preprocessing import preprocess_without_scaling
 
 # st.write('Now you will see the effects of processing WOW ! 🥵' )
 # #Voir pourquoi l'imputer ne fonctionne pas ici
@@ -87,7 +87,7 @@ df_preprocessed_without_scaling = preprocess_without_scaling(df)
 # st.dataframe(df_preprocessed_without_scaling,200, 20)
 
 
-from ParisDeepAirProject-install-package.data_viz import data_viz
+from ParisDeepAirProject_install_package.data_viz import data_viz
 # st.write('Your dataframe will be ready for data viz ! 🥵' )
 df_ready_for_data_viz = data_viz(df_preprocessed_without_scaling)
 # st.dataframe(df_ready_for_data_viz,200, 20)
