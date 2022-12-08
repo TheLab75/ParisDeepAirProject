@@ -60,28 +60,28 @@ with st.form(key='params_for_api'):
 
 if station == "Paris North":
     element = "cluster2_Nord"
-    print(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
-    df=pd.read_csv(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
+    print(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
+    df=pd.read_csv(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
 
 if station == "Paris South":
     element = "cluster4_Sud"
-    print(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
-    df=pd.read_csv(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
+    print(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
+    df=pd.read_csv(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
 
 if station == "Paris West":
     element = "cluster1_Ouest"
-    print(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
-    df=pd.read_csv(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
+    print(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
+    df=pd.read_csv(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
 
 if station == "Paris East":
     element = "cluster3_Est"
-    print(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
-    df=pd.read_csv(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
+    print(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
+    df=pd.read_csv(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
 
 if station == "Paris Center":
     element = "cluster5_Centre"
-    print(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
-    df=pd.read_csv(os.path.abspath(f"workflow/assets/pollution/5_Clusters/{element}.csv"))
+    print(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
+    df=pd.read_csv(os.path.abspath(f"workflow/Streamlit/assets/pollution/5_Clusters/{element}.csv"))
 
 #Preprocess du dataframe sans scaling
 from workflow.preprocessing import preprocess_without_scaling
