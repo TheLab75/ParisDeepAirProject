@@ -12,22 +12,33 @@ from greykite.framework.templates.forecaster import Forecaster
 import numpy as np
 from pathlib import Path
 
-# LOCAL_REGISTRY_PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
-LOCAL_REGISTRY_PATH = os.environ.get("LOCAL_DATA_PATH","error")
 
-cluster_list=['Paris_est','Paris_south','Paris_north','Paris_west','Paris_center']
 
+PATH = "/Users/Edouard_1/code/TheLab75/ParisDeepAirProject"
+
+#os.path.direname(os.path.abspath(__file__))
+#PATH = os.environ.get("LOCAL_PATH")
+
+cluster_list=['Paris_east','Paris_south','Paris_north','Paris_west','Paris_center']
 
 def save_model(forecaster) -> None:
 
     for cluster in cluster_list:
 
 
+        # TODO : ATTENTION A MODIF
+        # Create the PATH directory if it does exist
+        # Path(PATH).mkdir(parents=True, exist_ok=True)
+        #model_path = os.path.join(PATH, "model_save",'models', cluster)
+
+        destination_dir = os.path.join(PATH,'model_save','models', cluster)
+
         # Create the LOCAL_REGISTRY_PATH directory if it does exist
         Path(LOCAL_REGISTRY_PATH).mkdir(parents=True, exist_ok=True)
         #model_path = os.path.join(LOCAL_REGISTRY_PATH, "model_save",'models', cluster)
 
         destination_dir = os.path.join(LOCAL_REGISTRY_PATH,'model_save','models',cluster)
+
 
         forecaster.dump_forecast_result(
             destination_dir,
@@ -36,62 +47,53 @@ def save_model(forecaster) -> None:
             overwrite_exist_dir=True)
         print(f"You have saved the model in {destination_dir}")
 
-
     return None
-
-
 
 def load_model(save_copy_locally=False):
 
+    cluster_list_2 = ["cluster1_Ouest","cluster2_Nord","cluster3_Est","cluster4_Sud","cluster5_Centre"]
     list_model= []
-    for cluster in cluster_list:
-        source_dir = os.path.join(LOCAL_REGISTRY_PATH,'model_save','models',cluster)
+
+    for cluster in cluster_list_2:
+        source_dir = os.path.join(f"{PATH}",'model_greykite',f"{cluster}")
+
         forecaster = Forecaster()
         forecaster.load_forecast_result(source_dir,load_design_info=True)
         result = forecaster.forecast_result
         list_model.append(result)
 
-
+    # print(list_model)
     return list_model
 
 
 def predict(list_model):
 
-
     list_prediction = []
     for element in list_model:
+
         df_predict_and_actual = element.forecast.df
         df_predict_and_actual = df_predict_and_actual[1:]
         seven_days_predicted = pd.DataFrame(np.round(df_predict_and_actual['forecast']).astype(int))[-7:] #remove 7 rows forecasts
-
+        #seven_days_predicted = pd.DataFrame(np.round(df_predict_and_actual['forecast'],4))[-7:] #remove 7 rows forecasts
         #reset indef to get day as column
+
         seven_days_predicted.reset_index(inplace=True, drop=True) # get the good number for days
         seven_days_predicted.reset_index(inplace=True, drop=None) # put is as columns
         seven_days_predicted.columns = ['days', 'forecast'] # rename columns
         list_prediction.append(seven_days_predicted)
 
-
-
-    dico_general ={}
-    dico_specific ={}
-    for element,name in zip(list_prediction,cluster_list):
-        for i in range(7):
-            dico_specific[f"day {i+1}"]= int(element.loc[i,"forecast"])
-
-        dico_general[name]=dico_specific
-    print(dico_general)
-
-    return dico_general
-
+    my_dict = {}
+    for i, predict in enumerate(list_prediction):
+        my_dict[cluster_list[i]] = {f'day{i+1}': v for i, v in enumerate(predict['forecast'])}
+# return dico_general
+    return my_dict
 
 
 if __name__ == '__main__':
-    print(type(load_model()))
-
-
-
-
-
+    test = load_model()
+    predict(test)
+    pass
+    # print(type(load_model()))
 
 # def save_model(model=None):
 #     """
@@ -135,5 +137,5 @@ if __name__ == '__main__':
 #     #return model_Paris_est, model_Paris_south, model_Paris_north, model_Paris_west, model_Paris_center
 #     return model
 
-if __name__ == '__main__':
-    print(type(load_model()))
+# if __name__ == '__main__':
+#     print(type(load_model()))
