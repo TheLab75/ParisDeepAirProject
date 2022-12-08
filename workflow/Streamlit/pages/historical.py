@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import datetime
 import requests
@@ -29,7 +30,7 @@ with st.form(key='params_for_api'):
 
     station = st.selectbox(
         'Select a station  ?',
-        ('Paris 16','Paris North', 'Paris South', 'Paris West','Paris East','Paris Center'))
+        ('Paris North', 'Paris South', 'Paris West','Paris East','Paris Center'))
 
     df = pd.read_csv
 
@@ -50,35 +51,32 @@ with st.form(key='params_for_api'):
 #    st.write(f'You selected the {scale} scale')
     st.form_submit_button('reload')
 
-
-
 #Data frame de Base
-if station == "Paris 16":
-    element = "PA75016"
-    df = pd.read_csv("data/data/pollution/2_Processed/"f"{element}"".csv")
+# if station == "Paris 16":
+#     element = "PA75016"
+#     df = pd.read_csv("data/data/pollution/2_Processed/"f"{element}"".csv")
     # st.dataframe(df,200,20)
     # st.write('You selected the station :', station )
 
 if station == "Paris North":
     element = "cluster2_Nord"
-    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
-
+    df=pd.read_csv(os.path.abspath("TheLab75/ParisDeepAirProject/workflow/Streamlit/assets/pollution"f"{element}"".csv"))
 
 if station == "Paris South":
     element = "cluster4_Sud"
-    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
+    df=pd.read_csv(os.path.abspath("TheLab75/ParisDeepAirProject/workflow/Streamlit/assets/pollution"f"{element}"".csv"))
 
 if station == "Paris West":
     element = "cluster1_Ouest"
-    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
+    df=pd.read_csv(os.path.abspath("TheLab75/ParisDeepAirProject/workflow/Streamlit/assets/pollution"f"{element}"".csv"))
 
 if station == "Paris East":
     element = "cluster3_Est"
-    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
+    df=pd.read_csv(os.path.abspath("TheLab75/ParisDeepAirProject/workflow/Streamlit/assets/pollution"f"{element}"".csv"))
 
 if station == "Paris Center":
     element = "cluster5_Centre"
-    df=pd.read_csv("/Users/Edouard_1/code/TheLab75/ParisDeepAirProject/data/data/pollution/5_Clusters/"f"{element}"".csv")
+    df=pd.read_csv(os.path.abspath("TheLab75/ParisDeepAirProject/workflow/Streamlit/assets/pollution"f"{element}"".csv"))
 
 #Preprocess du dataframe sans scaling
 from workflow.preprocessing import preprocess_without_scaling
