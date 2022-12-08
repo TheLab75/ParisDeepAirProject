@@ -14,7 +14,7 @@ import calendar
 
 st.title('What is the historical evolution of the pollution in paris ?')
 
-from streamlit_extras.app_logo import add_logo
+#from streamlit_extras.app_logo import add_logo
 
 #add_logo("http://placekitten.com/120/120")
 #st.write("👈 Check out the cat in the nav-bar!")
