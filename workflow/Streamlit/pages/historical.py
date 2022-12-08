@@ -6,8 +6,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-
-
 #Imports de base
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -18,20 +16,14 @@ st.title('What is the historical evolution of the pollution in paris ?')
 
 from streamlit_extras.app_logo import add_logo
 
+#add_logo("http://placekitten.com/120/120")
+#st.write("👈 Check out the cat in the nav-bar!")
 
-
-add_logo("http://placekitten.com/120/120")
-st.write("👈 Check out the cat in the nav-bar!")
-
-uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
-for uploaded_file in uploaded_files:
-    bytes_data = uploaded_file.read()
-    st.write("filename:", uploaded_file.name)
-    st.write(bytes_data)
-
-
-
-
+#uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
+#for uploaded_file in uploaded_files:
+#    bytes_data = uploaded_file.read()
+#    st.write("filename:", uploaded_file.name)
+#    st.write(bytes_data)
 
 with st.form(key='params_for_api'):
 
