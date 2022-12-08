@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
 
-from workflow.registry import predict
-from streamlit_extras.metric_cards import style_metric_cards
+#from workflow.registry import predict
+#from streamlit_extras.metric_cards import style_metric_cards
 
 
 
