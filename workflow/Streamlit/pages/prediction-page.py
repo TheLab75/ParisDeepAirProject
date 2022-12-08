@@ -28,7 +28,7 @@ params = dict(
 
 
 
-api_url = 'http://localhost:8000/predict'
+api_url = 'https://deepair-5mve7fqcea-od.a.run.app/predict'
 response = requests.get(api_url, params=params)
 
 prediction = response.json()
