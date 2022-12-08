@@ -25,9 +25,9 @@ app.state.model = load_model()
 @app.get("/predict")
 def predict_model(station=None):
 
-
     cluster_list=['Paris_east','Paris_south',
                    'Paris_north','Paris_west','Paris_center']
+
     models = app.state.model
 
     if not station or station== "All":

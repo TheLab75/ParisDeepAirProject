@@ -63,6 +63,7 @@ def load_model(save_copy_locally=False):
         result = forecaster.forecast_result
         list_model.append(result)
 
+    # print(list_model)
     return list_model
 
 
@@ -70,28 +71,28 @@ def predict(list_model):
 
     list_prediction = []
     for element in list_model:
+
         df_predict_and_actual = element.forecast.df
         df_predict_and_actual = df_predict_and_actual[1:]
         seven_days_predicted = pd.DataFrame(np.round(df_predict_and_actual['forecast']).astype(int))[-7:] #remove 7 rows forecasts
-
+        #seven_days_predicted = pd.DataFrame(np.round(df_predict_and_actual['forecast'],4))[-7:] #remove 7 rows forecasts
         #reset indef to get day as column
+
         seven_days_predicted.reset_index(inplace=True, drop=True) # get the good number for days
         seven_days_predicted.reset_index(inplace=True, drop=None) # put is as columns
         seven_days_predicted.columns = ['days', 'forecast'] # rename columns
         list_prediction.append(seven_days_predicted)
 
-    dico_general ={}
-    dico_specific ={}
-    for element,name in zip(list_prediction,cluster_list):
-        for i in range(7):
-            dico_specific[f"day {i+1}"]= int(element.loc[i,"forecast"])
+    my_dict = {}
+    for i, predict in enumerate(list_prediction):
+        my_dict[cluster_list[i]] = {f'day{i+1}': v for i, v in enumerate(predict['forecast'])}
+# return dico_general
+    return my_dict
 
-        dico_general[name]=dico_specific
-    print(dico_general)
-
-    return dico_general
 
 if __name__ == '__main__':
+    test = load_model()
+    predict(test)
     pass
     # print(type(load_model()))
 
