@@ -48,20 +48,20 @@ with col3:
     st.write("")
 
 
-col1, col2, col3 = st.columns([1,6,1])
+# col1, col2, col3 = st.columns([1,6,1])
 
-with col1:
-    st.write("")
+# with col1:
+#     st.write("")
 
-with col2:
+# with col2:
 
-        #from PIL import Image
-        #image = Image.open("pages/index ATMO.jpg")
-    st.image("https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg",caption='ATMO Index')
+#         #from PIL import Image
+#         #image = Image.open("pages/index ATMO.jpg")
+#     st.image("https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg",caption='ATMO Index')
 
 
-with col3:
-    st.write("")
+# with col3:
+#     st.write("")
 
 
 
