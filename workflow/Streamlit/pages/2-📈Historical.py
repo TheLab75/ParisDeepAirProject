@@ -70,7 +70,7 @@ with st.form(key='params_for_api'):
 #    st.write('You selected the polluant:',polluant)
 #    st.write('You selected the year:',year)
 #    st.write(f'You selected the {scale} scale')
-    st.form_submit_button('reload')
+    st.form_submit_button('Show me the graphs')
 
 #Data frame de Base
 # if station == "Paris 16":
