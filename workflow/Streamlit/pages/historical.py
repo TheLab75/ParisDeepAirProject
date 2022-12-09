@@ -346,8 +346,7 @@ if scale == "month":
         fig = px.bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per month per Year",
                      text_auto='.3s',
-                     color="Dark",
-                     color_continuous_scale=px.colors.sequential.Tropic)
+                     color=polluant)
 
         #color=polluant
         #fig.update_traces(marker_color = 'green')
