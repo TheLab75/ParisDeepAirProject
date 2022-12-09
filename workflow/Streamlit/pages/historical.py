@@ -254,7 +254,7 @@ if polluant != "":
                         title=f"{polluant} Mean per week per Year",
                         text_auto='.3s',
                         color=polluant,
-                        color_continuous_scale=["red", "green"])
+                        color_continuous_scale=["green","red"])
 
 
             #fig.update_traces(marker_color = 'blue')
@@ -266,30 +266,30 @@ if polluant != "":
             fig = px.bar(df_ready_for_data_viz.iloc[52:104],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per week per Year",
                         text_auto='.3s',
-                        color=polluant,color_continuous_scale=["red", "green"])
+                        color=polluant,color_continuous_scale=["green","red"])
 
         if year == "2020":
             fig = px.bar(df_ready_for_data_viz.iloc[104:156],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per week per Year",
                         text_auto='.3s',
-                        color=polluant,color_continuous_scale=["red", "green"])
+                        color=polluant,color_continuous_scale=["green","red"])
         if year == "2021":
             fig = px.bar(df_ready_for_data_viz.iloc[156:208],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per week per Year",
                         text_auto='.3s',
-                        color=polluant,color_continuous_scale=["red", "green"])
+                        color=polluant,color_continuous_scale=["green","red"])
 
         if year == "2022":
             fig = px.bar(df_ready_for_data_viz.iloc[208:255],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per week per Year",
                         text_auto='.3s',
-                        color=polluant,color_continuous_scale=["red", "green"])
+                        color=polluant,color_continuous_scale=["green","red"])
 
         if year == "2018-2022":
             fig = px.bar(df_ready_for_data_viz,x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per week between 2018-2022",
                         text_auto='.3s',
-                        color=polluant,color_continuous_scale=["red", "green"])
+                        color=polluant,color_continuous_scale=["green","red"])
 
         st.plotly_chart(fig, use_container_width=True)
 
@@ -307,7 +307,7 @@ if polluant != "":
                         title=f"{polluant} Mean per month per Year",
                         text_auto='.3s',
                         color=polluant,
-                        color_continuous_scale=["red", "green"])
+                        color_continuous_scale=["green","red"])
 
             #color=polluant
             #fig.update_traces(marker_color = 'green')
@@ -319,7 +319,7 @@ if polluant != "":
             fig = px.bar(df_ready_for_data_viz.iloc[12:24],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per month per Year",
                         text_auto='.3s',
-                        color=polluant,color_continuous_scale=["red", "green"])
+                        color=polluant,color_continuous_scale=["green","red"])
 
             #fig.update_traces(marker_color = 'green')
             fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
@@ -327,7 +327,7 @@ if polluant != "":
             fig = px.bar(df_ready_for_data_viz.iloc[24:36],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} mean per month in {year}",
                         text_auto='.3s',
-                        color=polluant,color_continuous_scale=["red", "green"])
+                        color=polluant,color_continuous_scale=["green","red"])
 
             #fig.update_traces(marker_color = 'green')
             fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
@@ -335,7 +335,7 @@ if polluant != "":
             fig = px.bar(df_ready_for_data_viz.iloc[36:48],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per month per Year",
                         text_auto='.3s',
-                        color=polluant,color_continuous_scale=["red", "green"])
+                        color=polluant,color_continuous_scale=["green","red"])
 
             #fig.update_traces(marker_color = 'green')
             fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
@@ -344,7 +344,7 @@ if polluant != "":
                         title=f"{polluant} Mean per month per Year",
                         text_auto='.3s',
                         color=polluant,
-                        color_continuous_scale=["red", "green"])
+                        color_continuous_scale=["green", "red"])
 
             #fig.update_traces(marker_color = 'green')
             fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
@@ -354,7 +354,7 @@ if polluant != "":
                         title=f"{polluant} Mean per month between 2018-2022",
                         text_auto='.3s',
                         color=polluant,
-                        color_continuous_scale=["red", "green"])
+                        color_continuous_scale=["green","red"])
             fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
 
 
