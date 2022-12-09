@@ -110,9 +110,9 @@ if station != "All":
 
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("Day 1", reco)
-    col2.metric("Day 2", reco2)
-    col3.metric("Day 3",reco3)
+    col1.metric('',"Day 1", reco)
+    col2.metric('',"Day 2", reco2)
+    col3.metric('',"Day 3",reco3)
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -124,9 +124,9 @@ if station != "All":
 
 
     col1, col2, col3,col4 = st.columns(4)
-    col1.metric("Day 4", reco4)
-    col2.metric("Day 5", reco5)
-    col3.metric("Day 6", reco6)
-    col4.metric("Day 7", reco7)
+    col1.metric('',"Day 4", reco4)
+    col2.metric('',"Day 5", reco5)
+    col3.metric('',"Day 6", reco6)
+    col4.metric('',"Day 7", reco7)
 
 st.balloons()
