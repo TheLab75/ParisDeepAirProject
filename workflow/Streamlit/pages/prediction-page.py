@@ -32,6 +32,16 @@ api_url = 'https://deepair-5mve7fqcea-od.a.run.app/predict'
 response = requests.get(api_url, params=params)
 
 prediction = response.json()
+
+from streamlit_extras.let_it_rain import rain
+
+rain(
+    emoji="👏",
+    font_size=65,
+    falling_speed=5,
+    animation_length="infinite",
+)
+
 st.balloons()
 
 
