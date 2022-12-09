@@ -113,286 +113,286 @@ from workflow.data_viz import data_viz
 df_ready_for_data_viz = data_viz(df_preprocessed_without_scaling)
 # st.dataframe(df_ready_for_data_viz,200, 20)
 
+if station != "":
+    if scale == 'month':
+        #fig = plt.figure(figsize=(12,5))
+            df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
+            df_ready_for_data_viz['month'] = df_ready_for_data_viz['month'].apply(lambda x: calendar.month_abbr[x])
 
-if scale == 'month':
-    #fig = plt.figure(figsize=(12,5))
+            df_mean_all_year = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
+
+
+
+            plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-light.mplstyle')
+
+            if year == "2018":
+                fig = plt.figure(figsize=(10,5))
+                sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:12],
+                            marker = "o",label="2018").set_title(f"{polluant} Mean per month per Year")
+
+                sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                            marker = "o",label="Mean per month of all years",c="orange")
+
+
+            if year == "2019":
+                fig = plt.figure(figsize=(10,5))
+                sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[12:24],
+                            marker = "o",label="2019").set_title(f"{polluant} Mean per month per Year")
+
+                sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                            marker = "o",label="Mean per month of all years",c="orange")
+
+
+            if year == "2020":
+                fig = plt.figure(figsize=(10,5))
+                sns.lineplot(x = scale, y =polluant, data=df_ready_for_data_viz.iloc[24:36],
+                            marker = "o",label="2020",c="green").set_title(f"{polluant} mean per month in {year}")
+                sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                            marker = "o",label="Mean per month of all years",c="red")
+
+            if year == "2021":
+                fig = plt.figure(figsize=(10,5))
+                sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[36:48],
+                            marker = "o",label="2021").set_title(f"{polluant} Mean per month per Year")
+                sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                            marker = "o",label="Mean per month of all years",c="orange")
+
+            if year == "2022":
+                fig = plt.figure(figsize=(10,5))
+                sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[48:58],
+                            marker = "o",label="2022").set_title(f"{polluant} Mean per month per Year")
+
+                sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                            marker = "o",label="Mean per month of all years",c="orange")
+
+
+            if year =="2018-2022":
+                fig = plt.figure(figsize=(10,5))
+                sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz,
+                            marker = "o",label="2018-2022").set_title(f"{polluant} Mean per month between 2018-2022")
+
+                sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
+                            marker = "o",label="Mean per month of all years",c="orange")
+
+
+    if scale == "week":
         df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
-        df_ready_for_data_viz['month'] = df_ready_for_data_viz['month'].apply(lambda x: calendar.month_abbr[x])
 
-        df_mean_all_year = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
+        df_mean_all_week = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
 
-
-
-        plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-light.mplstyle')
 
         if year == "2018":
             fig = plt.figure(figsize=(10,5))
-            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:12],
-                        marker = "o",label="2018").set_title(f"{polluant} Mean per month per Year")
+            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
+                        marker = "o",label="2018").set_title(f"{polluant} Mean per week per Year")
 
-            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                            marker = "o",label="Mean per month of all years",c="orange")
 
         if year == "2019":
             fig = plt.figure(figsize=(10,5))
-            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[12:24],
-                        marker = "o",label="2019").set_title(f"{polluant} Mean per month per Year")
-
-            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
+            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[52:104],
+                        marker = "o",label="2019").set_title(f"{polluant} Mean per week per Year")
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                            marker = "o",label="Mean per month of all years",c="orange")
 
         if year == "2020":
             fig = plt.figure(figsize=(10,5))
-            sns.lineplot(x = scale, y =polluant, data=df_ready_for_data_viz.iloc[24:36],
-                        marker = "o",label="2020",c="green").set_title(f"{polluant} mean per month in {year}")
-            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
-                        marker = "o",label="Mean per month of all years",c="red")
+            sns.lineplot(x = scale, y =polluant, data=df_ready_for_data_viz.iloc[104:156],
+                        marker = "o",label="2020").set_title(f"{polluant} Mean per week per Year")
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                            marker = "o",label="Mean per month of all years",c="orange")
 
         if year == "2021":
             fig = plt.figure(figsize=(10,5))
-            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[36:48],
-                        marker = "o",label="2021").set_title(f"{polluant} Mean per month per Year")
-            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
-                        marker = "o",label="Mean per month of all years",c="orange")
+            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[156:208],
+                        marker = "o",label="2021").set_title(f"{polluant} Mean per week per Year")
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                            marker = "o",label="Mean per month of all years",c="orange")
 
         if year == "2022":
             fig = plt.figure(figsize=(10,5))
-            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[48:58],
-                        marker = "o",label="2022").set_title(f"{polluant} Mean per month per Year")
+            sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[208:255],
+                        marker = "o",label="2022").set_title(f"{polluant} Mean per week per Year")
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                            marker = "o",label="Mean per month of all years",c="orange")
 
-            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
-
-        if year =="2018-2022":
+        if year == "2018-2022":
             fig = plt.figure(figsize=(10,5))
             sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz,
-                        marker = "o",label="2018-2022").set_title(f"{polluant} Mean per month between 2018-2022")
-
-            sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
-
-if scale == "week":
-    df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
-
-    df_mean_all_week = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
-
-
-    if year == "2018":
-        fig = plt.figure(figsize=(10,5))
-        sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
-                    marker = "o",label="2018").set_title(f"{polluant} Mean per week per Year")
-
-        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
-    if year == "2019":
-        fig = plt.figure(figsize=(10,5))
-        sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[52:104],
-                    marker = "o",label="2019").set_title(f"{polluant} Mean per week per Year")
-        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
-    if year == "2020":
-        fig = plt.figure(figsize=(10,5))
-        sns.lineplot(x = scale, y =polluant, data=df_ready_for_data_viz.iloc[104:156],
-                    marker = "o",label="2020").set_title(f"{polluant} Mean per week per Year")
-        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
-    if year == "2021":
-        fig = plt.figure(figsize=(10,5))
-        sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[156:208],
-                    marker = "o",label="2021").set_title(f"{polluant} Mean per week per Year")
-        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
-    if year == "2022":
-        fig = plt.figure(figsize=(10,5))
-        sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[208:255],
-                    marker = "o",label="2022").set_title(f"{polluant} Mean per week per Year")
-        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
-                        marker = "o",label="Mean per month of all years",c="orange")
-
-    if year == "2018-2022":
-        fig = plt.figure(figsize=(10,5))
-        sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz,
-                    marker = "o",label="2018-2022").set_title(f"{polluant} Mean per week between 2018-2022")
-        sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
-                        marker = "o",label="Mean per month of all years",c="orange")
+                        marker = "o",label="2018-2022").set_title(f"{polluant} Mean per week between 2018-2022")
+            sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+                            marker = "o",label="Mean per month of all years",c="orange")
 
 
 
-st.pyplot(fig)
+    st.pyplot(fig)
 
 
 
-col1, col2, col3 = st.columns([1,6,1])
+    col1, col2, col3 = st.columns([1,6,1])
 
-with col1:
-      st.write("")
-with col2:
-    st.write("")
-with col3:
-    st.write("")
-
-
-
-if scale == "week":
-
-    if year == "2018":
-
-
-        fig = px.bar(df_ready_for_data_viz.iloc[:52],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per week per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
-
-
-        fig.update_traces(marker_color = 'blue')
+    with col1:
+        st.write("")
+    with col2:
+        st.write("")
+    with col3:
+        st.write("")
 
 
 
-    if year == "2019":
+    if scale == "week":
 
-        fig = px.bar(df_ready_for_data_viz.iloc[52:104],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per week per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
-
-    if year == "2020":
-        fig = px.bar(df_ready_for_data_viz.iloc[104:156],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per week per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
-    if year == "2021":
-        fig = px.bar(df_ready_for_data_viz.iloc[156:208],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per week per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
-
-    if year == "2022":
-        fig = px.bar(df_ready_for_data_viz.iloc[208:255],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per week per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
-
-    if year == "2018-2022":
-        fig = px.bar(df_ready_for_data_viz,x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per week between 2018-2022",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
-
-    st.plotly_chart(fig, use_container_width=True)
-
-if scale == "month":
+        if year == "2018":
 
 
-    if year == "2018":
+            fig = px.bar(df_ready_for_data_viz.iloc[:52],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per week per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
 
-        #sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
-                    #marker = "o",label="2018").set_title(f"{polluant} Mean per week per Year")
+
+            fig.update_traces(marker_color = 'blue')
 
 
 
-        fig = px.bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per month per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+        if year == "2019":
 
-        #color=polluant
-        #fig.update_traces(marker_color = 'green')
-        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+            fig = px.bar(df_ready_for_data_viz.iloc[52:104],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per week per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
 
-        #Slider
-#         fig.update_layout(xaxis=dict(
-#         rangeselector=dict(
-#             buttons=list([
-#                 dict(count=1,
-#                      label="1m",
-#                      step="month",
-#                      stepmode="backward"),
-#                 dict(count=6,
-#                      label="6m",
-#                      step="month",
-#                      stepmode="backward"),
-#                 dict(count=1,
-#                      label="YTD",
-#                      step="year",
-#                      stepmode="todate"),
-#                 dict(count=1,
-#                      label="1y",
-#                      step="year",
-#                      stepmode="backward"),
-#                 dict(step="all")
-#             ])
-#         ),
-#         rangeslider=dict(
-#             visible=True
-#         ),
-#         type="date"
-#     )
-# )
+        if year == "2020":
+            fig = px.bar(df_ready_for_data_viz.iloc[104:156],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per week per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+        if year == "2021":
+            fig = px.bar(df_ready_for_data_viz.iloc[156:208],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per week per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+
+        if year == "2022":
+            fig = px.bar(df_ready_for_data_viz.iloc[208:255],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per week per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+
+        if year == "2018-2022":
+            fig = px.bar(df_ready_for_data_viz,x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per week between 2018-2022",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    if scale == "month":
 
 
-        #fig.add_trace(px.line(df_mean_all_week,x=scale,y=polluant))
+        if year == "2018":
 
-        #fig = px.line(df_mean_all_week,x=scale,y=polluant)
+            #sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
+                        #marker = "o",label="2018").set_title(f"{polluant} Mean per week per Year")
 
 
 
-        #fig.add_bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn', title=f"{polluant} Mean per month per Year")
-        #fig.update_traces(marker_color = 'green')
+            fig = px.bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per month per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
 
-        # sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
-        #                 marker = "o",label="Mean per month of all years",c="orange")
+            #color=polluant
+            #fig.update_traces(marker_color = 'green')
+            fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+
+            #Slider
+    #         fig.update_layout(xaxis=dict(
+    #         rangeselector=dict(
+    #             buttons=list([
+    #                 dict(count=1,
+    #                      label="1m",
+    #                      step="month",
+    #                      stepmode="backward"),
+    #                 dict(count=6,
+    #                      label="6m",
+    #                      step="month",
+    #                      stepmode="backward"),
+    #                 dict(count=1,
+    #                      label="YTD",
+    #                      step="year",
+    #                      stepmode="todate"),
+    #                 dict(count=1,
+    #                      label="1y",
+    #                      step="year",
+    #                      stepmode="backward"),
+    #                 dict(step="all")
+    #             ])
+    #         ),
+    #         rangeslider=dict(
+    #             visible=True
+    #         ),
+    #         type="date"
+    #     )
+    # )
 
 
-    if year == "2019":
-        fig = px.bar(df_ready_for_data_viz.iloc[12:24],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per month per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+            #fig.add_trace(px.line(df_mean_all_week,x=scale,y=polluant))
 
-        #fig.update_traces(marker_color = 'green')
-        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
-    if year == "2020":
-        fig = px.bar(df_ready_for_data_viz.iloc[24:36],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} mean per month in {year}",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+            #fig = px.line(df_mean_all_week,x=scale,y=polluant)
 
-        #fig.update_traces(marker_color = 'green')
-        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
-    if year == "2021":
-        fig = px.bar(df_ready_for_data_viz.iloc[36:48],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per month per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
 
-        #fig.update_traces(marker_color = 'green')
-        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
-    if year == "2022":
-        fig = px.bar(df_ready_for_data_viz.iloc[48:60],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per month per Year",
-                     text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
 
-        #fig.update_traces(marker_color = 'green')
-        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+            #fig.add_bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn', title=f"{polluant} Mean per month per Year")
+            #fig.update_traces(marker_color = 'green')
 
-    if year == "2018-2022":
-        fig = px.bar(df_ready_for_data_viz,x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per month between 2018-2022",
-                     text_auto='.3s',
-                     color=polluant)
-        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+            # sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
+            #                 marker = "o",label="Mean per month of all years",c="orange")
+
+
+        if year == "2019":
+            fig = px.bar(df_ready_for_data_viz.iloc[12:24],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per month per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+
+            #fig.update_traces(marker_color = 'green')
+            fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+        if year == "2020":
+            fig = px.bar(df_ready_for_data_viz.iloc[24:36],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} mean per month in {year}",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+
+            #fig.update_traces(marker_color = 'green')
+            fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+        if year == "2021":
+            fig = px.bar(df_ready_for_data_viz.iloc[36:48],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per month per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+
+            #fig.update_traces(marker_color = 'green')
+            fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+        if year == "2022":
+            fig = px.bar(df_ready_for_data_viz.iloc[48:60],x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per month per Year",
+                        text_auto='.3s',
+                        color=polluant,color_continuous_scale=px.colors.sequential.Bluered)
+
+            #fig.update_traces(marker_color = 'green')
+            fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+
+        if year == "2018-2022":
+            fig = px.bar(df_ready_for_data_viz,x =scale, y = polluant,template= 'seaborn',
+                        title=f"{polluant} Mean per month between 2018-2022",
+                        text_auto='.3s',
+                        color=polluant)
+            fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
 
 
 
 
 
-    st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)
