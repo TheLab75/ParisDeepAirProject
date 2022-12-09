@@ -30,8 +30,7 @@ with st.form(key='params_for_api'):
 
     station = st.selectbox(
         'Select a station  ?',
-        ('',
-         'Paris North',
+        ('Paris North',
          'Paris South',
          'Paris West',
          'Paris East',
