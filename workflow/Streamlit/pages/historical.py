@@ -36,11 +36,11 @@ with st.form(key='params_for_api'):
 
     polluant = st.selectbox(
         'Select a polluant / ATMO ?',
-        ('Particules fines 10 (PM10)',
-         'Particules fines 2.5 (PM2.5)',
-         "Dioxyde d'azote (NO2)",
+        ('Fine particles 10 (PM10)',
+         'Fine particles 2.5 (PM2.5)',
+         "Nitrogen dioxide (NO2)",
          'Ozone (O3)',
-         'Dioxyde de souffre (SO2)',
+         'Sulfur dioxide (SO2)',
          'ATMO'))
 
     if polluant == "Ozone (O3)":
