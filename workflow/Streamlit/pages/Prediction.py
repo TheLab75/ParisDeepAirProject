@@ -17,7 +17,7 @@ with st.form(key='params_for_api'):
 
     station = st.selectbox(
         'Select a station  ?',
-        ('Paris_south', 'Paris_east', 'Paris_north','Paris_west','Paris_center',"All"))
+        ('Paris_south', 'Paris_east', 'Paris_north','Paris_west','Paris_center'))
 
     st.form_submit_button('Predict')
 
