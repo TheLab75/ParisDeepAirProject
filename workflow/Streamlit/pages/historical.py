@@ -46,16 +46,16 @@ with st.form(key='params_for_api'):
     if polluant == "Ozone (O3)":
         polluant="O3"
 
-    elif polluant=="Dioxyde d'azote (NO2)":
+    elif polluant=="Nitrogen dioxide (NO2)":
         polluant="NO2"
 
-    elif polluant=="Dioxyde de souffre (SO2)":
+    elif polluant=="Sulfur dioxide (SO2)":
         polluant="SO2"
 
-    elif polluant =="Particules fines 10 (PM10)":
+    elif polluant =="Fine particles 10 (PM10)":
         polluant="PM10"
 
-    elif polluant =="Particules fines 2.5 (PM2.5)":
+    elif polluant =="Fine particles 2.5 (PM2.5)":
         polluant="PM25"
 
 
@@ -122,7 +122,7 @@ if scale == 'month':
 
 
 
-        plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
+        plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-light.mplstyle')
 
         if year == "2018":
             fig = plt.figure(figsize=(10,5))
@@ -304,7 +304,7 @@ if scale == "week":
         fig = px.bar(df_ready_for_data_viz.iloc[:52],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per week per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
 
         fig.update_traces(marker_color = 'blue')
@@ -316,30 +316,30 @@ if scale == "week":
         fig = px.bar(df_ready_for_data_viz.iloc[52:104],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per week per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
     if year == "2020":
         fig = px.bar(df_ready_for_data_viz.iloc[104:156],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per week per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
     if year == "2021":
         fig = px.bar(df_ready_for_data_viz.iloc[156:208],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per week per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
     if year == "2022":
         fig = px.bar(df_ready_for_data_viz.iloc[208:255],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per week per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
     if year == "2018-2022":
         fig = px.bar(df_ready_for_data_viz,x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per week between 2018-2022",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
     st.plotly_chart(fig, use_container_width=True)
 
@@ -356,7 +356,7 @@ if scale == "month":
         fig = px.bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per month per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
         #color=polluant
         #fig.update_traces(marker_color = 'green')
@@ -410,7 +410,7 @@ if scale == "month":
         fig = px.bar(df_ready_for_data_viz.iloc[12:24],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per month per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
         #fig.update_traces(marker_color = 'green')
         fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
@@ -418,7 +418,7 @@ if scale == "month":
         fig = px.bar(df_ready_for_data_viz.iloc[24:36],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} mean per month in {year}",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
         #fig.update_traces(marker_color = 'green')
         fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
@@ -426,7 +426,7 @@ if scale == "month":
         fig = px.bar(df_ready_for_data_viz.iloc[36:48],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per month per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
         #fig.update_traces(marker_color = 'green')
         fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
@@ -434,7 +434,7 @@ if scale == "month":
         fig = px.bar(df_ready_for_data_viz.iloc[48:60],x =scale, y = polluant,template= 'seaborn',
                      title=f"{polluant} Mean per month per Year",
                      text_auto='.3s',
-                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis)
+                     color=polluant,color_continuous_scale=px.colors.sequential.Viridis_r)
 
         #fig.update_traces(marker_color = 'green')
         fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
