@@ -32,6 +32,7 @@ api_url = 'https://deepair-5mve7fqcea-od.a.run.app/predict'
 response = requests.get(api_url, params=params)
 
 prediction = response.json()
+st.balloons()
 
 
 #st.write(prediction)
