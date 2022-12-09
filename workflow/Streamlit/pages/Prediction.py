@@ -50,47 +50,47 @@ prediction = response.json()
 
 
 
-if station != "All":
+if station != "":
 
     if prediction["day1"] == 1:
-        reco = "You can run"
+        reco = "You can run 🏃‍♂️"
     else:
-        reco="-You can't run"
+        reco="-You shouldn't run 😿"
 
     if prediction["day2"] == 1:
-        reco2 = "You can run"
+        reco2 = "You can run 🏃‍♂️"
     else:
-        reco2="-You can't run"
+        reco2="-You shouldn't run 😿"
 
 
     if prediction["day3"] == 1:
-        reco3= "You can run"
+        reco3= "You can run 🏃‍♂️"
     else:
-        reco3="-You can't run"
+        reco3="-You shouldn't run 😿"
 
 
     if prediction["day4"] == 1:
-        reco4= "You can run"
+        reco4= "You can run 🏃‍♂️"
     else:
-        reco4="-You can't run"
+        reco4="-You shouldn't run 😿"
 
 
     if prediction["day5"] == 1:
-        reco5= "You can run"
+        reco5= "You can run 🏃‍♂️"
     else:
-        reco5="-You can't run"
+        reco5="-You shouldn't run 😿"
 
 
     if prediction["day6"] == 1:
-        reco6= "You can run"
+        reco6= "You can run 🏃‍♂️"
     else:
-        reco6="-You can't run"
+        reco6="-You shouldn't run 😿"
 
 
     if prediction["day7"] == 1:
-        reco7= "You can run"
+        reco7= "You can run 🏃‍♂️"
     else:
-        reco7="-You can't run"
+        reco7="-You shouldn't run 😿"
 
 
 
@@ -114,4 +114,4 @@ if station != "All":
     col3.metric('',"Day 6", reco6)
     col4.metric('',"Day 7", reco7)
 
-st.balloons()
+    st.balloons()
