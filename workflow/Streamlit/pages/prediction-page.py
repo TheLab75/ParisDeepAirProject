@@ -17,7 +17,7 @@ with st.form(key='params_for_api'):
 
     station = st.selectbox(
         'Select a station  ?',
-        ('Paris_east', 'Paris_south', 'Paris_north','Paris_west','Paris_center',"All"))
+        ('Paris_south', 'Paris_east', 'Paris_north','Paris_west','Paris_center',"All"))
 
     st.form_submit_button('Predict')
 
@@ -42,7 +42,6 @@ prediction = response.json()
 #     animation_length="infinite",
 # )
 
-st.balloons()
 
 
 #st.write(prediction)
@@ -129,3 +128,5 @@ if station != "All":
     col2.metric("Air Quality", "Day 5", reco5)
     col3.metric("Air Quality", "Day 6", reco6)
     col4.metric("Air Quality", "Day 7", reco7)
+
+st.balloons()
