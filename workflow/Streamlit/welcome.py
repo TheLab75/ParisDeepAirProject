@@ -41,11 +41,28 @@ with col1:
     st.write("")
 
 with col2:
-    #st.image("https://hospitality-on.com/sites/default/files/2017-09/Paris.jpg",width=700)
-    st.image("workflow/Streamlit/Capture d’écran 2022-12-01 à 01.11.40-min.jpg")
+    st.image("https://hospitality-on.com/sites/default/files/2017-09/Paris.jpg",width=700)
+    #st.image("workflow/Streamlit/Capture d’écran 2022-12-01 à 01.11.40-min.jpg")
 
 with col3:
     st.write("")
+
+
+    col1, col2, col3 = st.columns([1,6,1])
+
+    with col1:
+        st.write("")
+
+    with col2:
+
+        #from PIL import Image
+        #image = Image.open("pages/index ATMO.jpg")
+        st.image("https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg",caption='ATMO Index')
+
+
+    with col3:
+        st.write("")
+
 
 
 #st.image(

@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import calendar
 
-st.title('What is the historical evolution of the pollution in paris ?')
+st.title('What is the historical evolution of the pollution in Paris ?')
 
 #from streamlit_extras.app_logo import add_logo
 
@@ -36,7 +36,7 @@ with st.form(key='params_for_api'):
 
     polluant = st.selectbox(
         'Select a polluant / ATMO ?',
-        ('PM25', 'PM10', 'NO2','O3','SO2','ATMO'))
+        ('PM10', 'PM25', 'NO2','O3','SO2','ATMO'))
 
     year = st.selectbox('Select a year'
                        ,('2018', '2019', '2020','2021','2022',"2018-2022"))
@@ -101,7 +101,7 @@ if scale == 'month':
 
 
 
-        plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-light.mplstyle')
+        plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
 
         if year == "2018":
             fig = plt.figure(figsize=(10,5))
@@ -206,40 +206,40 @@ if scale == "week":
 
 st.pyplot(fig)
 
-if polluant == "ATMO":
+# if polluant == "ATMO":
 
-    col1, col2, col3 = st.columns([1,6,1])
+#     col1, col2, col3 = st.columns([1,6,1])
 
-    with col1:
-        st.write("")
+#     with col1:
+#         st.write("")
 
-    with col2:
+#     with col2:
 
-        #from PIL import Image
-        #image = Image.open("pages/index ATMO.jpg")
-        image = 'workflow/Streamlit/index ATMO.jpg'
-        st.image(image, caption='ATMO Index')
+#         #from PIL import Image
+#         #image = Image.open("pages/index ATMO.jpg")
+#         image = 'workflow/Streamlit/index ATMO.jpg'
+#         st.image(image, caption='ATMO Index')
 
-    with col3:
-        st.write("")
+#     with col3:
+#         st.write("")
 
-if polluant != 'ATMO':
+# if polluant != 'ATMO':
 
-    col1, col2, col3 = st.columns([1,6,1])
+#     col1, col2, col3 = st.columns([1,6,1])
 
-    with col1:
-        st.write("")
+#     with col1:
+#         st.write("")
 
-    with col2:
-        # from PIL import Image
-        # image = Image.open("pages/grille polluant ATMO.jpg")
-        #image = "pages/grille polluant ATMO.jpg"
-        st.image("https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg",caption='ATMO Index')
-        #st.image(image, caption='ATMO Index')
+#     with col2:
+#         # from PIL import Image
+#         # image = Image.open("pages/grille polluant ATMO.jpg")
+#         #image = "pages/grille polluant ATMO.jpg"
+#         st.image("https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg",caption='ATMO Index')
+#         #st.image(image, caption='ATMO Index')
 
 
-    with col3:
-        st.write("")
+#     with col3:
+#         st.write("")
 
 # from streamlit_extras.stodo import to_do
 
@@ -264,6 +264,14 @@ if polluant != 'ATMO':
 # col7.metric(label="ATMO J+7",value="🚫 Bad ",delta =-1 )
 # style_metric_cards()
 
+col1, col2, col3 = st.columns([1,6,1])
+
+with col1:
+      st.write("")
+with col2:
+    st.write("")
+with col3:
+    st.write("")
 
 
 
