@@ -7,8 +7,8 @@ import requests
 
 
 st.title('When should I run for the next few days')
-st.markdown('app to get the prediction of airquality')
-st.header('ATMO Features')
+st.header('App to get the prediction of airquality for the next 7 days')
+#st.header('ATMO Features')
 
 with st.form(key='params_for_api'):
 

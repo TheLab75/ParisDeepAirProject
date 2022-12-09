@@ -36,7 +36,28 @@ with st.form(key='params_for_api'):
 
     polluant = st.selectbox(
         'Select a polluant / ATMO ?',
-        ('PM10', 'PM25', 'NO2','O3','SO2','ATMO'))
+        ('Particules fines 10 (PM10)',
+         'Particules fines 2.5 (PM2.5)',
+         "Dioxyde d'azote (NO2)",
+         'Ozone (O3)',
+         'Dioxyde de souffre (SO2)',
+         'ATMO'))
+
+    if polluant == "Ozone (O3)":
+        polluant="O3"
+
+    elif polluant=="Dioxyde d'azote (NO2)":
+        polluant="NO2"
+
+    elif polluant=="Dioxyde de souffre (SO2)":
+        polluant="SO2"
+
+    elif polluant =="Particules fines 10 (PM10)":
+        polluant="PM10"
+
+    elif polluant =="Particules fines 2.5 (PM2.5)":
+        polluant="PM25"
+
 
     year = st.selectbox('Select a year'
                        ,('2018', '2019', '2020','2021','2022',"2018-2022"))
@@ -124,9 +145,9 @@ if scale == 'month':
         if year == "2020":
             fig = plt.figure(figsize=(10,5))
             sns.lineplot(x = scale, y =polluant, data=df_ready_for_data_viz.iloc[24:36],
-                        marker = "o",label="2020").set_title(f"{polluant} Mean per month per Year")
+                        marker = "o",label="2020",c="green").set_title(f"{polluant} mean per month in {year}")
             sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
-                        marker = "o",label="Mean per month of all years",c="orange")
+                        marker = "o",label="Mean per month of all years",c="red")
 
         if year == "2021":
             fig = plt.figure(figsize=(10,5))
@@ -406,7 +427,7 @@ if scale == "month":
         fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
     if year == "2020":
         fig = px.bar(df_ready_for_data_viz.iloc[24:36],x =scale, y = polluant,template= 'seaborn',
-                     title=f"{polluant} Mean per month per Year",
+                     title=f"{polluant} mean per month in {year}",
                      text_auto='.3s',
                      color=polluant)
 
