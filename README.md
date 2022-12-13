@@ -1,9 +1,10 @@
 # Paris DeepAir Project
 
-Le Wagon - Bootcamp Data Science - Full time
+Le Wagon - Bootcamp Data Science - Paris - Full time
+
 Batch #1002 - 03/10-09/12/2022
 
-Projet de fin d'études présenté en groupe (4 personnes)
+End-of-studies project presented (4 contributors)
 
 ------------------------------------------------
 
@@ -29,8 +30,10 @@ jupyter nbextension enable code_prettify/code_prettify
 ## Folder structure
 
 **Folders description:**
-- **data** : all data used for this project
-- **notebooks** : individual notebooks for this project
+- **data**: all data used for this project
+- **documentation**: all the technical documentation consulted for this project
+- **model_greykite**: ML models for each pollution cluster
+- **notebooks**: individual notebooks for this project
 - **workflow**: all the workflow for our model, divided in .py files
 
 ------------------------------------------------
@@ -39,7 +42,7 @@ jupyter nbextension enable code_prettify/code_prettify
 
 **Pollutants (French / English) in the ATMO  index:**
 - **PM 2,5**: particules fines / fine particles
-- **PM 10**: particules / particles
+- **PM 10**: particules moyennes / medium particles
 - **NO2**: dioxyde d'azote / nitrogen dioxide
 - **O3**: ozone / ozone
 - **SO2**: dioxyde de souffre / sulfur dioxide
@@ -59,6 +62,8 @@ In this project, 20 stations were selected (Paris intra-muros). All pollutants a
 - **PM2.5**: 6 stations
 - **O3**: 5 stations
 - **SO2**: 4 stations
+
+Then, data from these 20 stations was grouped into 5 clusters : West, East, North, South, Center
 
 ------------------------------------------------
 
