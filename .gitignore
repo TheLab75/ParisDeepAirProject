@@ -2,6 +2,7 @@
 .env
 .envrc
 *.egg-info
+.python-version
 *PKG-INFO
 
 # OS generated files #
@@ -17,3 +18,4 @@ notebooks/.ipynb_checkpoints
 #Folders
 data/
 documentation/
+notebooks/
