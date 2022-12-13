@@ -10,6 +10,17 @@ End-of-studies project presented (4 contributors)
 
 ## Preliminary steps to carry-out
 
+**Local repo setup:**
+- Clone the project
+- Create a virtual environment for this project named "PDPA-virt_env"
+- Assign this virtual environment to the project
+- Run the virtual environment into the local repo
+- Into the CLI type:
+```shell
+make reinstall_package
+```
+
+
 **Data & files:**
 - Download & paste the "data" folder into the local cloned version of the repo
 - Create a ".env" file
