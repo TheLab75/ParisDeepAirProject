@@ -2,8 +2,6 @@ import streamlit as st
 import datetime
 import requests
 
-
-
 # Title of the page
 #st.title('Welcome to Paris-DeepAir-Project')
 
@@ -12,7 +10,6 @@ import requests
 #st.subheader('-in order to go for a walk')
 #st.subheader('- in order to run')
 #st.text('all while allowing you to limit your risk of exposure to harmful pollutant for your health')
-
 
 st.set_page_config(
     page_title="Hello",
@@ -47,7 +44,6 @@ with col2:
 with col3:
     st.write("")
 
-
 # col1, col2, col3 = st.columns([1,6,1])
 
 # with col1:
@@ -59,11 +55,8 @@ with col3:
 #         #image = Image.open("pages/index ATMO.jpg")
 #     st.image("https://user-images.githubusercontent.com/108631539/204822631-d93a64e9-7ee2-496f-8e9a-623b6d60ef37.jpeg",caption='ATMO Index')
 
-
 # with col3:
 #     st.write("")
-
-
 
 #st.image(
             #'https://hospitality-on.com/sites/default/files/2017-09/Paris.jpg',

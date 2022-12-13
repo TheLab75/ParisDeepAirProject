@@ -233,8 +233,6 @@ if polluant != "":
     if scale == "week":
 
         if year == "2018":
-
-
             fig = px.bar(df_ready_for_data_viz.iloc[:52],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per week per Year",
                         text_auto='.3s',
@@ -244,7 +242,6 @@ if polluant != "":
             #fig.update_traces(marker_color = 'blue')
 
         if year == "2019":
-
             fig = px.bar(df_ready_for_data_viz.iloc[52:104],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per week per Year",
                         text_auto='.3s',
