@@ -61,7 +61,7 @@ def preprocess(df):
     #df_preprocessed = df_preprocessed.rename(columns={0:"PM25",1:"PM10",2:"NO2"})
     #=> On généralise
 
-    # Vu que Louis a, au préalable classer les polluants de chaque station se l'ordre suivant : ["PM25","PM10","NO2","O3","SO2"]
+    # Vu que Louis a, au préalable classé les polluants de chaque station se l'ordre suivant : ["PM25","PM10","NO2","O3","SO2"]
     sorted_list_polluant = []
     for element in df.columns:
         if element in liste_polluant:

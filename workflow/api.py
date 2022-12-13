@@ -14,11 +14,9 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-
 @app.get("/")
 def root():
     return dict(greeting="Hello Philippe le BOSS")
-
 
 app.state.model = load_model()
 
