@@ -11,17 +11,11 @@ from greykite.framework.templates.forecaster import Forecaster
 import numpy as np
 from pathlib import Path
 
-
-
-
-
-
 cluster_list=['Paris_east','Paris_south','Paris_north','Paris_west','Paris_center']
 
 # def save_model(forecaster) -> None:
 
 #     for cluster in cluster_list:
-
 
 #         # TODO : ATTENTION A MODIF
 #         # Create the PATH directory if it does exist
@@ -62,7 +56,6 @@ def load_model(save_copy_locally=False):
     # print(list_model)
     return list_model
 
-
 def predict(list_model):
 
     list_prediction = []
@@ -84,7 +77,6 @@ def predict(list_model):
         my_dict[cluster_list[i]] = {f'day{i+1}': v for i, v in enumerate(predict['forecast'])}
 # return dico_general
     return my_dict
-
 
 if __name__ == '__main__':
     test = load_model()

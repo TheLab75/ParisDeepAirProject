@@ -25,7 +25,7 @@ def general_categorical(df):
 
     return df
 
-# A supprimer ?
+# Old - Spécifique à PA75016
 def calcul_ATMO(df):
     """
     Function that calculates the ATMO level
@@ -45,11 +45,10 @@ def general_ATM0(df):
     list_categorical = ["PM25_categorical","PM10_categorical","NO2_categorical","O3_categorical","SO2_categorical"]
     list_categorical_actual = []
 
+    # On veut appliquer une fonction sur plusieurs élements
     for element in df.columns:
         if element in list_categorical:
             list_categorical_actual.append(element)
-    #on veut appliquer une fonction sur plusieurs élements
-    #if
 
     df["ATMO"] = df[list_categorical_actual].max(axis=1)
 

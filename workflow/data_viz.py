@@ -58,7 +58,6 @@ def plot_pollutant_v1(df,pollutant,period):
 
         plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
 
-
         ax1 = sns.lineplot(x = period, y = pollutant, data=df_groupby.iloc[:12],
                     marker = "o",label="2018")
 

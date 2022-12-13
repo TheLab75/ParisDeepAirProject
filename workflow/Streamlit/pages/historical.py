@@ -70,7 +70,6 @@ with st.form(key='params_for_api'):
     scale = st.selectbox('Select a scale',
                         ('month','week'))
 
-
 #    st.write('You selected the area of paris:',station)
 #    st.write('You selected the polluant:',polluant)
 #    st.write('You selected the year:',year)
@@ -111,7 +110,6 @@ from workflow.preprocessing import preprocess_without_scaling
 df_preprocessed_without_scaling = preprocess_without_scaling(df)
 # st.dataframe(df_preprocessed_without_scaling,200, 20)
 
-
 from workflow.data_viz import data_viz
 # st.write('Your dataframe will be ready for data viz ! 🥵' )
 df_ready_for_data_viz = data_viz(df_preprocessed_without_scaling)
@@ -125,8 +123,6 @@ if polluant != "":
 
             df_mean_all_year = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
 
-
-
             plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-light.mplstyle')
 
             if year == "2018":
@@ -137,7 +133,6 @@ if polluant != "":
                 sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
                             marker = "o",label="Mean per month of all years",c="orange")
 
-
             if year == "2019":
                 fig = plt.figure(figsize=(10,5))
                 sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[12:24],
@@ -145,7 +140,6 @@ if polluant != "":
 
                 sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
                             marker = "o",label="Mean per month of all years",c="orange")
-
 
             if year == "2020":
                 fig = plt.figure(figsize=(10,5))
@@ -169,7 +163,6 @@ if polluant != "":
                 sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
                             marker = "o",label="Mean per month of all years",c="orange")
 
-
             if year =="2018-2022":
                 fig = plt.figure(figsize=(10,5))
                 sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz,
@@ -178,12 +171,10 @@ if polluant != "":
                 sns.lineplot(x = scale, y = polluant, data=df_mean_all_year,
                             marker = "o",label="Mean per month of all years",c="orange")
 
-
     if scale == "week":
         df_ready_for_data_viz = df_ready_for_data_viz.groupby(by=["year",scale],as_index=False).mean()
 
         df_mean_all_week = df_ready_for_data_viz.groupby(by=[scale],as_index=False).mean()
-
 
         if year == "2018":
             fig = plt.figure(figsize=(10,5))
@@ -228,11 +219,7 @@ if polluant != "":
             sns.lineplot(x = scale, y = polluant, data=df_mean_all_week,
                             marker = "o",label="Mean per month of all years",c="orange")
 
-
-
     st.pyplot(fig)
-
-
 
     col1, col2, col3 = st.columns([1,6,1])
 
@@ -242,8 +229,6 @@ if polluant != "":
         st.write("")
     with col3:
         st.write("")
-
-
 
     if scale == "week":
 
@@ -256,10 +241,7 @@ if polluant != "":
                         color=polluant,
                         color_continuous_scale=["green","red"])
 
-
             #fig.update_traces(marker_color = 'blue')
-
-
 
         if year == "2019":
 
@@ -295,13 +277,10 @@ if polluant != "":
 
     if scale == "month":
 
-
         if year == "2018":
 
             #sns.lineplot(x = scale, y = polluant, data=df_ready_for_data_viz.iloc[:52],
                         #marker = "o",label="2018").set_title(f"{polluant} Mean per week per Year")
-
-
 
             fig = px.bar(df_ready_for_data_viz.iloc[:12],x =scale, y = polluant,template= 'seaborn',
                         title=f"{polluant} Mean per month per Year",
@@ -312,8 +291,6 @@ if polluant != "":
             #color=polluant
             #fig.update_traces(marker_color = 'green')
             fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
-
-
 
         if year == "2019":
             fig = px.bar(df_ready_for_data_viz.iloc[12:24],x =scale, y = polluant,template= 'seaborn',
@@ -356,9 +333,5 @@ if polluant != "":
                         color=polluant,
                         color_continuous_scale=["green","red"])
             fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
-
-
-
-
 
         st.plotly_chart(fig, use_container_width=True)
