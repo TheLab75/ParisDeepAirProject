@@ -8,6 +8,12 @@ End-of-studies project presented (4 contributors)
 
 ------------------------------------------------
 
+## Context
+
+Paris DeepAir Project is an end-of studies project carried-out by 4 students from [Le wagon data science school](https://www.lewagon.com/data-science-course). The goal of this project is to predict the air quality in Paris on a horizon of 7 days, using time series with machine learning & deep learning, based on data from [Airparif](https://www.airparif.asso.fr/), the official air quality monitoring agency for Île-de-France region.
+
+------------------------------------------------
+
 ## Preliminary steps to carry-out
 
 **Local repo setup:**
@@ -41,7 +47,7 @@ jupyter nbextension enable code_prettify/code_prettify
 ## Folder structure
 
 **Folders description:**
-- **data**: all data used for this project
+- **data**: all data used for this project (5 years on an hourly basis)
 - **documentation**: all the technical documentation consulted for this project
 - **model_greykite**: ML models for each pollution cluster
 - **notebooks**: individual notebooks for this project
