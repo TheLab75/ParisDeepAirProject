@@ -4,8 +4,6 @@ Le Wagon - Bootcamp Data Science - Paris - Full time
 
 Batch #1002 - 03/10-09/12/2022
 
-End-of-studies project presented (4 contributors)
-
 ------------------------------------------------
 
 ## Context
