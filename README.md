@@ -10,6 +10,17 @@ Batch #1002 - 03/10-09/12/2022
 
 Paris DeepAir Project is an end-of studies project carried-out by 4 students from [Le wagon data science school](https://www.lewagon.com/data-science-course). The goal of this project is to predict the air quality in Paris on a horizon of 7 days, using time series with machine learning & deep learning, based on data from [Airparif](https://www.airparif.asso.fr/), the official air quality monitoring agency for Île-de-France region.
 
+
+The Paris DeepAir Project is a fascinating capstone project that involves the use of time series, machine learning, and deep learning techniques to forecast air quality in Paris over the next seven days. The project was undertaken by four students from Le Wagon Data Science School, and its objective is to provide accurate and reliable air quality forecasts to the residents of Paris.
+
+To accomplish this objective, the students first collected data from Airparif, the official air quality monitoring organization in the region. They then processed and cleaned the data, removing any missing or erroneous values and transforming it into a format that could be used for machine learning and deep learning models.
+
+Next, the students explored various time series models, including ARIMA, Prophet, and LSTM, to determine which approach would be most effective for forecasting air quality. They then trained and tested these models using historical air quality data and compared their performance to identify the best-performing model.
+
+After selecting the best-performing model, the students deployed it to a web application, allowing users to access air quality forecasts for the next seven days. The application provides a user-friendly interface that displays air quality data in an easy-to-understand format and allows users to customize the location and time range for the forecast.
+
+Overall, the Paris DeepAir Project is an impressive example of how data science and machine learning techniques can be used to address real-world problems. The project's ability to provide accurate and reliable air quality forecasts can help improve public health outcomes and promote a cleaner environment in Paris.
+
 ------------------------------------------------
 
 ## Preliminary steps to carry-out
